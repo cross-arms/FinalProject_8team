@@ -1,5 +1,6 @@
 package com.techit.withus.web.users.domain.entity;
 
+import com.techit.withus.web.users.domain.enumeration.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +37,7 @@ public class Users
     private Timestamp createdDate;
     @UpdateTimestamp
     private Timestamp modifiedDate;
-    private boolean isDeleted = Boolean.FALSE;
 
+    @Enumerated(EnumType.STRING)
+    private Roles role;
 }
