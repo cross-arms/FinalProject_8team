@@ -1,4 +1,6 @@
 package com.techit.withus.jwt;
+import com.techit.withus.redis.hashes.RefreshToken;
+import com.techit.withus.redis.repository.RefreshTokenRepository;
 import com.techit.withus.security.SecurityUser;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -16,11 +18,14 @@ public class JwtService
 {
     private final Key key;
     private final JwtParser parser;
+    private final RefreshTokenRepository refreshTokenRepository;
 
-    public JwtService(@Value("${jwt.secret}") String key)
+    public JwtService(@Value("${jwt.secret}") String key,
+                      RefreshTokenRepository refreshTokenRepository)
     {
         this.key = Keys.hmacShaKeyFor(key.getBytes());
         this.parser = Jwts.parserBuilder().setSigningKey(this.key).build();
+        this.refreshTokenRepository = refreshTokenRepository;
     }
 
     /**
@@ -43,7 +48,7 @@ public class JwtService
     }
 
     /**
-     * 토큰을 만드는 메서드
+     * Access Token 생성 (
      */
     public String createAccessToken(SecurityUser securityUser)
     {
@@ -51,7 +56,7 @@ public class JwtService
                 .claims()
                 .setSubject(securityUser.getUsername())
                 .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plusSeconds(1800)));
+                .setExpiration(Date.from(Instant.now().plusSeconds(60 * 60)));
         claims.put("uid", securityUser.getUserId());
         claims.put("auth", securityUser.getAuthorities());
 
@@ -60,5 +65,27 @@ public class JwtService
                 .setClaims(claims)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    public String createRefreshToken(SecurityUser securityUser)
+    {
+        Claims claims = Jwts
+                .claims()
+                .setSubject(securityUser.getUsername())
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().plusSeconds(60 * 60 * 24)));
+
+        String refreshToken = Jwts
+                .builder()
+                .setClaims(claims)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+
+        // RefreshToken을 만들어서, Redis에 저장한다.
+        refreshTokenRepository.save(
+                new RefreshToken(refreshToken, securityUser.getUserId())
+        );
+
+        return refreshToken;
     }
 }
