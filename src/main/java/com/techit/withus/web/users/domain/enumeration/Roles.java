@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Roles
 {
-    ADMIN("ROLE_ADMIN"),
-    USER("ROLE_USER"),
-    EXPIRED_MEMBER("ROLE_EXPIRED_USER");
+    ROLE_ADMIN("ADMIN"),
+    ROLE_USER("USER"),
+    ROLE_EXPIRED_MEMBER("EXPIRED_USER");
 
-    private final String prefixedName;
+    private final String name;
 }

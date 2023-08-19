@@ -21,9 +21,13 @@ public class LogInService
     private final SecurityService securityService;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * 로그인하는 메서드이다.
+     * 먼저 로그인 요청으로 전달 받은 DTO의 username으로 조회하고, 비밀번호가 일치하면
+     * AccessToken과 RefreshToken을 만들어서 전달한다.
+     */
     public TokenDTO login(LogInDTO logInDTO)
     {
-        log.info("logInDTO: {}", logInDTO);
         SecurityUser securityUser = securityService.loadUserByUsername(logInDTO.getUsername());
 
         this.matchPasswords(logInDTO.getPassword(), securityUser.getPassword());
@@ -31,6 +35,7 @@ public class LogInService
         return TokenDTO
                 .builder()
                 .accessToken(jwtService.createAccessToken(securityUser))
+                .refreshToken(jwtService.createRefreshToken(securityUser))
                 .build();
     }
 

@@ -24,5 +24,7 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
+
+
 jwt:
   secret: ${jwt_secret}
