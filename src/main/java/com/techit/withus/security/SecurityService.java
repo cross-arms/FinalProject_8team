@@ -33,5 +33,4 @@ public class SecurityService implements UserDetailsService
         else
             return UserMapper.INSTANCE.toSecurityUser(entity.get());
     }
-
 }
