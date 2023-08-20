@@ -24,7 +24,9 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
-
+springdoc:
+  swagger-ui:
+    path: /swagger
 
 jwt:
   secret: ${jwt_secret}

@@ -32,9 +32,7 @@ public class SecurityUser implements UserDetails
         return grantedAuthorities;
     }
 
-    public Long getUserId() {
-        return this.userId;
-    }
+    public Long getUserId() { return this.userId; }
 
     @Override
     public String getPassword() {
