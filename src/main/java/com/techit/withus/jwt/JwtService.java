@@ -48,7 +48,7 @@ public class JwtService
     }
 
     /**
-     * Access Token 생성 (
+     * Access Token 생성한다.
      */
     public String createAccessToken(SecurityUser securityUser)
     {
@@ -67,6 +67,9 @@ public class JwtService
                 .compact();
     }
 
+    /**
+     * Refresh Token 생성한다.
+     */
     public String createRefreshToken(SecurityUser securityUser)
     {
         Claims claims = Jwts
