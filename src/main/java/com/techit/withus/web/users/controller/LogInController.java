@@ -1,14 +1,10 @@
 package com.techit.withus.web.users.controller;
 
-import com.techit.withus.security.SecurityService;
 import com.techit.withus.web.common.domain.dto.ResultDTO;
-import com.techit.withus.web.common.domain.dto.TokenDTO;
+import com.techit.withus.jwt.JwtDTO;
 import com.techit.withus.web.users.domain.dto.LogInDTO;
 import com.techit.withus.web.users.service.LogInService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/logIn")
+@RequestMapping("/log-in")
 public class LogInController
 {
     private final LogInService logInService;
@@ -28,10 +24,10 @@ public class LogInController
     @PostMapping
     public ResultDTO logIn(@RequestBody LogInDTO logInDTO)
     {
-        TokenDTO tokenDTO = logInService.logIn(logInDTO);
+        JwtDTO jwtDTO = logInService.logIn(logInDTO);
         return ResultDTO
                 .builder()
-                .data(tokenDTO)
+                .data(jwtDTO)
                 .build();
     }
 }
