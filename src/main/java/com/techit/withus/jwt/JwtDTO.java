@@ -1,4 +1,4 @@
-package com.techit.withus.web.common.domain.dto;
+package com.techit.withus.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class TokenDTO
+public class JwtDTO
 {
     private String accessToken;
     private String refreshToken;

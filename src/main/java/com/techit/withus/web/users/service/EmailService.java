@@ -9,6 +9,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -70,18 +71,16 @@ public class EmailService
     }
 
     // 입력 받은 인증번호가 해당 이메일에 발급된 인증번호인지 확인한다.
-    public boolean validateCode(EmailDTO emailDTO)
+    public void validateCode(EmailDTO emailDTO)
     {
-        Optional<Email> optionalEntity
-                = emailRepository.findById(emailDTO.getAddress());
-        if (optionalEntity.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        else {
-            String savedCodeInRedis = optionalEntity.get().getCode();
-            if (!savedCodeInRedis.equals(emailDTO.getCode()))
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-            return true;
-        }
+        Email email = emailRepository
+                .findById(emailDTO.getAddress())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        String savedCodeInRedis = email.getCode();
+
+        if (!savedCodeInRedis.equals(emailDTO.getCode()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
 
     // 8자리의 인증 번호를 만든다.
@@ -99,10 +98,9 @@ public class EmailService
     }
 
     // 입력 받은 이메일이 이미 인증이 완료된 회원의 이메일과 중복되는지 확인한다.
-    private boolean checkDuplicateEmail(String email)
+    private void checkDuplicateEmail(String email)
     {
         if (userRepository.existsByEmail(email))
             throw new ResponseStatusException(HttpStatus.CONFLICT);
-        return false;
     }
 }
