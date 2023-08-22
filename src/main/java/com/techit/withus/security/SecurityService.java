@@ -25,9 +25,14 @@ public class SecurityService implements UserDetailsService
 {
     private final UserRepository userRepository;
 
+    /**
+     * Entity는 Service 레이어에서 무조건 데이터베이스와 소통한다.
+     * Entity의 데이터는 Controller로 보낼 땐 다시 DTO로 만들어 보낸다.
+     */
     @Override
     public SecurityUser loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Users> entity = userRepository.findByUsername(username);
+
         if (entity.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         else
