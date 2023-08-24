@@ -53,6 +53,8 @@ dependencies {
 
 	// Java Mail Sender
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {
