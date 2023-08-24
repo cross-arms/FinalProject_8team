@@ -17,7 +17,9 @@ public enum ErrorCode {
     INVALID_PHONE_NUMBER_FORMAT(HttpStatus.BAD_REQUEST, "M_002", "유효하지 않은 전화번호 형식입니다."),
     MEMBER_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "M_003", "이미 '%s'라는 이메일로 가입된 계정이 존재합니다."),
     MEMBER_NOT_EXIST(HttpStatus.BAD_REQUEST, "M_004", "멤버(id = %d)가 존재하지 않습니다."),
-    CHATROOM_NOT_EXIST(HttpStatus.BAD_REQUEST, "CR_001", "채팅 방(id = %d)가 존재하지 않습니다.");
+
+    CHATROOM_NOT_EXIST(HttpStatus.BAD_REQUEST, "CR_001", "채팅 방(id = %d)가 존재하지 않습니다."),
+    INVALID_ROOM_NAME(HttpStatus.BAD_REQUEST, "CR_002", "채팅 방의 이름은 20자를 넘을 수 없습니다. (%s)");
 
     private final HttpStatus status;
     private final String code;
