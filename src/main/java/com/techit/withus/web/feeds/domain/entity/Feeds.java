@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Getter
 @Entity
 @Builder
@@ -29,4 +31,7 @@ public class Feeds
     private String scope;
     private String title;
     private String content;
+
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 }
