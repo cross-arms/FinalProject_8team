@@ -9,7 +9,7 @@ public class ChatRoomUserFixture {
 
     public static ChatRoomUser createDefaultChatRoomUser(){
         return ChatRoomUser.builder()
-            .chatRoom(ChatRoomFixture.createDefaultChatRoomUser())
+            .chatRoom(ChatRoomFixture.createDefaultChatRoom())
             .build();
     }
 
