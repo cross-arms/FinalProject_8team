@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "questions")
-public class Questions
+public class FeedQuestions
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
