@@ -12,8 +12,9 @@ import java.util.List;
 public interface FeedMapper {
     FeedMapper INSTANCE = Mappers.getMapper(FeedMapper.class);
 
-    @Mapping(source = "writer.username", target = "writer")
+    // 작성자 ID 매핑
+    @Mapping(source = "writer.userId", target = "writerId")
     FeedDTO toFeedDTO(Feeds feeds);
 
-    List<FeedDTO> toFeedDTOList(List<Feeds> feedsList);
+    List<FeedDTO> toDto(List<Feeds> feeds);
 }

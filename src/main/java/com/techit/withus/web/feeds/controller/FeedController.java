@@ -20,11 +20,14 @@ public class FeedController {
 
     @GetMapping("/home")
     public ResultDTO getHomeFeeds(@AuthenticationPrincipal SecurityUser user) {
-        List<FeedDTO> feedDTOList = feedService.getFeedsForHome(user);
+        Long userId = (user != null)? user.getUserId() : null;
+
+        List<FeedDTO> feedDTOList = feedService.getHomeFeeds(userId);
 
         return ResultDTO
                 .builder()
                 .data(feedDTOList)
                 .build();
     }
+
 }
