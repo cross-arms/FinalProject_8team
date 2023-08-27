@@ -6,6 +6,7 @@ import com.techit.withus.web.feeds.domain.mapper.FeedMapper;
 import com.techit.withus.web.feeds.repository.FeedRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,4 +34,16 @@ public class FeedService {
             return feedMapper.toDto(feedRepository.findLatestFeeds());
         }
     }
+
+    /**
+     * 인기 피드를 페이지 단위로 조회하는 메서드.
+     * 이 메서드는 좋아요 수와 댓글 수 등으로 정렬된 인기 피드를 반환한다.
+     *
+     * @param pageable 페이징 정보를 담고 있는 Pageable 객체.
+     * @return 조회된 인기 피드 리스트 (DTO 형태).
+     */
+    public List<FeedDTO> getPopularfeeds(Pageable pageable) {
+        return feedMapper.toDto(feedRepository.findPopularFeeds(pageable));
+    }
+
 }

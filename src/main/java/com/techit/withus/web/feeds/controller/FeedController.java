@@ -5,6 +5,8 @@ import com.techit.withus.web.common.domain.dto.ResultDTO;
 import com.techit.withus.web.feeds.domain.dto.FeedDTO;
 import com.techit.withus.web.feeds.service.FeedService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,4 +32,16 @@ public class FeedController {
                 .build();
     }
 
+    @GetMapping("/popular")
+    public ResultDTO getPopularFeeds() {
+        // 1번째 페이지 상위 10개 피드
+        Pageable pageable = PageRequest.of(0, 10);
+
+        List<FeedDTO> popularFeedDTOList = feedService.getPopularfeeds(pageable);
+
+        return ResultDTO
+                .builder()
+                .data(popularFeedDTOList)
+                .build();
+    }
 }
