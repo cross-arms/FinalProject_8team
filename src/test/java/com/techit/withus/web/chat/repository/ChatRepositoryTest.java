@@ -72,9 +72,10 @@ class ChatRepositoryTest {
     @DisplayName("userId로 user가 소속된 채팅방을 모두 가져올 수 있다.")
     void findChatRoomUserByuserIdTest() throws Exception {
         //given
-        List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByMemberId(RANDOM_MEMBER_ID);
+        PageRequest pageRequest = PageRequest.of(0, 5);
+        Slice<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByMemberId(TEST_RANDOM_USERNAME, pageRequest);
         //expected
         Assertions.assertThat(chatRoomUsers).isNotEmpty();
-        Assertions.assertThat(chatRoomUsers.get(0).getUser().getUserId()).isEqualTo(RANDOM_MEMBER_ID);
+        Assertions.assertThat(chatRoomUsers.getContent().get(0).getUser().getUserId()).isEqualTo(RANDOM_MEMBER_ID);
     }
 }
