@@ -1,5 +1,6 @@
 package com.techit.withus.web.users.service;
 
+import com.techit.withus.oauth.OAuth2Provider;
 import com.techit.withus.web.users.domain.dto.SignUpDTO;
 import com.techit.withus.web.users.domain.entity.Users;
 import com.techit.withus.web.users.domain.enumeration.Roles;
@@ -22,18 +23,19 @@ public class SignUpService
     public void signUp(SignUpDTO signUpDTO)
     {
         // 먼저 username이 중복되었는지 확인
-        this.checkDuplicateUser(signUpDTO.getUsername());
+        this.checkDuplicateUser(signUpDTO.getEmail());
         // 비밀번호 인코딩
         String encodedPassword = this.encodePassword(signUpDTO.getPassword());
-        String role = Roles.ROLE_INVALIDATE_USER.name();
-        Users userEntity = UserMapper.INSTANCE.toUsers(signUpDTO, encodedPassword, role);
+        String role = Roles.ROLE_USER.name();
+        String provider = OAuth2Provider.LOCAL.name();
+        Users userEntity = UserMapper.INSTANCE.toUsers(signUpDTO, encodedPassword, role, provider);
         userRepository.save(userEntity);
     }
 
     // 입력 받은 username이 중복됐는지 확인한다.
-    private void checkDuplicateUser(String username)
+    private void checkDuplicateUser(String email)
     {
-        if (userRepository.existsByUsername(username))
+        if (userRepository.existsByEmail(email))
             throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
 

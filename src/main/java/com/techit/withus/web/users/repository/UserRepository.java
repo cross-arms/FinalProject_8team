@@ -11,10 +11,9 @@ import com.techit.withus.web.users.domain.entity.Users;
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long>
 {
-    Optional<Users> findByUsername(String username);
     List<Users> findByUserIdIn(List<Long> userIds);
 
     boolean existsByEmail(String email);
 
-    boolean existsByUsername(String username);
+    Optional<Users> findByEmail(String email);
 }

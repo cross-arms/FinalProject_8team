@@ -17,16 +17,16 @@ import java.util.List;
 public class SecurityUser implements UserDetails
 {
     private Long userId;
-    private String username;
+    private String email;
     private String password;
+    private String nickname;
+    private String provider;
     private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        SimpleGrantedAuthority simpleGrantedAuthority
-                = new SimpleGrantedAuthority(role);
-
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role);
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(simpleGrantedAuthority);
         return grantedAuthorities;
@@ -41,7 +41,7 @@ public class SecurityUser implements UserDetails
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.email;
     }
 
     @Override

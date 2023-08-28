@@ -26,12 +26,12 @@ public class SecurityService implements UserDetailsService
      * Entity의 데이터는 Controller로 보낼 땐 다시 DTO로 만들어 보낸다.
      */
     @Override
-    public SecurityUser loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Users> entity = userRepository.findByUsername(username);
+    public SecurityUser loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        if (entity.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        else
-            return UserMapper.INSTANCE.toSecurityUser(entity.get());
+        Users userEntity = userRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return UserMapper.INSTANCE.toSecurityUser(userEntity);
     }
 }

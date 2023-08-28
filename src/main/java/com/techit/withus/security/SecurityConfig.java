@@ -1,6 +1,9 @@
 package com.techit.withus.security;
 
 import com.techit.withus.jwt.JwtConfig;
+import com.techit.withus.oauth.OAuth2FailureHandler;
+import com.techit.withus.oauth.OAuth2Service;
+import com.techit.withus.oauth.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +23,9 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 public class SecurityConfig
 {
     private final JwtConfig jwtConfig;
+    private final OAuth2Service oAuth2Service;
+    private final OAuth2SuccessHandler successHandler;
+    private final OAuth2FailureHandler failureHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
@@ -42,7 +48,18 @@ public class SecurityConfig
                                                 "/**"))
                                 .permitAll()
                                 .anyRequest()
-                                .authenticated());
+                                .authenticated())
+        // OAuth2.0 설정
+                .oauth2Login(
+                        oauth2Login -> oauth2Login
+                                .loginPage("/oauth")
+                                .userInfoEndpoint(
+                                        userInfo -> userInfo
+                                                .userService(oAuth2Service)
+                                )
+                                .successHandler(successHandler)
+                                .failureHandler(failureHandler));
+
         return http.build();
     }
 }
