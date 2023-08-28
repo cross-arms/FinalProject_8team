@@ -30,12 +30,11 @@ public class JwtConfig extends OncePerRequestFilter
     private final SecurityService securityService;
     private final JwtService jwtService;
 
-    private static final List<String> EXCLUDE_URL =
-            Collections.unmodifiableList(
-                    Arrays.asList(
-                            "/**"
-                    ) // Token 인증이 필요없는 URL을 따로 지정, 일단 모두 토큰이 필요없는 상태로 지정
-            );
+    // Token 인증이 필요없는 URL을 따로 지정, 일단 모두 토큰이 필요없는 상태로 지정
+    private static final List<String> EXCLUDE_URL
+            = List.of(
+                    "/**");
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return EXCLUDE_URL
