@@ -21,11 +21,12 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
             "ORDER BY f.createdDate DESC")
     List<Feeds> findFollowedFeeds(@Param("userId") Long userId);
 
-    // 좋아요와 댓글 수를 고려하여 인기 피드를 조회하는 메서드
-    /*
-        1. 좋아요가 가장 많은 피드.
-        2. 좋아요 수가 같다면, 댓글이 가장 많은 피드.
-        3. 좋아요 수와 댓글 수가 모두 같다면, 가장 최신에 작성된 피드.
+    /**
+     * 좋아요와 댓글 수를 고려하여 인기 피드를 조회하는 메서드
+     * [우선 순위]
+     * 1. 좋아요가 가장 많은 피드.
+     * 2. 좋아요 수가 같다면, 댓글이 가장 많은 피드.
+     * 3. 좋아요 수와 댓글 수가 모두 같다면, 가장 최신에 작성된 피드.
      */
     @Query("SELECT f FROM Feeds f " +
             "LEFT JOIN Likes l ON f.feedId = l.feeds.feedId " +
@@ -34,4 +35,16 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
             "ORDER BY COUNT(DISTINCT l.likeId) DESC, COUNT(DISTINCT c.commentId) DESC, f.createdDate DESC")
     List<Feeds> findPopularFeeds(Pageable pageable);
 
+    /**
+     * '해결중'과 '해결 완료' 상태에 따라 질문 피드를 조회하는 메서드
+     * [우선 순위]
+     * 1. '해결중' 상태
+     * 2. '해결 완료' 상태
+     */
+    @Query("SELECT f FROM Feeds f " +
+            "LEFT JOIN Questions q ON f.feedId = q.feeds.feedId " +
+            "WHERE q.status IN ('해결중', '해결완료') " +
+            "ORDER BY CASE WHEN q.status = '해결중' THEN 1 WHEN q.status = '해결완료' THEN 2 ELSE 3 END ASC," +
+            "f.createdDate DESC")
+    List<Feeds> findQuestionFeeds();
 }

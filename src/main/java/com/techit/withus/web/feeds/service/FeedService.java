@@ -19,10 +19,10 @@ public class FeedService {
     private final FeedMapper feedMapper;
 
     /**
-     * 사용자의 홈 피드를 조회하는 메서드.
+     * 홈 버튼을 클릭했을 때 호출되는 메서드.
      *
      * @param userId 조회하려는 사용자의 ID. 만약 null이라면, 모든 최신 피드를 반환한다.
-     * @return 조회된 피드 리스트(DTO)
+     * @return 조회된 홈 피드 리스트(DTO)
      */
     public List<FeedDTO> getHomeFeeds(Long userId) {
         if (userId != null) {
@@ -36,14 +36,24 @@ public class FeedService {
     }
 
     /**
-     * 인기 피드를 페이지 단위로 조회하는 메서드.
+     * 인기 피드 버튼을 클릭했을 때 페이지 단위로 호출되는 메서드.
      * 이 메서드는 좋아요 수와 댓글 수 등으로 정렬된 인기 피드를 반환한다.
      *
      * @param pageable 페이징 정보를 담고 있는 Pageable 객체.
      * @return 조회된 인기 피드 리스트 (DTO 형태).
      */
-    public List<FeedDTO> getPopularfeeds(Pageable pageable) {
+    public List<FeedDTO> getPopularFeeds(Pageable pageable) {
         return feedMapper.toDto(feedRepository.findPopularFeeds(pageable));
     }
 
+    /**
+     * 질문 피드 버튼을 클릭했을 때 호출되는 메서드.
+     * '해결중'과 '해결 완료' 상태에 따라 질문 피드를 조회
+     *
+     * @return 조회된 질문 피드 리스트(DTO)
+     */
+    public List<FeedDTO> getQuestionFeeds() {
+        List<Feeds> questionsFeeds = feedRepository.findQuestionFeeds();
+        return feedMapper.toDto(questionsFeeds);
+    }
 }

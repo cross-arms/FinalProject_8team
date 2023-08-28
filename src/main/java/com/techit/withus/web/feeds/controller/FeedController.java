@@ -37,11 +37,22 @@ public class FeedController {
         // 1번째 페이지 상위 10개 피드
         Pageable pageable = PageRequest.of(0, 10);
 
-        List<FeedDTO> popularFeedDTOList = feedService.getPopularfeeds(pageable);
+        List<FeedDTO> popularFeedDTOList = feedService.getPopularFeeds(pageable);
 
         return ResultDTO
                 .builder()
                 .data(popularFeedDTOList)
+                .build();
+    }
+
+    @GetMapping("/question")
+    public ResultDTO getQuestionFeeds() {
+
+        List<FeedDTO> questionFeedDTOList = feedService.getQuestionFeeds();
+
+        return ResultDTO
+                .builder()
+                .data(questionFeedDTOList)
                 .build();
     }
 }
