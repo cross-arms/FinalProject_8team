@@ -18,11 +18,17 @@ public interface UserMapper
     @Mapping(target = "password", source = "encodedPassword")
     Users toUsers(SignUpDTO signUpDTO,
                   String encodedPassword,
-                  String role);
+                  String role,
+                  String provider);
 
     @Mapping(target = "role", source = "role")
     @Mapping(target = "email", source = "email")
     Users updateEmailAndRole(Users userEntity,
                              String role,
                              String email);
+
+    Users toUsers(String email,
+                  String provider,
+                  String username,
+                  String role);
 }

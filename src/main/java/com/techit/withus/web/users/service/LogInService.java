@@ -21,9 +21,11 @@ public class LogInService
     private final SecurityService securityService;
     private final PasswordEncoder passwordEncoder;
 
+    // 로그인
     public JwtDTO logIn(LogInDTO logInDTO)
     {
-        SecurityUser securityUser = securityService.loadUserByUsername(logInDTO.getUsername());
+        SecurityUser securityUser
+                = securityService.loadUserByUsername(logInDTO.getEmail());
 
         this.matchPasswords(logInDTO.getPassword(), securityUser.getPassword());
 
