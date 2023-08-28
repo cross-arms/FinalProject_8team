@@ -50,6 +50,7 @@ public class ChatMessage extends BaseTimeEntity {
 
     public void associateChatRoomUser(ChatRoomUser chatRoomUser){
         this.chatRoomUser = chatRoomUser;
+        chatRoomUser.getChatMessages().add(this);
     }
 }
 
