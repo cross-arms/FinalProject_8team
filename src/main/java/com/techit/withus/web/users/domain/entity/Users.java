@@ -27,12 +27,7 @@ public class Users
     private String password;
 
     private String username;
-    /**
-     * deprecated. email 형식의 아이디를 사용하므로 username 컬럼을 삭제할 예정임.
-     * username을 참조하는 곳에서 문제가 발생하기 때문에 놔둠.
-      */
-
-    private String nickname;
+    // 로그인할 때는 email로 로그인을 하고, 실제 서비스에서 노출되는 아이디는 username(nickname의 개념)
     private String phone;
 
     private Long point;
