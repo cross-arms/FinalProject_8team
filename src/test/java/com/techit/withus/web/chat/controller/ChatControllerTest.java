@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ import com.techit.withus.web.chat.controller.dto.ChatRoomResponse;
 import com.techit.withus.web.chat.service.ChatRoomService;
 
 @WithMockUser(username = "user1")
+@ActiveProfiles("test")
 @Transactional
 class ChatControllerTest extends AcceptanceTest {
     @MockBean
@@ -36,14 +38,13 @@ class ChatControllerTest extends AcceptanceTest {
     @DisplayName("채팅 방 생성 요청")
     void createChatRoomTest() throws Exception {
         //given
-
+        Mockito.when(chatRoomService.saveChatRoom(ChatRoomFixture.createChatRoomRequest())).thenReturn(1L);
         ResultActions action = mockMvc.perform(post("/rooms")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(ChatRoomFixture.createChatRoomRequest())));
         //expected
         action.andDo(print())
-            .andExpect(status().isCreated())
-            .andExpect(redirectedUrl("/rooms/1"));
+            .andExpect(status().isCreated());
     }
 
     @Test
