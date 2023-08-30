@@ -20,7 +20,8 @@ public enum ErrorCode {
 
     CHATROOM_NOT_EXIST(HttpStatus.BAD_REQUEST, "CR_001", "채팅 방(id = %d)가 존재하지 않습니다."),
     INVALID_ROOM_NAME(HttpStatus.BAD_REQUEST, "CR_002", "채팅 방의 이름은 20자를 넘을 수 없습니다. (%s)"),
-    CHATROOM_USER_NOT_EXIST(HttpStatus.BAD_REQUEST, "CRU_001", "ChatRoomUser 엔티티를 찾을 수 없습니다.");
+    CHATROOM_USER_NOT_EXIST(HttpStatus.BAD_REQUEST, "CRU_001", "ChatRoomUser 엔티티를 찾을 수 없습니다."),
+    INVALID_ROOM_MEMBER(HttpStatus.BAD_REQUEST, "CR_003", "채팅방은 적어도 한명의 유저를 포함해야 합니다.");
 
     private final HttpStatus status;
     private final String code;
