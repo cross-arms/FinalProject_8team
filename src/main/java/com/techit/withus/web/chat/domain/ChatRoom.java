@@ -35,15 +35,26 @@ public class ChatRoom extends BaseTimeEntity {
 
     @Builder
     private ChatRoom(final String roomName, final List<ChatRoomUser> chatRoomUsers) {
-        validateRoomName(roomName);
+        validateChatRoom(roomName);
         this.roomName = roomName;
-        this.chatRoomUsers = chatRoomUsers;
+        if(chatRoomUsers != null)
+            this.chatRoomUsers = chatRoomUsers;
+    }
+
+    private void validateChatRoom(String roomName){
+        validateRoomName(roomName);
     }
 
     private static void validateRoomName(String roomName){
         if(roomName.length() > 20){
             throw new InvalidValueException(ErrorCode.INVALID_ROOM_NAME, roomName);
         }
+    }
+
+
+    public void updateChatRoom(String roomName, List<Users> users){
+        this.roomName = roomName;
+        addUsers(users);
     }
 
     public static ChatRoom createChatRoom(String roomName, List<ChatRoomUser> chatRoomUsers){
@@ -55,8 +66,14 @@ public class ChatRoom extends BaseTimeEntity {
     }
 
     public void addUsers(List<Users> users){
-        users.stream().map(ChatRoomUser::createChatRoomUser)
-            .forEach(chatRoomUser -> this.chatRoomUsers.add(chatRoomUser));
+        List<ChatRoomUser> chatRoomUserList = users.stream().map(ChatRoomUser::createChatRoomUser).toList();
+        chatRoomUserList.forEach(chatRoomUser -> chatRoomUser.associateChatRoom(this));
+        chatRoomUsers.addAll(chatRoomUserList);
+    }
+
+    public void deleteUsers(List<Users> users){
+        List<ChatRoomUser> usersToDelete = chatRoomUsers.stream().filter(chatRoomUser -> users.contains(chatRoomUser.getUser())).toList();
+        chatRoomUsers.removeAll(usersToDelete);
     }
 }
 
