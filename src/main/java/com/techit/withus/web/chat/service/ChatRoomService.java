@@ -2,14 +2,12 @@ package com.techit.withus.web.chat.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.techit.withus.web.chat.controller.dto.ChatRoomRequest;
 import com.techit.withus.web.chat.controller.dto.ChatRoomResponse;
+import com.techit.withus.web.chat.controller.dto.RoomUpdateRequest;
 import com.techit.withus.web.chat.domain.ChatRoom;
 import com.techit.withus.web.chat.domain.ChatRoomUser;
 import com.techit.withus.web.chat.repository.ChatRoomRepository;
@@ -41,13 +39,17 @@ public class ChatRoomService {
         chatRoomRepository.deleteById(roomId);
     }
 
-    public Slice<ChatRoomResponse> readChatRooms(String userName, Pageable pageable){
-        Slice<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByMemberId(userName, pageable);
-        boolean hasNext = chatRoomUsers.hasNext();
-        List<ChatRoomResponse> chatRoomResponses = chatRoomUsers
-            .getContent()
+    @Transactional
+    public void updateChatRoom(Long roomId, RoomUpdateRequest request){
+        ChatRoom chatRoom = chatRoomRepository.findByIdOrThrow(roomId);
+        List<Users> roomUsers = userRepository.findByUserIdIn(request.getMemberIds());
+        chatRoom.updateChatRoom(request.getRoomName(), roomUsers);
+    }
+
+    public List<ChatRoomResponse> readChatRooms(String userName){
+        List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByUserName(userName);
+        return chatRoomUsers
             .stream()
             .map(chatRoomUser -> ChatRoomResponse.from(chatRoomUser.getChatRoom())).toList();
-        return new SliceImpl<>(chatRoomResponses, pageable, hasNext);
     }
 }
