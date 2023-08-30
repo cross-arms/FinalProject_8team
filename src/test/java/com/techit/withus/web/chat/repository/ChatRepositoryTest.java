@@ -1,7 +1,7 @@
 package com.techit.withus.web.chat.repository;
 
-import static com.techit.withus.common.ChatMessageFixture.*;
-import static com.techit.withus.common.ChatRoomFixture.*;
+import static com.techit.withus.common.fixture.chat.ChatMessageFixture.*;
+import static com.techit.withus.common.fixture.chat.ChatRoomFixture.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +31,10 @@ import com.techit.withus.web.chat.domain.ChatRoomUser;
 class ChatRepositoryTest {
     private final Long RANDOM_MEMBER_ID = 1L;
     private final String TEST_RANDOM_USERNAME = "user1";
+    private static final Long NON_EXIST_ROOM_ID = 99999999L;
+    private static final Long EXIST_ROOM_ID = 1L;
+    private static final String NON_EXIST_USERNAME = "fkdneiofw";
+    private static final String EXIST_USERNAME = "user1";
 
     @Autowired
     ChatMessageRepository chatMessageRepository;
@@ -60,6 +64,22 @@ class ChatRepositoryTest {
     }
 
     @Test
+    @DisplayName("존재하지 않는 채팅방의 id로 메시지를 저장할 수 없습니다.")
+    void setNonExistRoomIdMessageSaveTest() throws Exception {
+        //given & expected
+        org.junit.jupiter.api.Assertions.assertThrows(EntityNotFoundException.class, () -> chatRoomUserRepository.findByChatRoomIdAndUsername(NON_EXIST_ROOM_ID,
+            EXIST_USERNAME).orElseThrow(() -> new EntityNotFoundException(ErrorCode.CHATROOM_USER_NOT_EXIST)));
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 회원 이름으로 메시지를 저장할 수 없습니다.")
+    void setNonExistUsernameMessageSaveTest() throws Exception {
+        //given & expected
+        org.junit.jupiter.api.Assertions.assertThrows(EntityNotFoundException.class, () -> chatRoomUserRepository.findByChatRoomIdAndUsername(EXIST_ROOM_ID,
+            NON_EXIST_USERNAME).orElseThrow(() -> new EntityNotFoundException(ErrorCode.CHATROOM_USER_NOT_EXIST)));
+    }
+
+    @Test
     @DisplayName("채팅방 id와 username으로 채팅방을 검색할 수 있다.")
     void findByChatRoomIdAndUsernameTest() throws Exception {
         //given
@@ -69,10 +89,10 @@ class ChatRepositoryTest {
     }
 
     @Test
-    @DisplayName("userId로 user가 소속된 채팅방을 모두 가져올 수 있다.")
+    @DisplayName("user이름으로 user가 소속된 채팅방을 모두 가져올 수 있다.")
     void findChatRoomUserByuserIdTest() throws Exception {
         //given
-        List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByMemberId(RANDOM_MEMBER_ID);
+        List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByUserName(TEST_RANDOM_USERNAME);
         //expected
         Assertions.assertThat(chatRoomUsers).isNotEmpty();
         Assertions.assertThat(chatRoomUsers.get(0).getUser().getUserId()).isEqualTo(RANDOM_MEMBER_ID);

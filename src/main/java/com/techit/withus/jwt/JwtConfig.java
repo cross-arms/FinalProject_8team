@@ -17,6 +17,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
 @Slf4j
 @Configuration
@@ -25,6 +29,21 @@ public class JwtConfig extends OncePerRequestFilter
 {
     private final SecurityService securityService;
     private final JwtService jwtService;
+
+    // Token 인증이 필요없는 URL을 따로 지정, 일단 모두 토큰이 필요없는 상태로 지정
+    private static final List<String> EXCLUDE_URL
+            = List.of(
+                    "/**");
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return EXCLUDE_URL
+                .stream()
+                .anyMatch(
+                        exclude -> exclude
+                                .equalsIgnoreCase(
+                                        request.getServletPath()));
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.techit.withus.common.ChatRoomFixture;
-import com.techit.withus.common.ChatRoomUserFixture;
+import com.techit.withus.common.fixture.chat.ChatRoomFixture;
+import com.techit.withus.common.fixture.chat.ChatRoomUserFixture;
 import com.techit.withus.common.exception.InvalidValueException;
 
 class ChatTest {

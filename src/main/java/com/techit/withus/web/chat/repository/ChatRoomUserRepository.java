@@ -10,8 +10,8 @@ import com.techit.withus.web.chat.domain.ChatRoomUser;
 
 public interface ChatRoomUserRepository extends JpaRepository<ChatRoomUser, Long> {
 
-    @Query("select cru from ChatRoomUser cru join fetch cru.chatRoom where cru.user.userId=:userId order by cru.createAt desc")
-    List<ChatRoomUser> findChatRoomUserByMemberId(Long userId);
+    @Query("select cru from ChatRoomUser cru join fetch cru.chatRoom where cru.user.username=:userName")
+    List<ChatRoomUser> findChatRoomUserByUserName(String userName);
 
     @Query("select cru from ChatRoomUser cru join fetch cru.user u join fetch cru.chatRoom cr where cr.id=:chatRoomId and u.username=:userName")
     Optional<ChatRoomUser> findByChatRoomIdAndUsername(Long chatRoomId, String userName);

@@ -38,19 +38,24 @@ public class ChatRoomUser extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
-    @OneToMany(mappedBy = "chatRoomUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "chatRoomUser", cascade = CascadeType.PERSIST)
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
     @Builder
     private ChatRoomUser(ChatRoom chatRoom, Users user, List<ChatMessage> chatMessages) {
         this.chatRoom = chatRoom;
         this.user = user;
-        this.chatMessages = chatMessages;
+        if(chatMessages != null)
+            this.chatMessages = chatMessages;
     }
 
     public static ChatRoomUser createChatRoomUser(Users user){
         return ChatRoomUser.builder()
             .user(user)
             .build();
+    }
+
+    public void associateChatRoom(ChatRoom chatRoom){
+        this.chatRoom = chatRoom;
     }
 }
