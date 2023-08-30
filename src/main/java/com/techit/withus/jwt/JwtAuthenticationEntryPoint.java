@@ -13,7 +13,7 @@ import java.io.IOException;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint
 {
     /**
-     *
+     * Authentication 자체가 없는 경우
      */
     @Override
     public void commence(HttpServletRequest request,
