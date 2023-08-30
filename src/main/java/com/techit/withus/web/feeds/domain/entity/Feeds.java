@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @Entity
@@ -13,20 +14,50 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "feeds")
-public class Feeds
-{
+public class Feeds {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long feedId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users writer;
 
-    // 피드 종류: ex) 일반 / 질문
-    private String type;
-    // 공개 범위: ex) 비공개 / 전체 공개 / 팔로워에게만 공개
-    private String scope;
+    @OneToOne(mappedBy = "feeds")
+    private FeedQuestion feedQuestion;
+
+    @Lob
     private String title;
+
     private String content;
+
+    private String imageURL;
+
+    @Enumerated(EnumType.STRING)
+    private FeedType type; // 일반 or 질문
+
+    @Enumerated(EnumType.STRING)
+    private FeedScope scope; // 노출 범위
+
+    public static Feeds create(
+            Users user, String title, String content, String imageURL, FeedType feedType, FeedScope feedScope
+    ) {
+        return Feeds.builder()
+                .writer(user)
+                .type(feedType)
+                .scope(feedScope)
+                .title(title)
+                .content(content)
+                .imageURL(StringUtils.isBlank(imageURL) ? "" : imageURL)
+                .build();
+    }
+
+    public void setFeedQuestion(FeedQuestion feedsQuestionEntity) {
+        this.feedQuestion = feedsQuestionEntity;
+    }
+
+    public void updateScopeToPublic() {
+        this.scope = FeedScope.PUBLIC;
+    }
 }
