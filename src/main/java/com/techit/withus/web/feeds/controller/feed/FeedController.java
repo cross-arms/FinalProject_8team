@@ -1,13 +1,13 @@
-package com.techit.withus.web.feeds.controller;
+package com.techit.withus.web.feeds.controller.feed;
 
-import com.techit.withus.web.feeds.dto.FeedDto.RegisterFeedRequest;
-import com.techit.withus.web.feeds.dto.FeedDto.RetrieveFeedResponse;
-import com.techit.withus.web.feeds.service.FeedService;
+import com.techit.withus.web.feeds.service.feed.FeedService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import static com.techit.withus.web.feeds.dto.feed.FeedDto.FeedResponse;
+import static com.techit.withus.web.feeds.dto.feed.FeedDto.RegisterFeedRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,19 +21,18 @@ public class FeedController {
      * @return
      */
     @GetMapping("/api/v1/feeds")
-    public List<RetrieveFeedResponse> getAllFeeds(
+    public Page<FeedResponse> getAllFeeds(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        PageRequest pageable = PageRequest.of(page, size);
-        return feedService.getAllFeeds(pageable);
+        return feedService.getAllFeeds(PageRequest.of(page, size));
     }
 
     /**
      * 특정 피드 정보를 조회합니다.
      */
     @GetMapping("/api/v1/feeds/{id}")
-    public RetrieveFeedResponse getFeed(
+    public FeedResponse getFeed(
             @PathVariable("id") Long id
     ) {
         return feedService.getFeed(id);

@@ -1,5 +1,6 @@
-package com.techit.withus.web.feeds.domain.entity;
+package com.techit.withus.web.feeds.domain.entity.feed;
 
+import com.techit.withus.web.feeds.dto.feed.FeedDto;
 import com.techit.withus.web.users.domain.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -51,6 +52,10 @@ public class Feeds {
                 .content(content)
                 .imageURL(StringUtils.isBlank(imageURL) ? "" : imageURL)
                 .build();
+    }
+
+    public static Feeds fromDto(FeedDto.FeedResponse feedResponse) {
+        return null;
     }
 
     public void setFeedQuestion(FeedQuestion feedsQuestionEntity) {

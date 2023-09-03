@@ -1,44 +1,43 @@
 package com.techit.withus.web.feeds.init;
 
-import com.techit.withus.web.feeds.domain.entity.FeedScope;
-import com.techit.withus.web.feeds.domain.entity.FeedType;
-import com.techit.withus.web.feeds.domain.entity.Feeds;
-import com.techit.withus.web.feeds.repository.FeedRepository;
+import com.techit.withus.web.feeds.domain.entity.feed.FeedScope;
+import com.techit.withus.web.feeds.domain.entity.feed.FeedType;
+import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
+import com.techit.withus.web.feeds.repository.feed.FeedRepository;
+import com.techit.withus.web.users.domain.dto.SignUpDTO;
 import com.techit.withus.web.users.domain.entity.Users;
-import com.techit.withus.web.users.domain.enumeration.Roles;
 import com.techit.withus.web.users.repository.UserRepository;
+import com.techit.withus.web.users.service.SignUpService;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@RequiredArgsConstructor
 @Component
 public class FeedsInitData {
 
-    @Autowired
-    private FeedRepository feedRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private final FeedRepository feedRepository;
+    private final SignUpService signUpService;
+    private final UserRepository userRepository;
 
     @PostConstruct
     public void init() {
-        List<Users> users = userRepository.findAll();
+        String email = "test12312312@gmail.com";
+        signUpService.signUp(SignUpDTO.builder()
+            .email(email)
+            .password("1q2w3e3er4r5t")
+            .build());
 
-        Optional<Users> findUser = users.stream()
-                .filter(u -> u.getRole() == Roles.ROLE_USER)
-                .findFirst();
+        Users user = userRepository.findByEmail(email).get();
 
-        if (findUser.isPresent()) {
-            List<Feeds> feeds = new ArrayList<>();
-            for (int i = 0; i < 20; i++) {
-                feeds.add(Feeds.create(findUser.get(), i + " 타이틀", i + " 내용", i + " image.jpg", FeedType.NORMAL, FeedScope.PUBLIC));
-            }
-
-            feedRepository.saveAll(feeds);
+        List<Feeds> feeds = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            feeds.add(Feeds.create(user, i + " 타이틀", i + " 내용", i + " image.jpg", FeedType.NORMAL, FeedScope.PUBLIC));
         }
+
+        feedRepository.saveAll(feeds);
     }
 }

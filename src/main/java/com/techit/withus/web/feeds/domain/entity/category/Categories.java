@@ -1,4 +1,4 @@
-package com.techit.withus.web.feeds.domain.entity;
+package com.techit.withus.web.feeds.domain.entity.category;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
