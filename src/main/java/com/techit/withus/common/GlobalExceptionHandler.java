@@ -3,6 +3,7 @@ package com.techit.withus.common;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.techit.withus.web.feeds.exception.FeedException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,6 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(FeedException.class)
+    public ResponseEntity<ErrorResponse> feedExceptionHandler(FeedException ex){
+        var response = ErrorResponse.of(ex.getErrorCode());
+        log.debug("Invalid request to feed api. errorMsg: {}", ex.getMessage());
+        return new ResponseEntity<>(response, response.getStatus());
+    }
+
     @ExceptionHandler(InvalidValueException.class)
     public ResponseEntity<ErrorResponse> handleInvalidValueException(InvalidValueException ex){
         var response = ErrorResponse.of(ex.getErrorCode());
