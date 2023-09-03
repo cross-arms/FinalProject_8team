@@ -19,7 +19,7 @@ public class CommentController {
     /**
      * 피드의 모든 댓글 조회
      */
-    @GetMapping("/api/v1/feeds")
+    @GetMapping("/api/v1/feeds/comments")
     public Page<FeedDto.FeedResponse> getAllComments(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "10") int size
