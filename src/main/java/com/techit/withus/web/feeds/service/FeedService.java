@@ -28,7 +28,7 @@ public class FeedService {
     public List<FeedDTO> getHomeFeeds(Long userId) {
         if (userId != null) {
             List<Feeds> followedFeeds = feedRepository.findFollowedFeeds(userId);
-            List<Feeds> nonFollowedLatestFeeds = feedRepository.findNonFollowedLatestFeeds(userId);
+            List<Feeds> nonFollowedLatestFeeds = feedRepository.findNonFollowedFeeds(userId);
             followedFeeds.addAll(nonFollowedLatestFeeds);
             return feedMapper.toDto(followedFeeds);
         } else {
@@ -56,5 +56,13 @@ public class FeedService {
     public List<FeedDTO> getQuestionFeeds() {
         List<Feeds> questionsFeeds = feedRepository.findQuestionFeeds(QuestionStatus.RESOLVING, QuestionStatus.RESOLVED);
         return feedMapper.toDto(questionsFeeds);
+    }
+
+    /**
+     * 선택한 기술 카테고리와 일치하는 피드가 호출되는 메서드.
+     */
+    public List<FeedDTO> getFeedsBySkills(String large, String medium, String small) {
+        List<Feeds> feeds = feedRepository.findFeedsBySkill(large, medium, small);
+        return feedMapper.toDto(feeds);
     }
 }

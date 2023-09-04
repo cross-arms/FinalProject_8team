@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -53,6 +54,18 @@ public class FeedController {
         return ResultDTO
                 .builder()
                 .data(questionFeedDTOList)
+                .build();
+    }
+
+    @GetMapping("/skill")
+    public ResultDTO getFeedsBySkills(@RequestParam(required=false) String large,
+                                          @RequestParam(required=false) String medium,
+                                          @RequestParam(required=false) String small){
+        List<FeedDTO> feedDTOList = feedService.getFeedsBySkills(large, medium, small);
+
+        return ResultDTO
+                .builder()
+                .data(feedDTOList)
                 .build();
     }
 }
