@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Entity
@@ -24,6 +25,9 @@ public class Feeds
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users writer;
+
+    @OneToMany(mappedBy = "feeds", fetch = FetchType.LAZY)
+    private List<Images> images;
 
     // 피드 종류: ex) 일반 / 질문
     private String type;

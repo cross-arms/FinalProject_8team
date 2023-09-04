@@ -1,6 +1,7 @@
 package com.techit.withus.web.feeds.repository;
 
 import com.techit.withus.web.feeds.domain.entity.Feeds;
+import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,12 +12,21 @@ import java.util.List;
 public interface FeedRepository extends JpaRepository<Feeds, Long> {
     // 모든 사용자의 최신 피드를 조회하는 메서드
     @Query("SELECT f FROM Feeds f " +
+            "LEFT JOIN FETCH f.images " +
             "ORDER BY f.createdDate DESC")
     List<Feeds> findLatestFeeds();
+
+    // 팔로우하지 않은 사람들의 최신 피드를 조회하는 메서드
+    @Query("SELECT f FROM Feeds f " +
+            "LEFT JOIN FETCH f.images i "+
+            "WHERE (:userId IS NULL OR NOT EXISTS (SELECT 1 FROM Follows fl WHERE fl.followWho.userId = :userId AND fl.whoFollow.userId = f.writer.userId))"+
+            "ORDER BY f.createdDate DESC")
+    List<Feeds> findNonFollowedLatestFeeds(@Param("userId") Long userId);
 
     // 팔로우한 사람들의 최신 피드를 조회하는 메서드
     @Query("SELECT f FROM Feeds f " +
             "JOIN Follows fl ON f.writer.userId = fl.followWho.userId " +
+            "LEFT JOIN FETCH f.images i " +
             "WHERE fl.whoFollow.userId = :userId " +
             "ORDER BY f.createdDate DESC")
     List<Feeds> findFollowedFeeds(@Param("userId") Long userId);
@@ -31,6 +41,7 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
     @Query("SELECT f FROM Feeds f " +
             "LEFT JOIN Likes l ON f.feedId = l.feeds.feedId " +
             "LEFT JOIN Comments c ON f.feedId = c.feeds.feedId " +
+            "LEFT JOIN FETCH f.images " +
             "GROUP BY f.feedId, f.createdDate " +
             "ORDER BY COUNT(DISTINCT l.likeId) DESC, COUNT(DISTINCT c.commentId) DESC, f.createdDate DESC")
     List<Feeds> findPopularFeeds(Pageable pageable);
@@ -42,9 +53,11 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
      * 2. '해결 완료' 상태
      */
     @Query("SELECT f FROM Feeds f " +
+            "LEFT JOIN FETCH f.images " +
             "LEFT JOIN Questions q ON f.feedId = q.feeds.feedId " +
-            "WHERE q.status IN ('해결중', '해결완료') " +
-            "ORDER BY CASE WHEN q.status = '해결중' THEN 1 WHEN q.status = '해결완료' THEN 2 ELSE 3 END ASC," +
+            "WHERE q.status IN (:resolving, :resolved) "+
+            "ORDER BY CASE WHEN q.status = :resolving THEN 1 WHEN q.status = :resolved THEN 2 ELSE 3 END ASC,"+
             "f.createdDate DESC")
-    List<Feeds> findQuestionFeeds();
+    List<Feeds> findQuestionFeeds(@Param("resolving") QuestionStatus resolving, @Param("resolved") QuestionStatus resolved);
+
 }
