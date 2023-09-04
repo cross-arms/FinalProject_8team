@@ -1,6 +1,7 @@
 package com.techit.withus.web.users.domain.entity;
 
 import com.techit.withus.oauth.OAuth2Provider;
+import com.techit.withus.web.users.domain.dto.UserDto;
 import com.techit.withus.web.users.domain.enumeration.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -45,4 +46,11 @@ public class Users
     private OAuth2Provider provider;
     @Enumerated(EnumType.STRING)
     private Roles role;
+
+    public static Users fromDto(UserDto.UserResponse userResponse) {
+        return Users.builder()
+                .userId(userResponse.getUserId())
+                .profileURL(userResponse.getProfileURL())
+                .build();
+    }
 }

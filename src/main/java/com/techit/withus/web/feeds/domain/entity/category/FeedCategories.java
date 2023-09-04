@@ -1,6 +1,6 @@
-package com.techit.withus.web.feeds.domain.entity;
+package com.techit.withus.web.feeds.domain.entity.category;
 
-import com.techit.withus.web.users.domain.entity.Users;
+import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,18 +12,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "likes")
-public class Likes
+@Table(name = "feed_categories")
+public class FeedCategories
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likeId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Users users;
+    private Long feedCategoryId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feed_id")
     private Feeds feeds;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Categories categories;
 }

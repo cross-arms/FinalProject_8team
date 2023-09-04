@@ -1,4 +1,4 @@
-package com.techit.withus.web.feeds.domain.entity;
+package com.techit.withus.web.feeds.domain.entity.feed;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,17 +11,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "questions")
-public class Questions
+@Table(name = "images")
+public class Images
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long questionId;
+    private Long imageId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feed_id")
     private Feeds feeds;
-    // 질문 피드의 예치금: ex) 3000, 5000
-    private Long deposit;
-    // 질문 피드의 해결 상태: ex) 해결중, 해결완료
-    private String status;
+
+    private String imageURL;
 }

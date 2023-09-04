@@ -1,4 +1,4 @@
-package com.techit.withus.web.feeds.domain.entity;
+package com.techit.withus.web.feeds.domain.entity.category;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,16 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "images")
-public class Images
+@Table(name = "categories")
+public class Categories
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imageId;
+    private Long categoryId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feed_id")
-    private Feeds feeds;
-
-    private String imageURL;
+    private String large;
+    private String medium;
+    private String small;
 }
