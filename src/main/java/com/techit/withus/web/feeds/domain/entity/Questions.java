@@ -1,5 +1,6 @@
 package com.techit.withus.web.feeds.domain.entity;
 
+import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +24,6 @@ public class Questions
     // 질문 피드의 예치금: ex) 3000, 5000
     private Long deposit;
     // 질문 피드의 해결 상태: ex) 해결중, 해결완료
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private QuestionStatus status;
 }
