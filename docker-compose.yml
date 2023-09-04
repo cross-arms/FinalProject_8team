@@ -1,0 +1,35 @@
+version: '3'
+services:
+  withus-service:
+    image: withus-service:latest
+    networks:
+      - withus_network
+    ports:
+      - "8080:8080"
+    depends_on:
+      withus-mysql:
+        condition: service_healthy
+    env_file:
+      - .env
+  withus-mysql:
+    image: mysql:8.0
+    networks:
+      - withus_network
+    volumes:
+      - ./.docker/withus-service/db/conf.d:/etc/mysql/conf.d
+      - ./.docker/withus-service/db/data:/var/lib/mysql
+      - ./.docker/withus-service/db/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: withus
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+networks:
+  withus_network:
+    driver: bridge
