@@ -24,6 +24,7 @@ public enum ErrorCode {
     INVALID_ROOM_MEMBER(HttpStatus.BAD_REQUEST, "CR_003", "채팅방은 적어도 한명의 유저를 포함해야 합니다."),
 
     FEED_NOT_FOUND(HttpStatus.BAD_REQUEST, "F_001", "피드 정보가 존재하지 않습니다."),
+    CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "CT_001", "카테고리 정보가 존재하지 않습니다."),
     ;
 
     private final HttpStatus status;
