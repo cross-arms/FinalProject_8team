@@ -2,6 +2,7 @@ package com.techit.withus.web.feeds.domain.entity.like;
 
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.dto.feed.FeedDto;
+import com.techit.withus.web.feeds.dto.feed.FeedDto.FeedResponse;
 import com.techit.withus.web.users.domain.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,9 +35,7 @@ public class Likes {
 
     private String cancelYn;
 
-    public static Likes createLike(FeedDto.FeedResponse feedResponse) {
-        Feeds feed = Feeds.fromDto(feedResponse);
-
+    public static Likes createLike(Feeds feed) {
         return Likes.builder()
                 .users(feed.getWriter())
                 .feeds(feed)
