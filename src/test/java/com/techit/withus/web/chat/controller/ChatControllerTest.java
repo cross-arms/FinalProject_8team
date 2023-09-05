@@ -51,7 +51,7 @@ class ChatControllerTest extends AcceptanceTest {
     @DisplayName("사용자가 속한 채팅방 요청")
     void readChatRoomsTest() throws Exception {
         //given
-        UserDetails userDetails = SecurityUser.builder().username("user1").password("password").role("USER").build();
+        UserDetails userDetails = SecurityUser.builder().email("user1").password("password").role("USER").build();
         Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, "password", userDetails.getAuthorities());
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(auth);
