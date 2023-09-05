@@ -40,4 +40,36 @@ public class FeedsInitData {
 
         feedRepository.saveAll(feeds);
     }
+
+    private List<Categories> saveCategories() {
+        Categories app = createInitCategory("웹");
+        Categories web = createInitCategory("앱");
+        Categories db = createInitCategory("DB");
+        Categories javaScript = createInitCategory("JavaScript");
+        Categories java = createInitCategory("Java");
+        Categories react = createInitCategory("React");
+        Categories vue = createInitCategory("Vue");
+        Categories thymeleaf = createInitCategory("Thymeleaf");
+
+        categoryRepository.saveAll(List.of(app, web, db, javaScript, java, react, vue, thymeleaf));
+
+        return categoryRepository.findAll();
+    }
+
+    private static Categories createInitCategory(String name) {
+        return Categories.builder()
+                .name(name)
+                .build();
+    }
+
+
+    private Users saveUser() {
+        String email = "test12312312@gmail.com";
+        signUpService.signUp(SignUpDTO.builder()
+            .email(email)
+            .password("1q2w3e3er4r5t")
+            .build());
+
+        return userRepository.findByEmail(email).get();
+    }
 }
