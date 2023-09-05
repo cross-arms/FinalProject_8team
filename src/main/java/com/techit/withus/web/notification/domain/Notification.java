@@ -47,7 +47,7 @@ public class Notification {
     NotificationType notificationType;
 
 
-    @Builder
+    @Builder(access = AccessLevel.PRIVATE)
     private Notification(String notificationContent, String relatedUrl, Boolean isRead,
         NotificationType notificationType, String senderEmail, Users receiver)
     {
