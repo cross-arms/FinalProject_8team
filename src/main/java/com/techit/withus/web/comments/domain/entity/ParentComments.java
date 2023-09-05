@@ -31,6 +31,7 @@ public class ParentComments
     @JoinColumn(name = "feed_id")
     private Feeds feeds;
 
+    @Builder.Default
     @OneToMany(mappedBy = "parentComments")
     private List<ChildComments> childCommentsList = new ArrayList<>();
 

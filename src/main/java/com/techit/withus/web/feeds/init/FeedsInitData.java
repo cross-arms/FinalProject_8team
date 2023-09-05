@@ -1,8 +1,10 @@
 package com.techit.withus.web.feeds.init;
 
+import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedScope;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedType;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
+import com.techit.withus.web.feeds.repository.category.CategoryRepository;
 import com.techit.withus.web.feeds.repository.feed.FeedRepository;
 import com.techit.withus.web.users.domain.dto.SignUpDTO;
 import com.techit.withus.web.users.domain.entity.Users;
@@ -19,23 +21,36 @@ import java.util.List;
 @Component
 public class FeedsInitData {
 
-    private final FeedRepository feedRepository;
     private final SignUpService signUpService;
+    private final CategoryRepository categoryRepository;
+    private final FeedRepository feedRepository;
     private final UserRepository userRepository;
 
     @PostConstruct
     public void init() {
-        String email = "test12312312@gmail.com";
-        signUpService.signUp(SignUpDTO.builder()
-            .email(email)
-            .password("1q2w3e3er4r5t")
-            .build());
+        Users user = saveUser();
 
-        Users user = userRepository.findByEmail(email).get();
+        List<Categories> categories = saveCategories();
 
         List<Feeds> feeds = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            feeds.add(Feeds.create(user, i + " 타이틀", i + " 내용", i + " image.jpg", FeedType.NORMAL, FeedScope.PUBLIC));
+        for (int categoryId = 0; categoryId < categories.size(); categoryId++) {
+            Categories category = categories.get(categoryId);
+            FeedType feedType = FeedType.NORMAL;
+            FeedScope feedScope = FeedScope.PUBLIC;
+
+            for (int i = categoryId * 3; i < (categoryId + 1) * 3; i++) {
+                feeds.add(
+                        Feeds.create(
+                                user,
+                                i + " 타이틀",
+                                i + " 내용",
+                                i + " image.jpg",
+                                feedType,
+                                feedScope,
+                                category
+                        )
+                );
+            }
         }
 
         feedRepository.saveAll(feeds);

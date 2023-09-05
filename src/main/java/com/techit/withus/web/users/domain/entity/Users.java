@@ -2,6 +2,7 @@ package com.techit.withus.web.users.domain.entity;
 
 import com.techit.withus.oauth.OAuth2Provider;
 import com.techit.withus.web.users.domain.dto.UserDto;
+import com.techit.withus.web.users.domain.dto.UserDto.UserResponse;
 import com.techit.withus.web.users.domain.enumeration.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -47,7 +48,7 @@ public class Users
     @Enumerated(EnumType.STRING)
     private Roles role;
 
-    public static Users fromDto(UserDto.UserResponse userResponse) {
+    public static Users fromDto(UserResponse userResponse) {
         return Users.builder()
                 .userId(userResponse.getUserId())
                 .profileURL(userResponse.getProfileURL())
