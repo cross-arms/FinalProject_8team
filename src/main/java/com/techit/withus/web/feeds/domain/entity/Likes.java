@@ -26,4 +26,7 @@ public class Likes
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feed_id")
     private Feeds feeds;
+
+//    @Column(name = "isLike", nullable=false)
+//    private Boolean isLike;
 }
