@@ -10,3 +10,45 @@ INSERT INTO users (created_date, modified_date, email, username, password, phone
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kimkardashian@gmail.com', 'kimkardashian', '$2a$10$OROngbiriYyWWnyZYbVRs.rwBX/lzZTasNP5MIFL0IGOc24PIbtZi', '010-1234-5678', 'LOCAL', 'ROLE_USER');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kitaek@gmail.com', 'kitaek', '$2a$10$i/YvoDMqsrBYn5sz0prfIeDbz2Y9IeB26gHOQNZUdL7swpd2KWcm.', '010-1234-5678', 'LOCAL', 'ROLE_USER');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kimora@gmail.com', 'kimora', '$2a$10$ev0CZouZFPF/a0.i7c6s2.PRZw/l/BCkY9vjuWlvJVvENySlnGQ3e', '010-1234-5678', 'LOCAL', 'ROLE_USER');
+
+-- Feeds
+INSERT INTO feeds (user_id, type, scope, title, content, created_date) VALUES (1, '일반', '전체 공개', '1번째 피드', '안녕하세요. 1번째 피드입니다.', NOW());
+INSERT INTO feeds (user_id, type, scope, title, content, created_date) VALUES (2, '질문', '팔로워에게만 공개', '2번째 피드', '안녕하세요. 2번째 피드입니다.', NOW());
+INSERT INTO feeds (user_id, type, scope ,title ,content ,created_date) VALUES(3,'일반','전체 공개','3번째 피드','안녕하세요. 3번째 피드입니다.',NOW());
+
+-- Images
+INSERT INTO images(feed_id,imageURL) VALUES(1,'http://withus.com/image1.jpg');
+INSERT INTO images(feed_id,imageURL) VALUES(2,'http://withus.com/image2.jpg');
+INSERT INTO images(feed_id,imageURL) VALUES(3,'http://withus.com/image3.jpg');
+
+-- Likes
+INSERT INTO likes(user_id ,feed_id)VALUES(1 , 2);
+INSERT INTO likes(user_id ,feed_id)VALUES(2 , 3);
+INSERT INTO likes(user_id ,feed_id)VALUES(3 , 1);
+
+-- Comments
+INSERT INTO comments (user_id, feed_id) VALUES (1, 2);
+INSERT INTO comments (user_id, feed_id) VALUES (2, 3);
+INSERT INTO comments (user_id, feed_id) VALUES (3, 1);
+
+-- Follows
+INSERT INTO follows (who_follow, follow_who) VALUES (1, 2);
+INSERT INTO follows (who_follow, follow_who) VALUES (2, 3);
+INSERT INTO follows (who_follow, follow_who) VALUES (3, 1);
+
+-- Questions
+INSERT INTO questions (feed_id, deposit, status) VALUES (1, 3000, 'RESOLVING');
+INSERT INTO questions (feed_id, deposit, status) VALUES (2, 5000, 'RESOLVED');
+INSERT INTO questions (feed_id, deposit, status) VALUES (3, 4000, 'RESOLVING');
+
+-- -- Categories
+-- INSERT INTO categories (large, medium, small) VALUES ('LCategory 1', 'MCategory 1', 'SCategory 1');
+-- INSERT INTO categories (large, medium, small) VALUES ('LCategory 2', 'MCategory 2', 'SCategory 2');
+-- INSERT INTO categories (large, medium, small) VALUES ('LCategory 3', 'MCategory 3', 'SCategory 3');
+--
+-- -- FeedCategories
+-- INSERT INTO feed_categories (feed_id, category_id) VALUES (1, 1);
+-- INSERT INTO feed_categories (feed_id, category_id) VALUES (2, 2);
+-- INSERT INTO feed_categories (feed_id, category_id) VALUES (3, 3);
+
+
