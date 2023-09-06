@@ -14,7 +14,7 @@ public interface FeedMapper {
     FeedMapper INSTANCE = Mappers.getMapper(FeedMapper.class);
 
     // 작성자 ID 매핑
-    @Mapping(source = "writer", target = "writerId")
+    @Mapping(source = "writer.userId", target = "writer")
     List<FeedDTO> toDto(List<Feeds> feeds);
 
     default Long map(Users user) {
