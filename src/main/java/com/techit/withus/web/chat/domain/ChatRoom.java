@@ -6,6 +6,7 @@ import java.util.List;
 import com.techit.withus.common.BaseTimeEntity;
 import com.techit.withus.common.exception.ErrorCode;
 import com.techit.withus.common.exception.InvalidValueException;
+import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.users.domain.entity.Users;
 
 import jakarta.persistence.CascadeType;
@@ -14,7 +15,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,8 +33,11 @@ public class ChatRoom extends BaseTimeEntity {
     private Long id;
     @Column(nullable = false)
     private String roomName;
+    @OneToOne
+    @JoinColumn(name = "feed_question_id")
+    private FeedQuestion feedQuestion;
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<ChatRoomUser> chatRoomUsers = new ArrayList<>();
+    private List<ChatRoomUser> chatRoomUsers = new ArrayList<>();
 
     @Builder
     private ChatRoom(final String roomName, final List<ChatRoomUser> chatRoomUsers) {

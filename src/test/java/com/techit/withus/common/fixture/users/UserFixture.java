@@ -26,6 +26,20 @@ public class UserFixture {
             .build();
     }
 
+    public static Users createUsersWithEmail(String email){
+        return Users.builder()
+            .email(email)
+            .createdDate(Timestamp.from(Instant.now()))
+            .phone("000-0000-000")
+            .modifiedDate(Timestamp.from(Instant.now()))
+            .password("12341234")
+            .personalURL("www.github.com")
+            .point(1234L)
+            .role(Roles.ROLE_USER)
+            .username("테스트 유저")
+            .build();
+    }
+
     public static Users createUsersWithId(Long id){
         Users users = createUsers();
         ReflectionTestUtils.setField(users, "userId", id);

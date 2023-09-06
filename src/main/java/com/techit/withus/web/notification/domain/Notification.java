@@ -59,13 +59,14 @@ public class Notification {
         this.receiver = receiver;
     }
 
-    public static Notification createNotification(final Users receiver, final String senderEmail, final NotificationType type, final String relatedUrl){
+    public static Notification createNotification(final Users receiver, final String senderEmail, final NotificationType type, final String relatedUri){
         return Notification.builder()
             .notificationType(type)
             .notificationContent(type.strategy().createMessage(senderEmail))
             .isRead(false)
+            .senderEmail(senderEmail)
             .receiver(receiver)
-            .relatedUrl(relatedUrl)
+            .relatedUrl(type.strategy().createRelatedUrl(relatedUri))
             .build();
     }
 

@@ -1,6 +1,6 @@
 package com.techit.withus.web.users.controller;
 
-import com.techit.withus.web.common.domain.dto.ResultDTO;
+import com.techit.withus.common.dto.ResultDTO;
 import com.techit.withus.jwt.JwtDTO;
 import com.techit.withus.web.users.domain.dto.LogInDTO;
 import com.techit.withus.web.users.service.LogInService;
