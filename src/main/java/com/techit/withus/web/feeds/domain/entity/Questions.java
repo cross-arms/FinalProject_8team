@@ -20,6 +20,7 @@ public class Questions
     private Long questionId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feed_id")
     private Feeds feeds;
     // 질문 피드의 예치금: ex) 3000, 5000
     private Long deposit;
