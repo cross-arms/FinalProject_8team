@@ -6,7 +6,6 @@ import static com.techit.withus.common.fixture.chat.ChatRoomUserFixture.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -16,10 +15,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
-import com.techit.withus.common.fixture.chat.ChatRoomFixture;
-import com.techit.withus.common.fixture.chat.ChatRoomUserFixture;
 import com.techit.withus.common.exception.EntityNotFoundException;
+import com.techit.withus.common.fixture.chat.ChatRoomUserFixture;
 import com.techit.withus.common.fixture.users.UserFixture;
 import com.techit.withus.web.chat.controller.dto.ChatRoomResponse;
 import com.techit.withus.web.chat.domain.ChatMessage;
@@ -27,6 +26,7 @@ import com.techit.withus.web.chat.domain.ChatRoom;
 import com.techit.withus.web.chat.repository.ChatMessageRepository;
 import com.techit.withus.web.chat.repository.ChatRoomRepository;
 import com.techit.withus.web.chat.repository.ChatRoomUserRepository;
+import com.techit.withus.web.notification.controller.dto.NotificationEvent;
 import com.techit.withus.web.users.repository.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,6 +42,8 @@ public class ChatServiceTest {
     ChatMessageRepository chatMessageRepository;
     @Mock
     ChatRoomRepository chatRoomRepository;
+    @Mock
+    ApplicationEventPublisher publisher;
     @Mock
     UserRepository userRepository;
     @InjectMocks
@@ -76,9 +78,9 @@ public class ChatServiceTest {
         @DisplayName("존재하는 회원의 이름과 roomid로 메시지를 저장할 수 있다.")
         void MessageSaveSuccessTest() throws Exception {
             //given
-            when(chatRoomUserRepository.findByChatRoomIdAndUsername(EXIST_ROOM_ID, EXIST_USERNAME)).thenReturn(
-                Optional.of(createChatRoomUserWithId(TEST_ID_A)));
+            when(chatRoomUserRepository.findChatRoomUserByChatRoomId(EXIST_ROOM_ID)).thenReturn(createChatRoomUsersWithMultipleUsers(EXIST_USERNAME, 5));
             when(chatMessageRepository.save(any(ChatMessage.class))).thenReturn(createChatMessageWithId(TEST_ID_A));
+            doNothing().when(publisher).publishEvent(any(NotificationEvent.class));
             //when
             messageService.save(createMessageRequest(EXIST_ROOM_ID), EXIST_USERNAME);
             //then
@@ -88,7 +90,7 @@ public class ChatServiceTest {
 
     @Nested
     @DisplayName("채팅 방 서비스 관련 테스트")
-    public class ChatRoomServiceTest{
+    class ChatRoomServiceTest{
         @Test
         @DisplayName("사용자가 소속한 채팅방을 조회할 수 있다.")
         void findChatRoomByUsernameTest() throws Exception {
