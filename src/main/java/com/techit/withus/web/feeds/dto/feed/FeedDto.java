@@ -2,6 +2,8 @@ package com.techit.withus.web.feeds.dto.feed;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.techit.withus.common.exception.InvalidValueException;
+import com.techit.withus.web.comments.dto.CommentDto.CommentResponse;
+import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion.QuestionStatus;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedScope;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Page;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static com.techit.withus.common.exception.ErrorCode.INVALID_INPUT_VALUE;
@@ -41,9 +44,10 @@ public class FeedDto {
         private FeedScope feedScope;
         private Long deposit;
         private LocalDate questionDueDate; // 질문 마감일자
+        private Long categoryId;
 
-        public Feeds toFeedsEntity(Users user) {
-            return Feeds.create(user, title, content, imageURL, feedType, feedScope);
+        public Feeds toFeedsEntity(Users user, Categories category) {
+            return Feeds.create(user, title, content, imageURL, feedType, feedScope, category);
         }
 
         public boolean isQuestionFeed() {
@@ -75,7 +79,11 @@ public class FeedDto {
     @AllArgsConstructor(staticName = "of")
     public static class FeedMainResponse {
 
+        // TODO 좋아요 개수, 댓글 개수
         private Page<FeedResponse> feeds;
+        private List<CommentResponse> parentComments;
+        private Integer likeCount;
+        private Integer commentCount;
     }
 
     @Getter
@@ -94,18 +102,19 @@ public class FeedDto {
         private String imageURL;
         private FeedType type;
         private FeedScope scope;
+        private boolean isLike;
 
         public static FeedResponse toDtoFrom(Feeds feed) {
             return FeedResponse.builder()
-                .id(feed.getId())
-                .writer(UserResponse.create(feed.getWriter()))
-                .feedQuestion(FeedQuestionResponse.create(feed.getFeedQuestion()))
-                .title(feed.getTitle())
-                .content(feed.getContent())
-                .imageURL(StringUtils.isBlank(feed.getImageURL()) ? null : feed.getImageURL())
-                .type(feed.getType())
-                .scope(feed.getScope())
-                .build();
+                    .id(feed.getId())
+                    .writer(UserResponse.create(feed.getWriter()))
+                    .feedQuestion(FeedQuestionResponse.create(feed.getFeedQuestion()))
+                    .title(feed.getTitle())
+                    .content(feed.getContent())
+                    .imageURL(StringUtils.isBlank(feed.getImageURL()) ? null : feed.getImageURL())
+                    .type(feed.getType())
+                    .scope(feed.getScope())
+                    .build();
         }
     }
 
@@ -129,11 +138,11 @@ public class FeedDto {
             }
 
             return FeedQuestionResponse.builder()
-                .id(feedQuestion.getId())
-                .deposit(feedQuestion.getDeposit())
-                .status(feedQuestion.getStatus())
-                .questionDueDate(feedQuestion.getQuestionDueDate())
-                .build();
+                    .id(feedQuestion.getId())
+                    .deposit(feedQuestion.getDeposit())
+                    .status(feedQuestion.getStatus())
+                    .questionDueDate(feedQuestion.getQuestionDueDate())
+                    .build();
         }
     }
 }

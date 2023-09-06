@@ -17,8 +17,5 @@ public class Categories
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
-
-    private String large;
-    private String medium;
-    private String small;
+    private String name;
 }

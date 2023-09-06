@@ -1,6 +1,10 @@
 package com.techit.withus.web.feeds.domain.entity.feed;
 
+import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.dto.feed.FeedDto;
+import com.techit.withus.web.feeds.dto.feed.FeedDto.FeedQuestionResponse;
+import com.techit.withus.web.feeds.dto.feed.FeedDto.FeedResponse;
+import com.techit.withus.web.users.domain.dto.UserDto;
 import com.techit.withus.web.users.domain.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,8 +45,14 @@ public class Feeds {
     @Enumerated(EnumType.STRING)
     private FeedScope scope; // 노출 범위
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Categories category;
+
     public static Feeds create(
-            Users user, String title, String content, String imageURL, FeedType feedType, FeedScope feedScope
+            Users user, String title, String content,
+            String imageURL, FeedType feedType, FeedScope feedScope,
+            Categories category
     ) {
         return Feeds.builder()
                 .writer(user)
@@ -51,11 +61,8 @@ public class Feeds {
                 .title(title)
                 .content(content)
                 .imageURL(StringUtils.isBlank(imageURL) ? "" : imageURL)
+                .category(category)
                 .build();
-    }
-
-    public static Feeds fromDto(FeedDto.FeedResponse feedResponse) {
-        return null;
     }
 
     public void setFeedQuestion(FeedQuestion feedsQuestionEntity) {
