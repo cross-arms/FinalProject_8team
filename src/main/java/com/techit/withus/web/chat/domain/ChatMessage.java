@@ -1,8 +1,14 @@
 package com.techit.withus.web.chat.domain;
 
+import java.util.List;
+
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.Assert;
 
 import com.techit.withus.common.BaseTimeEntity;
+import com.techit.withus.web.notification.controller.dto.NotificationEvent;
+import com.techit.withus.web.notification.domain.NotificationType;
+import com.techit.withus.web.users.domain.entity.Users;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,6 +57,17 @@ public class ChatMessage extends BaseTimeEntity {
     public void associateChatRoomUser(ChatRoomUser chatRoomUser){
         this.chatRoomUser = chatRoomUser;
         chatRoomUser.getChatMessages().add(this);
+    }
+
+    public void publishMessageEvent(ApplicationEventPublisher publisher, List<Users> receivers){
+        publisher.publishEvent(
+            NotificationEvent.builder()
+                .receivers(receivers)
+                .notificationType(NotificationType.MESSAGE)
+                .senderEmail(chatRoomUser.getUser().getEmail())
+                .relatedUri(String.valueOf(chatRoomUser.getChatRoom().getId()))
+                .build()
+        );
     }
 }
 
