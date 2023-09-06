@@ -97,4 +97,15 @@ class ChatRepositoryTest {
         Assertions.assertThat(chatRoomUsers).isNotEmpty();
         Assertions.assertThat(chatRoomUsers.get(0).getUser().getUserId()).isEqualTo(RANDOM_MEMBER_ID);
     }
+
+    @Test
+    @DisplayName("채팅방 id로 ChatRoomUser를 가져올 수 있다.")
+    void findChatRoomUserByChatRoomId() throws Exception {
+        //when
+        List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByChatRoomId(
+            EXIST_ROOM_ID);
+        //then
+        Assertions.assertThat(chatRoomUsers).isNotEmpty();
+        Assertions.assertThat(chatRoomUsers.get(0).getChatRoom().getId()).isEqualTo(EXIST_ROOM_ID);
+    }
 }
