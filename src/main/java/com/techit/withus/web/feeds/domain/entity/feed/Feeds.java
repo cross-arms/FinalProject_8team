@@ -1,10 +1,6 @@
 package com.techit.withus.web.feeds.domain.entity.feed;
 
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
-import com.techit.withus.web.feeds.dto.feed.FeedDto;
-import com.techit.withus.web.feeds.dto.feed.FeedDto.FeedQuestionResponse;
-import com.techit.withus.web.feeds.dto.feed.FeedDto.FeedResponse;
-import com.techit.withus.web.users.domain.dto.UserDto;
 import com.techit.withus.web.users.domain.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,6 +8,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Entity
@@ -23,7 +22,7 @@ public class Feeds {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long feedId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -37,6 +36,9 @@ public class Feeds {
 
     private String content;
 
+    @OneToMany(mappedBy = "feeds", fetch = FetchType.LAZY)
+    private List<Images> images;
+
     private String imageURL;
 
     @Enumerated(EnumType.STRING)
@@ -48,6 +50,9 @@ public class Feeds {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Categories category;
+
+    @Column(name = "created_date")
+    private Timestamp createdDate;
 
     public static Feeds create(
             Users user, String title, String content,

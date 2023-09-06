@@ -23,4 +23,7 @@ public class Images
     private Feeds feeds;
 
     private String imageURL;
+
+//    @Column(name = "isLike", nullable=false)
+//    private Boolean isLike;
 }

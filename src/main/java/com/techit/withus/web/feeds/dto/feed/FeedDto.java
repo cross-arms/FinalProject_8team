@@ -5,10 +5,10 @@ import com.techit.withus.common.exception.InvalidValueException;
 import com.techit.withus.web.comments.dto.CommentDto.CommentResponse;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
-import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion.QuestionStatus;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedScope;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedType;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
+import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import com.techit.withus.web.users.domain.dto.UserDto.UserResponse;
 import com.techit.withus.web.users.domain.entity.Users;
 import lombok.*;
@@ -106,7 +106,7 @@ public class FeedDto {
 
         public static FeedResponse toDtoFrom(Feeds feed) {
             return FeedResponse.builder()
-                    .id(feed.getId())
+                    .id(feed.getFeedId())
                     .writer(UserResponse.create(feed.getWriter()))
                     .feedQuestion(FeedQuestionResponse.create(feed.getFeedQuestion()))
                     .title(feed.getTitle())
@@ -138,7 +138,7 @@ public class FeedDto {
             }
 
             return FeedQuestionResponse.builder()
-                    .id(feedQuestion.getId())
+                    .id(feedQuestion.getQuestionId())
                     .deposit(feedQuestion.getDeposit())
                     .status(feedQuestion.getStatus())
                     .questionDueDate(feedQuestion.getQuestionDueDate())

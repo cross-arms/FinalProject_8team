@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface LikeRepository extends JpaRepository<Likes, Long> {
 
-    @Query(value = "select l from Likes l where l.users.userId = :userId and l.feeds.id = :feedId")
+    @Query(value = "select l from Likes l where l.users.userId = :userId and l.feeds.feedId = :feedId")
     Optional<Likes> findByFeedAndUser(Long feedId, Long userId);
 }
