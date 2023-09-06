@@ -1,4 +1,4 @@
-package com.techit.withus.web.common.domain.dto;
+package com.techit.withus.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
