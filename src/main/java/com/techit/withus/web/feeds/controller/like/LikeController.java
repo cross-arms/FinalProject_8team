@@ -1,6 +1,6 @@
 package com.techit.withus.web.feeds.controller.like;
 
-import com.techit.withus.web.common.domain.dto.ResultDTO;
+import com.techit.withus.common.dto.ResultDTO;
 import com.techit.withus.web.feeds.dto.like.LikeDto.RegisterLikeRequest;
 import com.techit.withus.web.feeds.service.like.LikeService;
 import lombok.RequiredArgsConstructor;
