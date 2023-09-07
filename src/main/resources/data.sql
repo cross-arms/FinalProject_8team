@@ -1,7 +1,7 @@
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'gyeongnam@gmail.com', 'gyeongnam', '$2a$10$sBLW3YgStvQtnJ..g0HtPOVuEO.wK5AmQ5lJeUQ85Nzmum1n8ZJyK', '010-1234-5678', 'LOCAL', 'ROLE_USER');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'gangmin@gmail.com', 'gangmin', '$2a$10$A6iy8d7XnwDyY/JRD3Fiw.zg2pJmp5RjkMnj7I.5w/ISJ7TuQeiSe', '010-1234-5678', 'LOCAL', 'ROLE_USER');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'sukeun@gmail.com', 'sukeun', '$2a$10$pkkXP1aC5yTTbVKQifexKuUSfOB6J5kGpF4GV4KHAVPqkSAk5VUCO', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'jaehwan@gmail.com', 'jaehwan', '$2a$10$mIFRje7wzppchnFVCpseK.FSKjLDFHv3A3Rr66NaFZf4o6z.UilDm', '010-1234-5678', 'LOCAL', 'ROLE_USER');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'jaehwan@gmail.com', 'jaehwan', '$2a$10$vgkSRxxYnNLv6XpzsURDv.9LHSOmrx0V2dgMwdYLjbh4r0w.hxrwS', '010-1234-5678', 'LOCAL', 'ROLE_USER');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'gyuhee@gmail.com', 'gyuhee', '$2a$10$HZVBZXXkMbeN.tUwNXyb4Oo2Zwf6YvBOxQqQYL0wlaqHJ6r13sErm', '010-1234-5678', 'LOCAL', 'ROLE_USER');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kitae@gmail.com', 'kitae', '$2a$10$ckGkXQ0e.NL4ExD.RjWvPuvC43cH1bopUz5EqasjB3KUZXByvwLj.', '010-1234-5678', 'LOCAL', 'ROLE_USER');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kimberley@gmail.com', 'kimberley', '$2a$10$3ox6l7keiMC.WfTt4OF6LOR3B72rNndufpP6vtZmmfsSf6swy69Xm', '010-1234-5678', 'LOCAL', 'ROLE_USER');
@@ -22,9 +22,10 @@ INSERT INTO images(feed_id,imageURL) VALUES(2,'http://withus.com/image2.jpg');
 INSERT INTO images(feed_id,imageURL) VALUES(3,'http://withus.com/image3.jpg');
 
 -- Likes
-INSERT INTO likes(user_id ,feed_id)VALUES(1 , 2);
-INSERT INTO likes(user_id ,feed_id)VALUES(2 , 3);
-INSERT INTO likes(user_id ,feed_id)VALUES(3 , 1);
+INSERT INTO likes(user_id ,feed_id, like_status)VALUES(1 , 2, 'LIKE');
+INSERT INTO likes(user_id ,feed_id, like_status)VALUES(2 , 3, 'LIKE');
+INSERT INTO likes(user_id ,feed_id, like_status)VALUES(3 , 1, 'LIKE');
+INSERT INTO likes(user_id ,feed_id, like_status)VALUES(5 , 4, 'LIKE');
 
 -- Comments
 INSERT INTO parent_comments (user_id, feed_id) VALUES (1, 2);
@@ -42,6 +43,15 @@ INSERT INTO feed_questions (feed_id, deposit, status) VALUES (2, 5000, 'RESOLVED
 INSERT INTO feed_questions (feed_id, deposit, status) VALUES (3, 4000, 'RESOLVING');
 
 -- -- Categories
+INSERT INTO categories(name) VALUES ('웹');
+INSERT INTO categories(name) VALUES ('앱');
+INSERT INTO categories(name) VALUES ('DB');
+INSERT INTO categories(name) VALUES ('JavaScript');
+INSERT INTO categories(name) VALUES ('Java');
+INSERT INTO categories(name) VALUES ('React');
+INSERT INTO categories(name) VALUES ('Vue');
+INSERT INTO categories(name) VALUES ('Thymeleaf');
+
 -- INSERT INTO categories (large, medium, small) VALUES ('LCategory 1', 'MCategory 1', 'SCategory 1');
 -- INSERT INTO categories (large, medium, small) VALUES ('LCategory 2', 'MCategory 2', 'SCategory 2');
 -- INSERT INTO categories (large, medium, small) VALUES ('LCategory 3', 'MCategory 3', 'SCategory 3');

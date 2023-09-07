@@ -25,6 +25,7 @@ public enum ErrorCode {
 
     FEED_NOT_FOUND(HttpStatus.BAD_REQUEST, "F_001", "피드 정보가 존재하지 않습니다."),
     CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "CT_001", "카테고리 정보가 존재하지 않습니다."),
+    ALREADY_LIKE(HttpStatus.BAD_REQUEST, "FL_001", "이미 좋아요 하신 피드입니다."),
 
     DIRECTORY_CREATION_FAILED(HttpStatus.BAD_REQUEST, "IM_001", "파일 저장 경로를 생성하지 못하였습니다."),
     NOT_FOUND_FILE_TYPE(HttpStatus.BAD_REQUEST, "IM_002", "정의되지 않은 파일 타입입니다."),
