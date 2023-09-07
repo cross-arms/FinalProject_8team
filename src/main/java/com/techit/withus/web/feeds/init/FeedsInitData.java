@@ -44,7 +44,7 @@ public class FeedsInitData {
                                 user,
                                 i + " 타이틀",
                                 i + " 내용",
-                                i + " image.jpg",
+                                new ArrayList<>(),
                                 feedType,
                                 feedScope,
                                 category

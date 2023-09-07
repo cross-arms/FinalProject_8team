@@ -8,9 +8,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.EMPTY_LIST;
 
 @Getter
 @Entity
@@ -39,8 +45,6 @@ public class Feeds {
     @OneToMany(mappedBy = "feeds", fetch = FetchType.LAZY)
     private List<Images> images;
 
-    private String imageURL;
-
     @Enumerated(EnumType.STRING)
     private FeedType type; // 일반 or 질문
 
@@ -52,22 +56,29 @@ public class Feeds {
     private Categories category;
 
     @Column(name = "created_date")
-    private Timestamp createdDate;
+    private LocalDateTime createdDate;
 
     public static Feeds create(
             Users user, String title, String content,
-            String imageURL, FeedType feedType, FeedScope feedScope,
+            List<Images> images, FeedType feedType, FeedScope feedScope,
             Categories category
     ) {
-        return Feeds.builder()
+        Feeds feed = Feeds.builder()
                 .writer(user)
                 .type(feedType)
                 .scope(feedScope)
                 .title(title)
                 .content(content)
-                .imageURL(StringUtils.isBlank(imageURL) ? "" : imageURL)
+                .images(CollectionUtils.isEmpty(images) ? EMPTY_LIST : images)
                 .category(category)
+                .createdDate(LocalDateTime.now())
                 .build();
+
+        images.forEach(images1 ->  {
+            images1.setFeeds(feed);
+        });
+
+        return feed;
     }
 
     public void setFeedQuestion(FeedQuestion feedsQuestionEntity) {

@@ -4,20 +4,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.techit.withus.common.exception.InvalidValueException;
 import com.techit.withus.web.comments.dto.CommentDto.CommentResponse;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
-import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
-import com.techit.withus.web.feeds.domain.entity.feed.FeedScope;
-import com.techit.withus.web.feeds.domain.entity.feed.FeedType;
-import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
+import com.techit.withus.web.feeds.domain.entity.feed.*;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import com.techit.withus.web.users.domain.dto.UserDto.UserResponse;
 import com.techit.withus.web.users.domain.entity.Users;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
@@ -39,7 +38,7 @@ public class FeedDto {
         private Long userId;
         private String title;
         private String content;
-        private String imageURL;
+        private List<Images> images;
         private FeedType feedType;
         private FeedScope feedScope;
         private Long deposit;
@@ -47,7 +46,7 @@ public class FeedDto {
         private Long categoryId;
 
         public Feeds toFeedsEntity(Users user, Categories category) {
-            return Feeds.create(user, title, content, imageURL, feedType, feedScope, category);
+            return Feeds.create(user, title, content, images, feedType, feedScope, category);
         }
 
         public boolean isQuestionFeed() {
@@ -99,7 +98,7 @@ public class FeedDto {
         private FeedQuestionResponse feedQuestion;
         private String title;
         private String content;
-        private String imageURL;
+        private List<Images> images;
         private FeedType type;
         private FeedScope scope;
         private boolean isLike;
@@ -111,7 +110,7 @@ public class FeedDto {
                     .feedQuestion(FeedQuestionResponse.create(feed.getFeedQuestion()))
                     .title(feed.getTitle())
                     .content(feed.getContent())
-                    .imageURL(StringUtils.isBlank(feed.getImageURL()) ? null : feed.getImageURL())
+                    .images(CollectionUtils.isEmpty(feed.getImages()) ? new ArrayList<>() : feed.getImages())
                     .type(feed.getType())
                     .scope(feed.getScope())
                     .build();

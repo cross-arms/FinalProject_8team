@@ -7,6 +7,7 @@ import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.domain.mapper.FeedMapper;
 import com.techit.withus.web.feeds.dto.feed.FeedDto;
+import com.techit.withus.web.feeds.dto.feed.FeedDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import com.techit.withus.web.feeds.repository.feed.FeedRepository;
 import com.techit.withus.web.feeds.repository.category.CategoryRepository;
@@ -104,7 +105,7 @@ public class FeedService {
     }
 
     @Transactional
-    public void saveFeed(FeedDto.RegisterFeedRequest request) {
+    public void saveFeed(RegisterFeedRequest request) {
         // 피드를 등록할 수 있음.
         Users user = Users.fromDto(userService.getUserInfoBy(request.getUserId()));
 

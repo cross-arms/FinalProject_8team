@@ -4,6 +4,7 @@ import com.techit.withus.common.dto.ResultDTO;
 import com.techit.withus.security.SecurityUser;
 import com.techit.withus.web.feeds.domain.dto.FeedDTO;
 import com.techit.withus.web.feeds.dto.feed.FeedDto;
+import com.techit.withus.web.feeds.dto.feed.FeedDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.service.feed.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -97,8 +98,8 @@ public class FeedController {
      * @param registerRequest
      * @return
      */
-    @PostMapping("/api/v1/feeds")
-    public void createFeed(@RequestBody FeedDto.RegisterFeedRequest registerRequest) {
+    @PostMapping()
+    public void createFeed(@RequestBody RegisterFeedRequest registerRequest) {
         feedService.saveFeed(registerRequest);
     }
 
