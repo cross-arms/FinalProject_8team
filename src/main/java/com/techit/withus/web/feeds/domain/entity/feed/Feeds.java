@@ -42,7 +42,7 @@ public class Feeds {
 
     private String content;
 
-    @OneToMany(mappedBy = "feeds", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feeds", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Images> images;
 
     @Enumerated(EnumType.STRING)

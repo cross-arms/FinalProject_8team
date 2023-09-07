@@ -9,7 +9,6 @@ import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import com.techit.withus.web.users.domain.dto.UserDto.UserResponse;
 import com.techit.withus.web.users.domain.entity.Users;
 import lombok.*;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.util.CollectionUtils;
 
@@ -42,6 +41,7 @@ public class FeedDto {
         private FeedType feedType;
         private FeedScope feedScope;
         private Long deposit;
+        private String questionContent;
         private LocalDate questionDueDate; // 질문 마감일자
         private Long categoryId;
 
@@ -54,7 +54,7 @@ public class FeedDto {
         }
 
         public FeedQuestion toFeedsQuestionEntity(Feeds feeds) {
-            return FeedQuestion.createInit(feeds, this.deposit, toLocalDateTime(this.questionDueDate));
+            return FeedQuestion.createInit(feeds, this.questionContent, this.deposit, toLocalDateTime(this.questionDueDate));
         }
 
         public LocalDateTime toLocalDateTime(LocalDate localDate) {

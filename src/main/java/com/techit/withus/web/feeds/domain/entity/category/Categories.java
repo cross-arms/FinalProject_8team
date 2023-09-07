@@ -18,4 +18,5 @@ public class Categories
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
     private String name;
+    private String imageURL;
 }

@@ -25,6 +25,8 @@ public class FeedQuestion {
     @JoinColumn(name = "feed_id")
     private Feeds feeds;
 
+    private String content;
+
     private Long deposit; // 질문 피드의 예치금: ex) 3000, 5000
 
     @Enumerated(EnumType.STRING)
@@ -32,9 +34,10 @@ public class FeedQuestion {
 
     private LocalDateTime questionDueDate;
 
-    public static FeedQuestion createInit(Feeds feeds, Long deposit, LocalDateTime questionDueDate) {
+    public static FeedQuestion createInit(Feeds feeds, String content, Long deposit, LocalDateTime questionDueDate) {
         return FeedQuestion.builder()
                 .feeds(feeds)
+                .content(content)
                 .deposit(deposit)
                 .status(QuestionStatus.RESOLVING)
                 .questionDueDate(questionDueDate)

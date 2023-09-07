@@ -8,7 +8,6 @@ import com.techit.withus.web.feeds.dto.like.LikeDto.RegisterLikeRequest;
 import com.techit.withus.web.feeds.exception.FeedLikeException;
 import com.techit.withus.web.feeds.repository.like.LikeRepository;
 import com.techit.withus.web.feeds.service.feed.FeedService;
-import com.techit.withus.web.users.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,6 @@ import static com.techit.withus.common.exception.ErrorCode.ALREADY_LIKE;
 @Service
 public class LikeService {
 
-    private final UserService userService;
     private final FeedService feedService;
     private final LikeRepository likeRepository;
 
