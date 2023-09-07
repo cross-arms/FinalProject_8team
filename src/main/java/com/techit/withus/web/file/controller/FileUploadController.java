@@ -24,7 +24,7 @@ public class FileUploadController {
             value = "/api/v1/feed/image/upload",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
-    public List<Images> avatar(
+    public List<Images> fileUpload(
             @RequestParam("images") List<MultipartFile> multipartFiles
     ) {
         return fileUploadService.uploadImage(multipartFiles, FileType.FEED);
