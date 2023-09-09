@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.techit.withus.common.exception.EntityNotFoundException;
+import com.techit.withus.common.exception.ErrorCode;
 import com.techit.withus.web.chat.controller.dto.ChatRoomRequest;
 import com.techit.withus.web.chat.controller.dto.ChatRoomResponse;
 import com.techit.withus.web.chat.controller.dto.RoomUpdateRequest;
@@ -29,6 +31,7 @@ public class ChatRoomService {
     @Transactional
     public Long saveChatRoom(ChatRoomRequest request){
         List<Users> roomUsers = userRepository.findByUserIdIn(request.getRoomMemberIds());
+        if(roomUsers.isEmpty()) throw new EntityNotFoundException(ErrorCode.MEMBER_NOT_EXIST);
         ChatRoom chatRoom = request.toChatRoom();
         chatRoom.addUsers(roomUsers);
         return chatRoomRepository.save(chatRoom).getId();
@@ -48,6 +51,7 @@ public class ChatRoomService {
 
     public List<ChatRoomResponse> readChatRooms(String userName){
         List<ChatRoomUser> chatRoomUsers = chatRoomUserRepository.findChatRoomUserByUserName(userName);
+        if(chatRoomUsers.isEmpty()) throw new EntityNotFoundException(ErrorCode.CHATROOM_USER_NOT_EXIST);
         return chatRoomUsers
             .stream()
             .map(chatRoomUser -> ChatRoomResponse.from(chatRoomUser.getChatRoom())).toList();
