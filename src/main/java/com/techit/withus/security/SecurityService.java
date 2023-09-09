@@ -1,5 +1,7 @@
 package com.techit.withus.security;
 
+import com.techit.withus.common.exception.AuthenticationException;
+import com.techit.withus.common.exception.ErrorCode;
 import com.techit.withus.web.users.domain.entity.Users;
 import com.techit.withus.web.users.domain.mapper.UserMapper;
 import com.techit.withus.web.users.repository.UserRepository;
@@ -30,7 +32,7 @@ public class SecurityService implements UserDetailsService
 
         Users userEntity = userRepository
                 .findByEmail(email)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new AuthenticationException(ErrorCode.AUTHENTICATION_FAILED));
 
         return UserMapper.INSTANCE.toSecurityUser(userEntity);
     }

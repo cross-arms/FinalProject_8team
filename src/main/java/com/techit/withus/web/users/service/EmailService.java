@@ -1,5 +1,9 @@
 package com.techit.withus.web.users.service;
 
+import com.techit.withus.common.exception.AuthenticationException;
+import com.techit.withus.common.exception.EntityNotFoundException;
+import com.techit.withus.common.exception.ErrorCode;
+import com.techit.withus.common.exception.InvalidValueException;
 import com.techit.withus.redis.hashes.Email;
 import com.techit.withus.redis.repository.EmailRepository;
 import com.techit.withus.web.users.domain.dto.EmailDTO;
@@ -35,7 +39,6 @@ public class EmailService
      * -> 상세: 이미 인증이 완료된 회원이라 함은 role이 ROLE_USER인 회원을 말한다.
      * 2) 중복되지 않는다면 난수를 생성하여 입력 받은 이메일로 전송하고, Redis에도 이메일을 키 값, 난수를 밸류 값으로 저장한다.
      * -> 상세: 사용자가 난수를 입력했을 때 입력 받은 이메일을 키 값으로 밸류를 꺼내서 확인한다.
-     * 3) 인증에 성공하면 users의 email을 업데이트 하고, role을 'ROLE_INVALIDATE_USER'에서 'ROLE_USER'으로 변경한다.
      */
 
     // 이메일을 보낸다.
@@ -75,12 +78,12 @@ public class EmailService
     {
         Email email = emailRepository
                 .findById(emailDTO.getAddress())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.INVALID_EMAIL_FORMAT));
 
         String savedCodeInRedis = email.getCode();
 
         if (!savedCodeInRedis.equals(emailDTO.getCode()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new InvalidValueException(ErrorCode.INVALID_CODE_FORMAT);
     }
 
     // 8자리의 인증 번호를 만든다.
@@ -101,6 +104,6 @@ public class EmailService
     private void checkDuplicateEmail(String email)
     {
         if (userRepository.existsByEmail(email))
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+            throw new AuthenticationException(ErrorCode.MEMBER_ALREADY_EXIST);
     }
 }
