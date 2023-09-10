@@ -2,7 +2,6 @@ package com.techit.withus.web.feeds.repository.feed;
 
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -44,7 +43,7 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
             "LEFT JOIN FETCH f.images " +
             "GROUP BY f.feedId, f.createdDate " +
             "ORDER BY COUNT(DISTINCT l.likeId) DESC, COUNT(DISTINCT c.commentId) DESC, f.createdDate DESC")
-    List<Feeds> findPopularFeeds(Pageable pageable);
+    List<Feeds> findPopularFeeds();
 
     /**
      * '해결중'과 '해결 완료' 상태에 따라 질문 피드를 조회하는 메서드
@@ -55,18 +54,19 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
     @Query("SELECT f FROM Feeds f " +
             "LEFT JOIN FETCH f.images " +
             "LEFT JOIN FeedQuestion q ON f.feedId = q.feeds.feedId " +
-            "WHERE q.status IN (:resolving, :resolved) "+
+            "WHERE q.status IN (:resolving, :resolved) AND f.type = com.techit.withus.web.feeds.enumeration.FeedType.QUESTION "+
             "ORDER BY CASE WHEN q.status = :resolving THEN 1 WHEN q.status = :resolved THEN 2 ELSE 3 END ASC,"+
             "f.createdDate DESC")
     List<Feeds> findQuestionFeeds(@Param("resolving") QuestionStatus resolving, @Param("resolved") QuestionStatus resolved);
 
 
+
     /**
      * 카테고리별로 피드를 조회하는 메서드
      * [우선 순위]
-     * 1. 소분류 일치
-     * 2. 중분류 일치
-     * 3. 대분류 일치
+     * 1.
+     * 2.
+     * 3.
      * 모든 조건이 동일하면 최신 피드부터 반환
      */
     /*@Query("SELECT f FROM Feeds f " +

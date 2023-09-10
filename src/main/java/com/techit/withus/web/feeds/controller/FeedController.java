@@ -1,14 +1,12 @@
-package com.techit.withus.web.feeds.controller.feed;
+package com.techit.withus.web.feeds.controller;
 
 import com.techit.withus.common.dto.ResultDTO;
 import com.techit.withus.security.SecurityUser;
-import com.techit.withus.web.feeds.domain.dto.FeedDTO;
-import com.techit.withus.web.feeds.dto.feed.FeedDto;
-import com.techit.withus.web.feeds.service.feed.FeedService;
+import com.techit.withus.web.feeds.domain.dto.FeedDto;
+import com.techit.withus.web.feeds.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +22,7 @@ public class FeedController {
     public ResultDTO getHomeFeeds(@AuthenticationPrincipal SecurityUser user) {
         Long userId = (user != null)? user.getUserId() : null;
 
-        List<FeedDTO> feedDTOList = feedService.getHomeFeeds(userId);
+        List<FeedDto.FeedResponse> feedDTOList = feedService.getHomeFeeds(userId);
 
         return ResultDTO
                 .builder()
@@ -34,10 +32,7 @@ public class FeedController {
 
     @GetMapping("/popular")
     public ResultDTO getPopularFeeds() {
-        // 1번째 페이지 상위 10개 피드
-        Pageable pageable = PageRequest.of(0, 10);
-
-        List<FeedDTO> popularFeedDTOList = feedService.getPopularFeeds(pageable);
+        List<FeedDto.FeedResponse> popularFeedDTOList = feedService.getPopularFeeds();
 
         return ResultDTO
                 .builder()
@@ -45,10 +40,11 @@ public class FeedController {
                 .build();
     }
 
+
     @GetMapping("/question")
     public ResultDTO getQuestionFeeds() {
 
-        List<FeedDTO> questionFeedDTOList = feedService.getQuestionFeeds();
+        List<FeedDto.FeedResponse> questionFeedDTOList = feedService.getQuestionFeeds();
 
         return ResultDTO
                 .builder()
@@ -56,17 +52,17 @@ public class FeedController {
                 .build();
     }
 
-    @GetMapping("/skill")
-    public ResultDTO getFeedsBySkills(@RequestParam(required=false) String large,
-                                          @RequestParam(required=false) String medium,
-                                          @RequestParam(required=false) String small){
-        List<FeedDTO> feedDTOList = feedService.getFeedsBySkills(large, medium, small);
-
-        return ResultDTO
-                .builder()
-                .data(feedDTOList)
-                .build();
-    }
+//    @GetMapping("/skill")
+//    public ResultDTO getFeedsBySkills(@RequestParam(required=false) String large,
+//                                          @RequestParam(required=false) String medium,
+//                                          @RequestParam(required=false) String small){
+//        List<FeedDTO> feedDTOList = feedService.getFeedsBySkills(large, medium, small);
+//
+//        return ResultDTO
+//                .builder()
+//                .data(feedDTOList)
+//                .build();
+//    }
 
     /**
      * 등록된 모든 피드 정보를 조회합니다.
