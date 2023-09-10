@@ -1,13 +1,13 @@
-package com.techit.withus.web.feeds.dto.feed;
+package com.techit.withus.web.feeds.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.techit.withus.common.exception.InvalidValueException;
 import com.techit.withus.web.comments.dto.CommentDto.CommentResponse;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
-import com.techit.withus.web.feeds.domain.entity.feed.FeedScope;
-import com.techit.withus.web.feeds.domain.entity.feed.FeedType;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
+import com.techit.withus.web.feeds.enumeration.FeedScope;
+import com.techit.withus.web.feeds.enumeration.FeedType;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import com.techit.withus.web.users.domain.dto.UserDto.UserResponse;
 import com.techit.withus.web.users.domain.entity.Users;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static com.techit.withus.common.exception.ErrorCode.INVALID_INPUT_VALUE;
-import static com.techit.withus.web.feeds.domain.entity.feed.FeedType.QUESTION;
+import static com.techit.withus.web.feeds.enumeration.FeedType.QUESTION;
 
 /**
  * feedDto 객체는 데이터 전달을 목적으로 하는 객체입니다.

@@ -2,8 +2,8 @@ package com.techit.withus.web.comments.service;
 
 import com.techit.withus.web.comments.repository.ChildCommentRepository;
 import com.techit.withus.web.comments.repository.ParentCommentRepository;
-import com.techit.withus.web.feeds.dto.feed.FeedDto;
-import com.techit.withus.web.feeds.service.feed.FeedService;
+import com.techit.withus.web.feeds.domain.dto.FeedDto;
+import com.techit.withus.web.feeds.service.FeedService;
 import com.techit.withus.web.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -2,7 +2,7 @@ package com.techit.withus.web.comments.controller;
 
 
 import com.techit.withus.web.comments.service.CommentService;
-import com.techit.withus.web.feeds.dto.feed.FeedDto;
+import com.techit.withus.web.feeds.domain.dto.FeedDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

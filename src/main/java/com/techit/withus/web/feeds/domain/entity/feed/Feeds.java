@@ -1,6 +1,8 @@
 package com.techit.withus.web.feeds.domain.entity.feed;
 
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
+import com.techit.withus.web.feeds.enumeration.FeedScope;
+import com.techit.withus.web.feeds.enumeration.FeedType;
 import com.techit.withus.web.users.domain.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

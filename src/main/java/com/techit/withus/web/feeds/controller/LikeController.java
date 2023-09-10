@@ -1,8 +1,8 @@
-package com.techit.withus.web.feeds.controller.like;
+package com.techit.withus.web.feeds.controller;
 
 import com.techit.withus.common.dto.ResultDTO;
-import com.techit.withus.web.feeds.dto.like.LikeDto.RegisterLikeRequest;
-import com.techit.withus.web.feeds.service.like.LikeService;
+import com.techit.withus.web.feeds.domain.dto.LikeDto.RegisterLikeRequest;
+import com.techit.withus.web.feeds.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PutMapping;
