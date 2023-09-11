@@ -10,9 +10,13 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -21,10 +25,18 @@ public class AuthController
     private final AuthService authService;
     private final EmailService emailService;
 
+    // 회원가입
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signUp(@RequestBody SignUpDTO signUpDTO)
     {
         authService.signUp(signUpDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/sign-up/username")
+    public ResponseEntity<Void> checkDuplicateUsername(@RequestBody Map<String, String> usernameMap)
+    {
+        authService.checkDuplicateUsername(usernameMap.get("username"));
         return ResponseEntity.ok().build();
     }
 
