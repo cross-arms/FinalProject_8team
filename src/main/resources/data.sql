@@ -1,54 +1,118 @@
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'gyeongnam@gmail.com', 'gyeongnam', '$2a$10$sBLW3YgStvQtnJ..g0HtPOVuEO.wK5AmQ5lJeUQ85Nzmum1n8ZJyK', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'gangmin@gmail.com', 'gangmin', '$2a$10$A6iy8d7XnwDyY/JRD3Fiw.zg2pJmp5RjkMnj7I.5w/ISJ7TuQeiSe', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'sukeun@gmail.com', 'sukeun', '$2a$10$pkkXP1aC5yTTbVKQifexKuUSfOB6J5kGpF4GV4KHAVPqkSAk5VUCO', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'jaehwan@gmail.com', 'jaehwan', '$2a$10$mIFRje7wzppchnFVCpseK.FSKjLDFHv3A3Rr66NaFZf4o6z.UilDm', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'gyuhee@gmail.com', 'gyuhee', '$2a$10$HZVBZXXkMbeN.tUwNXyb4Oo2Zwf6YvBOxQqQYL0wlaqHJ6r13sErm', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kitae@gmail.com', 'kitae', '$2a$10$ckGkXQ0e.NL4ExD.RjWvPuvC43cH1bopUz5EqasjB3KUZXByvwLj.', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kimberley@gmail.com', 'kimberley', '$2a$10$3ox6l7keiMC.WfTt4OF6LOR3B72rNndufpP6vtZmmfsSf6swy69Xm', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kimura@gmail.com', 'kimura', '$2a$10$f3w6d6BDyU.CLlxv5iZQT.wtmgPF5M./3zoUDDs9mdLfC9ZBwlj/y', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kimgyeongnam@gmail.com', 'kimgyeongnam', '$2a$10$sbfsWjySSsLrtBCCE2hOxuc3yxlmWTM9P8dsLTvYocYsHH6XDLfYm', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kimkardashian@gmail.com', 'kimkardashian', '$2a$10$OROngbiriYyWWnyZYbVRs.rwBX/lzZTasNP5MIFL0IGOc24PIbtZi', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kitaek@gmail.com', 'kitaek', '$2a$10$i/YvoDMqsrBYn5sz0prfIeDbz2Y9IeB26gHOQNZUdL7swpd2KWcm.', '010-1234-5678', 'LOCAL', 'ROLE_USER');
-INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role) VALUES (NOW(), NOW(), 'kimora@gmail.com', 'kimora', '$2a$10$ev0CZouZFPF/a0.i7c6s2.PRZw/l/BCkY9vjuWlvJVvENySlnGQ3e', '010-1234-5678', 'LOCAL', 'ROLE_USER');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'gyeongnam@gmail.com', 'gyeongnam', '$2a$10$sBLW3YgStvQtnJ..g0HtPOVuEO.wK5AmQ5lJeUQ85Nzmum1n8ZJyK', '010-1234-5678', 'LOCAL', 'ROLE_USER', 10000, '코드는 나의 언어, 미래를 만들어가는 소프트웨어 엔지니어', '/static/profileImages/gyeongnam.jpg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'gangmin@gmail.com', 'gangmin', '$2a$10$A6iy8d7XnwDyY/JRD3Fiw.zg2pJmp5RjkMnj7I.5w/ISJ7TuQeiSe', '010-1234-5678', 'LOCAL', 'ROLE_USER', 11000, '프로그래밍의 매력에 빠져, 끝없는 코드 여행을 떠나는 중', '/static/profileImages/gangmin.jpg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'sukeun@gmail.com', 'sukeun', '$2a$10$pkkXP1aC5yTTbVKQifexKuUSfOB6J5kGpF4GV4KHAVPqkSAk5VUCO', '010-1234-5678', 'LOCAL', 'ROLE_USER', 12000, '데이터 마술사로, 알고리즘에 깊은 관심을 가진 데이터 분석가', '/static/profileImages/sukeun.jpeg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'jaehwan@gmail.com', 'jaehwan', '$2a$10$mIFRje7wzppchnFVCpseK.FSKjLDFHv3A3Rr66NaFZf4o6z.UilDm', '010-1234-5678', 'LOCAL', 'ROLE_USER', 13000, '게임 개발의 열정적인 마니아, 가상 세계 창조자', '/static/profileImages/jaehwan.jpeg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'gyuhee@gmail.com', 'gyuhee', '$2a$10$HZVBZXXkMbeN.tUwNXyb4Oo2Zwf6YvBOxQqQYL0wlaqHJ6r13sErm', '010-1234-5678', 'LOCAL', 'ROLE_USER', 14000, '웹 개발자로, 사용자 경험을 개선하는 데 헌신', '/static/profileImages/gyuhee.jpeg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'kitae@gmail.com', 'kitae', '$2a$10$ckGkXQ0e.NL4ExD.RjWvPuvC43cH1bopUz5EqasjB3KUZXByvwLj.', '010-1234-5678', 'LOCAL', 'ROLE_USER', 15000, 'AI와 머신러닝에 빠져있는 미래 지향적인 데이터 과학자', '/static/profileImages/user1.jpg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'kimberley@gmail.com', 'kimberley', '$2a$10$3ox6l7keiMC.WfTt4OF6LOR3B72rNndufpP6vtZmmfsSf6swy69Xm', '010-1234-5678', 'LOCAL', 'ROLE_USER', 16000, '보안 전문가로, 디지털 세계를 안전하게 유지하는 임무 수행 중', '/static/profileImages/user2.jpg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'kimura@gmail.com', 'kimura', '$2a$10$f3w6d6BDyU.CLlxv5iZQT.wtmgPF5M./3zoUDDs9mdLfC9ZBwlj/y', '010-1234-5678', 'LOCAL', 'ROLE_USER', 17000, '오픈 소스 기여자로, 커뮤니티와 함께 성장하는 프로그래머', '/static/profileImages/user3.jpg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'kimgyeongnam@gmail.com', 'kimgyeongnam', '$2a$10$sbfsWjySSsLrtBCCE2hOxuc3yxlmWTM9P8dsLTvYocYsHH6XDLfYm', '010-1234-5678', 'LOCAL', 'ROLE_USER', 18000, '모바일 앱 개발자로, 스마트폰에서의 혁신을 추구', '/static/profileImages/user4.jpg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'kimkardashian@gmail.com', 'kimkardashian', '$2a$10$OROngbiriYyWWnyZYbVRs.rwBX/lzZTasNP5MIFL0IGOc24PIbtZi', '010-1234-5678', 'LOCAL', 'ROLE_USER', 19000, '블록체인 열렬한 추종자로, 탈중앙화된 미래를 향해 나아가는 중', '/static/profileImages/user5.jpg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'kitaek@gmail.com', 'kitaek', '$2a$10$i/YvoDMqsrBYn5sz0prfIeDbz2Y9IeB26gHOQNZUdL7swpd2KWcm.', '010-1234-5678', 'LOCAL', 'ROLE_USER', 20000, '개발만이 살 길이다', '/static/profileImages/user6.jpg');
+INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'kimora@gmail.com', 'kimora', '$2a$10$ev0CZouZFPF/a0.i7c6s2.PRZw/l/BCkY9vjuWlvJVvENySlnGQ3e', '010-1234-5678', 'LOCAL', 'ROLE_USER', 21000, '제발 취업 시켜 주세요', '/static/profileImages/user7.jpg');
 
--- Feeds
-INSERT INTO feeds (user_id, type, scope, title, content, created_date) VALUES (1, 'NORMAL', 'PUBLIC', '1번째 피드', '안녕하세요. 1번째 피드입니다.', NOW());
-INSERT INTO feeds (user_id, type, scope, title, content, created_date) VALUES (2, 'QUESTION', 'FOLLOWING', '2번째 피드', '안녕하세요. 2번째 피드입니다.', NOW());
-INSERT INTO feeds (user_id, type, scope ,title ,content ,created_date) VALUES(3, 'NORMAL', 'PUBLIC','3번째 피드','안녕하세요. 3번째 피드입니다.',NOW());
+INSERT INTO categories (name) VALUES ('프론트엔드');
+INSERT INTO categories (name) VALUES ('백엔드');
+INSERT INTO categories (name) VALUES ('데이터베이스');
+INSERT INTO categories (name) VALUES ('자료구조');
+INSERT INTO categories (name) VALUES ('네트워크');
+INSERT INTO categories (name) VALUES ('서버 / 클라우드');
+INSERT INTO categories (name) VALUES ('게임');
+INSERT INTO categories (name) VALUES ('소프트웨어');
 
--- Images
-INSERT INTO images(feed_id,imageURL) VALUES(1,'http://withus.com/image1.jpg');
-INSERT INTO images(feed_id,imageURL) VALUES(2,'http://withus.com/image2.jpg');
-INSERT INTO images(feed_id,imageURL) VALUES(3,'http://withus.com/image3.jpg');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,1,'React Hooks를 활용한 간단한 To-Do 앱 튜토리얼','오늘은 React Hooks를 사용하여 간단한 To-Do 애플리케이션을 만드는 방법을 공유합니다. 코드와 설명을 확인해주세요!','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (1,2,'Python으로 데이터 시각화하기','Matplotlib과 Seaborn을 사용하여 데이터 시각화를 하는 방법에 대한 팁과 예제 코드를 공유합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,1,'JavaScript의 최신 기능들을 살펴보기','ECMAScript 2023의 새로운 기능과 JavaScript의 최신 동향을 토론하고 공유하는 스레드입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,1,'Front-end 개발자들을 위한 CSS 그리드 시스템 안내','CSS 그리드 시스템을 활용하여 웹 디자인을 효과적으로 개발하는 방법에 대한 가이드입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (2,2,'파이썬을 사용한 머신러닝 프로젝트 공유','파이썬과 Scikit-learn을 활용하여 간단한 머신러닝 프로젝트를 구현하고 결과를 공유합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (4,8,'최신 웹 개발 도구와 라이브러리 소개','웹 개발자를 위한 최신 도구와 라이브러리를 소개하고 어떻게 활용하는지에 대한 토론입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (5,5,'Git과 GitHub를 활용한 협업 방법','Git을 효과적으로 사용하고 GitHub를 통한 협업 프로세스를 공유하는 글입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (1,6,'AWS 클라우드 서비스의 기초','Amazon Web Services (AWS)의 기초를 이해하고 클라우드 서비스를 활용하는 방법에 대한 자료입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (2,6,'Docker 컨테이너화와 배포 전략','Docker를 사용하여 어플리케이션을 컨테이너화하고 배포하는 전략과 관련된 정보를 공유합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (4,8,'개발자 커리어 관리 팁','개발자 커리어를 관리하고 성장하기 위한 조언과 경험을 나누는 글입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,1,'Vue.js로 시작하는 프론트엔드 개발','Vue.js를 활용하여 싱글 페이지 애플리케이션을 개발하는 방법과 Vue.js의 주요 기능을 소개하는 글입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (5,2,'REST API 디자인 원칙과 예시','RESTful API 디자인의 기본 원칙과 실제 예시를 통해 어떻게 효과적인 API를 설계하는지 알아봅니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (1,8,'프론트엔드 vs 백엔드 개발 - 어떤 경로를 선택할까요?','프론트엔드와 백엔드 개발 경로에 대한 비교 및 각각의 역할과 기술 요구사항에 대한 토론입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (2,3,'데이터베이스 최적화 전략','데이터베이스 쿼리 최적화, 인덱싱, 캐싱 등 데이터베이스 성능 향상을 위한 전략과 팁을 다룹니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,6,'AWS Lambda와 서버리스 아키텍처 소개','서버리스 아키텍처의 기초를 이해하고 AWS Lambda를 사용하여 간단한 서버리스 애플리케이션을 만드는 방법을 공유합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (4,8,'프로그래밍 언어 선택 가이드','어떤 프로그래밍 언어를 학습하고 사용해야 하는지에 대한 판단 기준과 각 언어의 특징에 대한 정보를 제공합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (5,8,'커뮤니티 참여를 통한 개발자 네트워킹','개발자 커뮤니티와 오픈 소스 프로젝트에 참여하면서 네트워킹 기회를 확장하는 방법을 공유합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (1,5,'웹 보안의 중요성과 보안 취약점 예방 전략','웹 애플리케이션 보안에 대한 이해와 주요 보안 취약점을 예방하기 위한 전략을 다루는 글입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (2,8,'애자일 소프트웨어 개발 방법론 소개','애자일 소프트웨어 개발 방법론의 기본 개념과 원칙을 소개하고 프로젝트에 적용하는 방법을 논의합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,8,'커리어 전환 - 개발자에서 데브옵스 엔지니어로','개발자에서 데브옵스 엔지니어로의 커리어 전환 경험과 조언을 공유하는 글입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (4,3,'GraphQL을 사용한 API 개발 팁','GraphQL을 활용하여 유연하고 효율적인 API를 개발하는 방법과 예시 코드를 공유합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (5,5,'CI/CD 파이프라인 구축하기','지속적 통합 (CI) 및 지속적 배포 (CD) 파이프라인을 구축하고 자동화하는 방법에 대한 안내입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (1,4,'컴퓨터 과학 기초 다지기','자료 구조, 알고리즘, 복잡도 분석 등 컴퓨터 과학의 기초 개념을 되짚어보는 자료입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (2,6,'웹 개발에서의 성능 최적화 전략','웹 페이지 로딩 시간을 단축하고 성능을 향상시키기 위한 웹 개발 성능 최적화 팁과 도구 소개입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,8,'오픈 소스 개발에 기여하는 방법','오픈 소스 프로젝트에 참여하고 기여하는 방법과 첫 번째 기여를 시작하는 가이드입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,1,'JavaScript 프레임워크 비교: React vs. Angular vs. Vue','React, Angular, Vue.js의 특징과 장단점을 비교하여 어떤 프레임워크를 선택해야 하는지 논의합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (4,8,'데이터 사이언스와 머신러닝 실전 프로젝트','머신러닝 모델을 사용하여 실제 데이터를 분석하고 예측하는 데이터 사이언스 프로젝트에 대한 경험 공유입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (5,8,'코딩 인터뷰를 위한 팁과 자료 구조 문제 해결 전략','코딩 인터뷰에서 성공하기 위한 팁과 자료 구조 및 알고리즘 문제 해결 전략을 공유합니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (1,5,'클라우드 보안 Best Practices','클라우드 환경에서의 보안을 강화하기 위한 최고의 실천 방법과 도구를 알아봅니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (2,8,'개발자 커뮤니티에서의 활동과 혜택','개발자 커뮤니티에 참여하여 지식 공유, 네트워킹, 그리고 새로운 기회를 찾는 방법과 이점에 대한 이야기입니다.','PUBLIC','NORMAL');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (4,1,'React에서 상태 관리를 위해 Redux 대신 Context API를 사용하는 것은 어떤가요?','저는 최근에 React 프로젝트를 시작했는데, Redux 대신에 Context API를 사용해보려고 합니다. 어떤 경우에 Redux보다 Context API를 사용하는 것이 좋을까요? 그리고 이러한 전환 과정에서 유의할 점이 있을까요?','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (5,2,'Python vs. JavaScript: 어떤 언어를 웹 개발에 사용해야 할까요?','웹 개발을 시작하려고 하는데, Python과 JavaScript 중 어떤 언어를 선택해야 할지 고민 중입니다. 각 언어의 장단점과 어떤 프로젝트에 어떤 언어가 더 적합한지에 대한 조언을 부탁드립니다.','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (1,6,'Git에서 충돌 해결을 위한 최상의 방법은 무엇인가요?','Git을 사용하면서 종종 충돌 문제를 마주하게 됩니다. 충돌을 해결하는 데 가장 효과적인 방법은 무엇일까요? 어떤 도구나 전략을 사용하시나요?','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (2,1,'프론트엔드 개발자로 취업하려면 어떤 기술 스택을 익혀야 할까요?','프론트엔드 개발자로의 커리어를 시작하려고 합니다. 어떤 기술 스택을 공부하고 익혀야 취업 기회를 높일 수 있을까요? 어떤 프로젝트를 통해 경험을 쌓는 것이 좋을까요?','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,8,'안드로이드 vs. iOS 개발: 어떤 플랫폼이 더 유망한가요?','안드로이드와 iOS 개발 중 어느 쪽이 미래에 더 유망하다고 생각하십니까? 어떤 플랫폼을 공부하고 마스터하는 데 가치가 있을까요?','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (4,6,'RESTful API와 GraphQL 중 어떤 것을 선택해야 할까요?','서버 개발 중에 RESTful API와 GraphQL 중 어떤 것을 선택해야 하는지에 대한 고민이 있습니다. 각각의 장단점과 어떤 상황에서 어떤 것을 사용해야 하는지에 대한 조언을 부탁드립니다.','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (5,6,'Docker와 Kubernetes: 컨테이너 오케스트레이션에 대한 이해가 필요합니다.','컨테이너 관리와 배포를 위해 Docker와 Kubernetes를 사용하려고 합니다. 이 두 기술에 대한 기본 개념과 시작하는 데 도움이 되는 자료나 자원을 추천해 주실 수 있을까요?','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (1,8,'테스트 주도 개발(TDD)의 장점과 어떻게 시작해야 할까요?','TDD에 대해 들어봤는데, 어떤 장점이 있는지 이해하고 싶습니다. 또한 TDD를 실제 프로젝트에 적용하기 위해 어떻게 시작해야 하는지에 대한 가이드를 부탁드립니다.','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (2,8,'보안 취약점을 예방하기 위한 웹 애플리케이션 보안 팁이 필요합니다.','웹 애플리케이션을 개발하면서 보안 취약점을 최소화하고자 합니다. XSS, CSRF 등의 보안 문제를 예방하는 팁과 관련 자료를 추천해 주실 수 있을까요?','PUBLIC','QUESTION');
+INSERT INTO feeds (user_id, category_id, title, content, scope, type) VALUES (3,8,'커리어 전환: 개발자에서 데브옵스 엔지니어로의 스스로의 길을 만들기','개발자에서 데브옵스 엔지니어로의 커리어 전환이 필요하다고 생각합니다. 필요한 스킬셋과 리소스를 어떻게 구축해야 할지에 대한 조언을 부탁드립니다.','PUBLIC','QUESTION');
 
--- Likes
-INSERT INTO likes(user_id ,feed_id)VALUES(1 , 2);
-INSERT INTO likes(user_id ,feed_id)VALUES(2 , 3);
-INSERT INTO likes(user_id ,feed_id)VALUES(3 , 1);
-
--- Comments
-INSERT INTO parent_comments (user_id, feed_id) VALUES (1, 2);
-INSERT INTO parent_comments (user_id, feed_id) VALUES (2, 3);
-INSERT INTO parent_comments (user_id, feed_id) VALUES (3, 1);
-
--- Follows
-INSERT INTO follows (who_follow, follow_who) VALUES (1, 2);
-INSERT INTO follows (who_follow, follow_who) VALUES (2, 3);
-INSERT INTO follows (who_follow, follow_who) VALUES (3, 1);
-
--- Questions
-INSERT INTO feed_questions (feed_id, deposit, status) VALUES (1, 3000, 'RESOLVING');
-INSERT INTO feed_questions (feed_id, deposit, status) VALUES (2, 5000, 'RESOLVED');
-INSERT INTO feed_questions (feed_id, deposit, status) VALUES (3, 4000, 'RESOLVING');
-
--- -- Categories
--- INSERT INTO categories (large, medium, small) VALUES ('LCategory 1', 'MCategory 1', 'SCategory 1');
--- INSERT INTO categories (large, medium, small) VALUES ('LCategory 2', 'MCategory 2', 'SCategory 2');
--- INSERT INTO categories (large, medium, small) VALUES ('LCategory 3', 'MCategory 3', 'SCategory 3');
---
--- -- FeedCategories
--- INSERT INTO feed_categories (feed_id, category_id) VALUES (1, 1);
--- INSERT INTO feed_categories (feed_id, category_id) VALUES (2, 2);
--- INSERT INTO feed_categories (feed_id, category_id) VALUES (3, 3);
-
-
+INSERT INTO images (feed_id, imageurl) VALUES (1,'/static/feedImages/1-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (1,'/static/feedImages/1-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (1,'/static/feedImages/1-3.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (1,'/static/feedImages/1-4.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (1,'/static/feedImages/1-5.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (2,'/static/feedImages/2-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (2,'/static/feedImages/2-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (3,'/static/feedImages/3-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (3,'/static/feedImages/3-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (3,'/static/feedImages/3-3.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (4,'/static/feedImages/4-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (4,'/static/feedImages/4-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (5,'/static/feedImages/5-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (5,'/static/feedImages/5-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (5,'/static/feedImages/5-3.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (6,'/static/feedImages/6-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (7,'/static/feedImages/7-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (8,'/static/feedImages/8-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (9,'/static/feedImages/9-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (9,'/static/feedImages/9-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (9,'/static/feedImages/9-3.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (10,'/static/feedImages/10-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (11,'/static/feedImages/11-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (11,'/static/feedImages/11-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (12,'/static/feedImages/12-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (13,'/static/feedImages/13-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (14,'/static/feedImages/14-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (15,'/static/feedImages/15-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (15,'/static/feedImages/15-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (16,'/static/feedImages/16-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (17,'/static/feedImages/17-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (18,'/static/feedImages/18-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (19,'/static/feedImages/19-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (20,'/static/feedImages/20-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (20,'/static/feedImages/20-2.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (21,'/static/feedImages/21-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (22,'/static/feedImages/22-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (23,'/static/feedImages/23-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (24,'/static/feedImages/24-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (25,'/static/feedImages/25-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (26,'/static/feedImages/26-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (27,'/static/feedImages/27-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (28,'/static/feedImages/28-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (29,'/static/feedImages/29-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (30,'/static/feedImages/30-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (31,'/static/feedImages/31-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (32,'/static/feedImages/32-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (33,'/static/feedImages/33-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (34,'/static/feedImages/34-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (35,'/static/feedImages/35-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (36,'/static/feedImages/36-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (37,'/static/feedImages/37-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (38,'/static/feedImages/38-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (39,'/static/feedImages/39-1.jpg');
+INSERT INTO images (feed_id, imageurl) VALUES (40,'/static/feedImages/40-1.jpg');

@@ -17,6 +17,7 @@ public enum ErrorCode {
     INVALID_PHONE_NUMBER_FORMAT(HttpStatus.BAD_REQUEST, "M_002", "유효하지 않은 전화번호 형식입니다."),
     MEMBER_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "M_003", "이미 '%s'라는 이메일로 가입된 계정이 존재합니다."),
     MEMBER_NOT_EXIST(HttpStatus.BAD_REQUEST, "M_004", "멤버(id = %d)가 존재하지 않습니다."),
+    INVALID_CODE_FORMAT(HttpStatus.BAD_REQUEST, "M_005", "인증번호가 일치하지 않습니다."),
 
     CHATROOM_NOT_EXIST(HttpStatus.BAD_REQUEST, "CR_001", "채팅 방(id = %d)가 존재하지 않습니다."),
     INVALID_ROOM_NAME(HttpStatus.BAD_REQUEST, "CR_002", "채팅 방의 이름은 20자를 넘을 수 없습니다. (%s)"),
@@ -25,6 +26,13 @@ public enum ErrorCode {
 
     FEED_NOT_FOUND(HttpStatus.BAD_REQUEST, "F_001", "피드 정보가 존재하지 않습니다."),
     CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "CT_001", "카테고리 정보가 존재하지 않습니다."),
+    ALREADY_LIKE(HttpStatus.BAD_REQUEST, "FL_001", "이미 좋아요 하신 피드입니다."),
+
+    TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "T_001", "토큰이 존재하지 않습니다."),
+    COOKIE_MISSING(HttpStatus.BAD_REQUEST, "CK_001", "쿠키가 누락되었습니다."),
+
+    DIRECTORY_CREATION_FAILED(HttpStatus.BAD_REQUEST, "IM_001", "파일 저장 경로를 생성하지 못하였습니다."),
+    NOT_FOUND_FILE_TYPE(HttpStatus.BAD_REQUEST, "IM_002", "정의되지 않은 파일 타입입니다."),
     ;
 
     private final HttpStatus status;

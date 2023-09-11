@@ -7,11 +7,11 @@ import org.springframework.data.redis.core.RedisHash;
 
 @Getter
 @AllArgsConstructor
-@RedisHash(value = "refreshToken", timeToLive = 60 * 60 * 24) // 60초 60분 24시간
+@RedisHash(value = "refreshToken", timeToLive = 60 * 10) // 60초 10분
 public class RefreshToken
 {
-    // Refresh Token을 ID로, userId를 VALUE로
+    // 이메일을 key, 리프레시 토큰을 value
     @Id
+    private String email;
     private String refreshToken;
-    private Long userId;
 }
