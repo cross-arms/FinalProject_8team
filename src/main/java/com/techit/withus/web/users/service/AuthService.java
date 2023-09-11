@@ -40,7 +40,7 @@ public class AuthService
     @Transactional
     public void signUp(SignUpDTO signUpDTO)
     {
-        // 먼저 username이 중복되었는지 확인
+        // 먼저 email이 중복되었는지 확인
         this.checkDuplicateUser(signUpDTO.getEmail());
         // 비밀번호 인코딩
         String encodedPassword = this.encodePassword(signUpDTO.getPassword());
@@ -99,5 +99,12 @@ public class AuthService
     private String encodePassword(String password)
     {
         return passwordEncoder.encode(password);
+    }
+
+    // Username의 중복을 검사한다.
+    public void checkDuplicateUsername(String username)
+    {
+        if (userRepository.existsByUsername(username))
+            throw new AuthenticationException(ErrorCode.MEMBER_ALREADY_EXIST);
     }
 }

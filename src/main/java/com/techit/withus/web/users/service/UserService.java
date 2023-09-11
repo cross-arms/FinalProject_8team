@@ -24,23 +24,6 @@ public class UserService
 {
     private final UserRepository userRepository;
 
-    public void updateEmailAndRole(SecurityUser user, EmailDTO emailDTO)
-    {
-        log.info("UserService.updateEmailAndRole START");
-        // 업데이트할 유저를 가져오기
-        Users userEntity = userRepository
-                .findById(user.getUserId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        // 이메일 인증을 완료하면 ROLE_USER
-        String role = Roles.ROLE_USER.name();
-        String email = emailDTO.getAddress();
-
-        Users updatedUserEntity
-                = UserMapper.INSTANCE.updateEmailAndRole(userEntity, role, email);
-
-        userRepository.save(updatedUserEntity);
-    }
-
     public UserResponse getUserInfoBy(Long userId) {
         return UserResponse.create(findUser(userId));
     }
