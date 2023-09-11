@@ -37,12 +37,18 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
      * 2. 좋아요 수가 같다면, 댓글이 가장 많은 피드.
      * 3. 좋아요 수와 댓글 수가 모두 같다면, 가장 최신에 작성된 피드.
      */
+//    @Query("SELECT f FROM Feeds f " +
+//            "LEFT JOIN Likes l ON f.feedId = l.feeds.feedId " +
+//            "LEFT JOIN Comments c ON f.feedId = c.feeds.feedId " +
+//            "LEFT JOIN FETCH f.images " +
+//            "GROUP BY f.feedId, f.createdDate " +
+//            "ORDER BY COUNT(DISTINCT l.likeId) DESC, COUNT(DISTINCT c.commentId) DESC, f.createdDate DESC")
     @Query("SELECT f FROM Feeds f " +
-            "LEFT JOIN Likes l ON f.feedId = l.feeds.feedId " +
-            "LEFT JOIN Comments c ON f.feedId = c.feeds.feedId " +
             "LEFT JOIN FETCH f.images " +
-            "GROUP BY f.feedId, f.createdDate " +
-            "ORDER BY COUNT(DISTINCT l.likeId) DESC, COUNT(DISTINCT c.commentId) DESC, f.createdDate DESC")
+            "WHERE (SELECT COUNT(l) FROM Likes l WHERE l.feeds = f AND l.cancelYn = 'N') > 0 OR " +
+            "(SELECT COUNT(c) FROM Comments c WHERE c.feeds = f AND c.deleteYn = 'N') > 0 " +
+            "ORDER BY (SELECT COUNT(l) FROM Likes l WHERE l.feeds = f AND l.cancelYn = 'N') DESC, " +
+            "(SELECT COUNT(c) FROM Comments c WHERE c.feeds = f AND c.deleteYn = 'N') DESC, f.createdDate DESC")
     List<Feeds> findPopularFeeds();
 
     /**
@@ -63,19 +69,9 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
 
     /**
      * 카테고리별로 피드를 조회하는 메서드
-     * [우선 순위]
-     * 1.
-     * 2.
-     * 3.
      * 모든 조건이 동일하면 최신 피드부터 반환
      */
-    /*@Query("SELECT f FROM Feeds f " +
-            "LEFT JOIN FETCH f.images i "+
-            "JOIN Categories fc ON fc.feeds = f "+
-            "WHERE (:small IS NULL OR fc.categories.small = :small) "+
-            "AND (:medium IS NULL OR fc.categories.medium = :medium) "+
-            "AND (:large IS NULL OR fc.categories.large = :large) "+
-            "ORDER BY CASE WHEN fc.categories.small = :small THEN 1 WHEN fc.categories.medium = :medium THEN 2 WHEN fc.categories.large = :large THEN 3 ELSE 4 END ASC,"+
-            "f.createdDate DESC")
-    List<Feeds> findFeedsBySkill(@Param("large") String large, @Param("medium") String medium, @Param("small") String small);*/
+    @Query("SELECT f FROM Feeds f JOIN f.category c WHERE c.categoryId = :categoryId ORDER BY f.createdDate DESC")
+    List<Feeds> findFeedsByCategoryId(@Param("categoryId") Long categoryId);
+
 }

@@ -75,10 +75,11 @@ public class FeedService {
     /**
      * 선택한 기술 카테고리와 일치하는 피드가 호출되는 메서드.
      */
-//    public List<FeedDTO> getFeedsBySkills(String large, String medium, String small) {
-//        List<Feeds> feeds = Collections.EMPTY_LIST;
-//        return FeedMapper.INSTANCE.toDto(feeds);
-//    }
+    public List<FeedDto.FeedResponse> getFeedsByCategory(Long categoryId) {
+        List<Feeds> feeds = feedRepository.findFeedsByCategoryId(categoryId);
+        return toResponse(feeds);
+    }
+
 
     private static List<FeedDto.FeedResponse> toResponse(List<Feeds> feeds) {
         return feeds.stream()

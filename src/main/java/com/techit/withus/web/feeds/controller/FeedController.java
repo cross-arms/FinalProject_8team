@@ -52,17 +52,15 @@ public class FeedController {
                 .build();
     }
 
-//    @GetMapping("/skill")
-//    public ResultDTO getFeedsBySkills(@RequestParam(required=false) String large,
-//                                          @RequestParam(required=false) String medium,
-//                                          @RequestParam(required=false) String small){
-//        List<FeedDTO> feedDTOList = feedService.getFeedsBySkills(large, medium, small);
-//
-//        return ResultDTO
-//                .builder()
-//                .data(feedDTOList)
-//                .build();
-//    }
+    @GetMapping("/skill/{categoryId}")
+    public ResultDTO getFeedsByCategory(@PathVariable Long categoryId) {
+        List<FeedDto.FeedResponse> feedDTOList = feedService.getFeedsByCategory(categoryId);
+
+        return ResultDTO
+                .builder()
+                .data(feedDTOList)
+                .build();
+    }
 
     /**
      * 등록된 모든 피드 정보를 조회합니다.
