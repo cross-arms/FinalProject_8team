@@ -1,4 +1,3 @@
-
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'gyeongnam@gmail.com', 'gyeongnam', '$2a$10$sBLW3YgStvQtnJ..g0HtPOVuEO.wK5AmQ5lJeUQ85Nzmum1n8ZJyK', '010-1234-5678', 'LOCAL', 'ROLE_USER', 10000, '코드는 나의 언어, 미래를 만들어가는 소프트웨어 엔지니어', '/static/profileImages/gyeongnam.jpg');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'gangmin@gmail.com', 'gangmin', '$2a$10$A6iy8d7XnwDyY/JRD3Fiw.zg2pJmp5RjkMnj7I.5w/ISJ7TuQeiSe', '010-1234-5678', 'LOCAL', 'ROLE_USER', 11000, '프로그래밍의 매력에 빠져, 끝없는 코드 여행을 떠나는 중', '/static/profileImages/gangmin.jpg');
 INSERT INTO users (created_date, modified_date, email, username, password, phone, provider, role, point, one_line_introduction, profileurl) VALUES (NOW(), NOW(), 'sukeun@gmail.com', 'sukeun', '$2a$10$pkkXP1aC5yTTbVKQifexKuUSfOB6J5kGpF4GV4KHAVPqkSAk5VUCO', '010-1234-5678', 'LOCAL', 'ROLE_USER', 12000, '데이터 마술사로, 알고리즘에 깊은 관심을 가진 데이터 분석가', '/static/profileImages/sukeun.jpeg');
@@ -117,7 +116,3 @@ INSERT INTO images (feed_id, imageurl) VALUES (37,'/static/feedImages/37-1.jpg')
 INSERT INTO images (feed_id, imageurl) VALUES (38,'/static/feedImages/38-1.jpg');
 INSERT INTO images (feed_id, imageurl) VALUES (39,'/static/feedImages/39-1.jpg');
 INSERT INTO images (feed_id, imageurl) VALUES (40,'/static/feedImages/40-1.jpg');
-
-
-
-

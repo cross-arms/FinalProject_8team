@@ -2,7 +2,7 @@ package com.techit.withus.web.comments.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.techit.withus.web.comments.domain.entity.ChildComments;
-import com.techit.withus.web.comments.domain.entity.ParentComments;
+import com.techit.withus.web.comments.domain.entity.Comments;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.users.domain.dto.UserDto;
 import com.techit.withus.web.users.domain.entity.Users;
@@ -24,8 +24,8 @@ public class CommentDto {
         private Long feedId;
         private String content;
 
-        public ParentComments toCommentsEntity(Users user, Feeds feed) {
-            return ParentComments.create(user, feed, content);
+        public Comments toCommentsEntity(Users user, Feeds feed) {
+            return Comments.create(user, feed, content);
         }
     }
 
@@ -38,8 +38,8 @@ public class CommentDto {
         private Long parentCommentId;
         private String content;
 
-        public ChildComments toCommentsEntity(Users user, Feeds feed, ParentComments parentComments) {
-            return ChildComments.create(user, feed, parentComments, content);
+        public ChildComments toCommentsEntity(Users user, Feeds feed, Comments comments) {
+            return ChildComments.create(user, feed, comments, content);
         }
     }
 
@@ -59,13 +59,13 @@ public class CommentDto {
         private List<ChildCommentResponse> childCommentResponses;
 
         public static CommentResponse toDtoFrom(
-            ParentComments parentComments,
+            Comments comments,
             List<ChildComments> childCommentsList
         ) {
             return CommentResponse.builder()
-                .id(parentComments.getPCommentId())
-                .writer(UserDto.UserResponse.create(parentComments.getUsers()))
-                .content(parentComments.getContent())
+                .id(comments.getCommentId())
+                .writer(UserDto.UserResponse.create(comments.getUsers()))
+                .content(comments.getContent())
                 .childCommentResponses(
                     childCommentsList.stream()
                         .map(ChildCommentResponse::toDtoFrom)
@@ -89,7 +89,7 @@ public class CommentDto {
 
         public static ChildCommentResponse toDtoFrom(ChildComments childComments) {
             return ChildCommentResponse.builder()
-                .id(childComments.getCCommentId())
+                .id(childComments.getId())
                 .writer(UserDto.UserResponse.create(childComments.getUsers()))
                 .content(childComments.getContent())
                 .build();

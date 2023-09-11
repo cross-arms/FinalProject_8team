@@ -18,7 +18,7 @@ public class ChildComments
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cCommentId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -30,17 +30,17 @@ public class ChildComments
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "p_comment_id")
-    private ParentComments parentComments;
+    private Comments comments;
 
     private String content;
 
     private String deleteYn;
 
-    public static ChildComments create(Users user, Feeds feed, ParentComments parentComments,String content) {
+    public static ChildComments create(Users user, Feeds feed, Comments comments, String content) {
         return ChildComments.builder()
             .users(user)
             .feeds(feed)
-            .parentComments(parentComments)
+            .comments(comments)
             .content(content)
             .deleteYn("N")
             .build();

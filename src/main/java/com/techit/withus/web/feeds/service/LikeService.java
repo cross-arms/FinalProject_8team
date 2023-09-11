@@ -1,14 +1,11 @@
-package com.techit.withus.web.feeds.service.like;
+package com.techit.withus.web.feeds.service;
 
 import com.techit.withus.common.exception.EntityNotFoundException;
 import com.techit.withus.common.exception.ErrorCode;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.domain.entity.like.Likes;
-import com.techit.withus.web.feeds.dto.feed.FeedDto.FeedResponse;
-import com.techit.withus.web.feeds.dto.like.LikeDto.RegisterLikeRequest;
+import com.techit.withus.web.feeds.domain.dto.LikeDto.RegisterLikeRequest;
 import com.techit.withus.web.feeds.repository.like.LikeRepository;
-import com.techit.withus.web.feeds.service.feed.FeedService;
-import com.techit.withus.web.users.domain.entity.Users;
 import com.techit.withus.web.users.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.techit.withus.web.feeds.dto.like;
+package com.techit.withus.web.feeds.domain.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -17,11 +17,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "parent_comments")
-public class ParentComments
+public class Comments
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pCommentId;
+    private Long commentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -32,15 +32,15 @@ public class ParentComments
     private Feeds feeds;
 
     @Builder.Default
-    @OneToMany(mappedBy = "parentComments")
+    @OneToMany(mappedBy = "comments")
     private List<ChildComments> childCommentsList = new ArrayList<>();
 
     private String content;
 
     private String deleteYn;
 
-    public static ParentComments create(Users user, Feeds feed, String content) {
-        return ParentComments.builder()
+    public static Comments create(Users user, Feeds feed, String content) {
+        return Comments.builder()
             .users(user)
             .feeds(feed)
             .content(content)

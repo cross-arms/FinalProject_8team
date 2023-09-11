@@ -1,4 +1,4 @@
-package com.techit.withus.web.feeds.domain.entity.feed;
+package com.techit.withus.web.feeds.enumeration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
