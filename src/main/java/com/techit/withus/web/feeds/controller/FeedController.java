@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/feeds")
 public class FeedController {
+
     private final FeedService feedService;
 
     @GetMapping("/home")

@@ -3,10 +3,11 @@ package com.techit.withus.web.feeds.domain.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.techit.withus.common.exception.InvalidValueException;
 import com.techit.withus.web.comments.dto.CommentDto.CommentResponse;
+import com.techit.withus.web.feeds.domain.dto.ImagesDto.ImagesResponse;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
-import com.techit.withus.web.feeds.domain.entity.feed.*;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
+import com.techit.withus.web.feeds.domain.entity.feed.Images;
 import com.techit.withus.web.feeds.enumeration.FeedScope;
 import com.techit.withus.web.feeds.enumeration.FeedType;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static com.techit.withus.common.exception.ErrorCode.INVALID_INPUT_VALUE;
@@ -32,7 +34,9 @@ import static com.techit.withus.web.feeds.enumeration.FeedType.QUESTION;
  */
 public class FeedsDto {
 
-    /** request **/
+    /**
+     * request
+     **/
     @Getter
     @ToString
     @NoArgsConstructor
@@ -76,7 +80,9 @@ public class FeedsDto {
         }
     }
 
-    /** response **/
+    /**
+     * response
+     **/
     @Getter
     @ToString
     @NoArgsConstructor
@@ -101,9 +107,10 @@ public class FeedsDto {
         private Long id;
         private UserResponse writer;
         private FeedQuestionResponse feedQuestion;
+        private List<CommentResponse> commentResponse;
         private String title;
         private String content;
-        private List<Images> images;
+        private List<ImagesResponse> images;
         private FeedType type;
         private FeedScope scope;
         private boolean isLike;
@@ -113,12 +120,23 @@ public class FeedsDto {
                     .id(feed.getFeedId())
                     .writer(UserResponse.create(feed.getWriter()))
                     .feedQuestion(FeedQuestionResponse.create(feed.getFeedQuestion()))
+                    .commentResponse(CommentResponse.toDtoFrom(feed.getComments()))
                     .title(feed.getTitle())
                     .content(feed.getContent())
-                    .images(CollectionUtils.isEmpty(feed.getImages()) ? new ArrayList<>() : feed.getImages())
+                    .images(toImageResponse(feed))
                     .type(feed.getType())
                     .scope(feed.getScope())
                     .build();
+        }
+
+        private static List<ImagesResponse> toImageResponse(Feeds feed) {
+            if (CollectionUtils.isEmpty(feed.getImages())) {
+                return new ArrayList<>();
+            }
+
+            return feed.getImages().stream()
+                    .map(images1 -> ImagesResponse.of(images1.getImageURL()))
+                    .collect(Collectors.toList());
         }
     }
 

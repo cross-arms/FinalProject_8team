@@ -102,7 +102,17 @@ public class FeedService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 피드 정보를 조회한다.
+     * 피드 id 를 In 절 쿼리로 피드 이미지 정보를 조회한다.
+     *
+     * @param feedId
+     * @return
+     */
     public FeedResponse getFeed(Long feedId) {
+        // TODO
+        // 1. 피드 정보 조회
+        // 2. 피드 정보 기반으로 피드 이미지 정보 조회
         return FeedResponse.toDtoFrom(findFeed(feedId));
     }
 
