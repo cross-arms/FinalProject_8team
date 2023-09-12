@@ -19,6 +19,8 @@ import java.util.List;
 @Table(name = "parent_comments")
 public class Comments
 {
+    public static final String DELETE_Y = "Y";
+    public static final String DELETE_N = "N";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
@@ -52,7 +54,7 @@ public class Comments
                 .parentComment(parentComment)
                 .content(content)
                 .likeCount(0)
-                .deleteYn("N")
+                .deleteYn(DELETE_N)
                 .build();
 
         parentComment.getChildCommentsList().add(reply);
@@ -66,20 +68,15 @@ public class Comments
                 .feeds(feeds)
                 .content(content)
                 .likeCount(0)
-                .deleteYn("N")
+                .deleteYn(DELETE_N)
                 .build();
-    }
-
-    public static Comments create(Users user, Feeds feed, String content) {
-        return Comments.builder()
-            .users(user)
-            .feeds(feed)
-            .content(content)
-            .deleteYn("N")
-            .build();
     }
 
     public void modifyContent(String content) {
         this.content = content;
+    }
+
+    public void delete() {
+        this.deleteYn = DELETE_Y;
     }
 }

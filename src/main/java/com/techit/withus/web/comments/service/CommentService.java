@@ -74,15 +74,27 @@ public class CommentService {
 
     @Transactional
     public void updateComment(ModifyParentCommentRequest request) {
-        Users writer = userService.findUser(request.getUserId());
         Feeds feed = feedService.findFeed(request.getFeedId());
 
-        Comments findComment = feed.getComments().stream()
-                .filter(comments -> comments.getCommentId().equals(request.getCommentId()))
-                .findFirst()
-                .orElseThrow(() -> new CommentNotFoundException());
+        Comments findComment = findCommentByCommentId(feed, request.getCommentId());
 
         findComment.modifyContent(request.getContent());
+    }
+
+    private static Comments findCommentByCommentId(Feeds feed, Long commentId) {
+        return feed.getComments().stream()
+                .filter(comments -> comments.getCommentId().equals(commentId))
+                .findFirst()
+                .orElseThrow(() -> new CommentNotFoundException());
+    }
+
+    @Transactional
+    public void deleteComment(Long commentId, Long feedId) {
+        Feeds feed = feedService.findFeed(feedId);
+
+        Comments findComment = findCommentByCommentId(feed, commentId);
+
+        findComment.delete();
     }
 }
 

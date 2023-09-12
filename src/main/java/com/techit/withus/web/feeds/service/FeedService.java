@@ -5,6 +5,7 @@ import com.techit.withus.web.feeds.domain.dto.FeedsDto;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
+import com.techit.withus.web.feeds.domain.entity.feed.Images;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import com.techit.withus.web.feeds.repository.category.CategoryRepository;
 import com.techit.withus.web.feeds.repository.feed.FeedQuestionRepository;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 import static com.techit.withus.common.exception.ErrorCode.CATEGORY_NOT_FOUND;
 import static com.techit.withus.common.exception.ErrorCode.FEED_NOT_FOUND;
+import static com.techit.withus.web.feeds.domain.dto.FeedsDto.*;
 
 @Slf4j
 @Service
@@ -40,7 +42,7 @@ public class FeedService {
      * @param userId 조회하려는 사용자의 ID. 만약 null이라면, 모든 최신 피드를 반환한다.
      * @return 조회된 홈 피드 리스트(DTO)
      */
-    public List<FeedsDto.FeedResponse> getHomeFeeds(Long userId) {
+    public List<FeedResponse> getHomeFeeds(Long userId) {
         if (userId != null) {
             List<Feeds> followedFeeds = feedRepository.findFollowedFeeds(userId);
             List<Feeds> nonFollowedLatestFeeds = feedRepository.findNonFollowedFeeds(userId);
@@ -57,7 +59,7 @@ public class FeedService {
      *
      * @return 조회된 인기 피드 리스트 (DTO 형태).
      */
-    public List<FeedsDto.FeedResponse> getPopularFeeds() {
+    public List<FeedResponse> getPopularFeeds() {
         return toResponse(feedRepository.findPopularFeeds());
     }
 
@@ -67,7 +69,7 @@ public class FeedService {
      *
      * @return 조회된 질문 피드 리스트(DTO)
      */
-    public List<FeedsDto.FeedResponse> getQuestionFeeds() {
+    public List<FeedResponse> getQuestionFeeds() {
         List<Feeds> questionsFeeds = feedRepository.findQuestionFeeds(QuestionStatus.RESOLVING, QuestionStatus.RESOLVED);
         return toResponse(questionsFeeds);
     }
@@ -75,37 +77,37 @@ public class FeedService {
     /**
      * 선택한 기술 카테고리와 일치하는 피드가 호출되는 메서드.
      */
-    public List<FeedsDto.FeedResponse> getFeedsByCategory(Long categoryId) {
+    public List<FeedResponse> getFeedsByCategory(Long categoryId) {
         List<Feeds> feeds = feedRepository.findFeedsByCategoryId(categoryId);
         return toResponse(feeds);
     }
 
 
-    private static List<FeedsDto.FeedResponse> toResponse(List<Feeds> feeds) {
+    private static List<FeedResponse> toResponse(List<Feeds> feeds) {
         return feeds.stream()
-                .map(FeedsDto.FeedResponse::toDtoFrom)
+                .map(FeedResponse::toDtoFrom)
                 .collect(Collectors.toList());
     }
 
 
-    public Page<FeedsDto.FeedResponse> getAllFeeds(PageRequest pageable) {
+    public Page<FeedResponse> getAllFeeds(PageRequest pageable) {
         Page<Feeds> feeds = feedRepository.findAll(pageable);
 
         return PageableExecutionUtils.getPage(toResponse(feeds), pageable, feeds::getTotalElements);
     }
 
-    private static List<FeedsDto.FeedResponse> toResponse(Page<Feeds> feeds) {
+    private static List<FeedResponse> toResponse(Page<Feeds> feeds) {
         return feeds.getContent().stream()
-                .map(FeedsDto.FeedResponse::toDtoFrom)
+                .map(FeedResponse::toDtoFrom)
                 .collect(Collectors.toList());
     }
 
-    public FeedsDto.FeedResponse getFeed(Long feedId) {
-        return FeedsDto.FeedResponse.toDtoFrom(findFeed(feedId));
+    public FeedResponse getFeed(Long feedId) {
+        return FeedResponse.toDtoFrom(findFeed(feedId));
     }
 
     @Transactional
-    public void saveFeed(FeedsDto.RegisterFeedRequest request) {
+    public void saveFeed(RegisterFeedRequest request) {
         // 피드를 등록할 수 있음.
         Users user = Users.fromDto(userService.getUserInfoBy(request.getUserId()));
 
@@ -115,6 +117,17 @@ public class FeedService {
 
         // request to Feeds
         Feeds feed = request.toFeedsEntity(user, category);
+
+        if (request.getImageUrl().size() > 0) {
+            List<Images> images = request.getImageUrl().stream()
+                    .map(imageUrl -> Images.builder()
+                            .feeds(feed)
+                            .imageURL(imageUrl)
+                            .build())
+                    .collect(Collectors.toList());
+
+            feed.setImageList(images);
+        }
 
         feedRepository.save(feed);
 

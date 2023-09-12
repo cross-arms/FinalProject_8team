@@ -42,8 +42,9 @@ public class Feeds {
 
     private String content;
 
+    @Builder.Default
     @OneToMany(mappedBy = "feeds", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Images> images;
+    private List<Images> images = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "feeds")
@@ -67,7 +68,7 @@ public class Feeds {
             List<Images> images, FeedType feedType, FeedScope feedScope,
             Categories category
     ) {
-        Feeds feed = Feeds.builder()
+        return Feeds.builder()
                 .writer(user)
                 .type(feedType)
                 .scope(feedScope)
@@ -77,12 +78,6 @@ public class Feeds {
                 .category(category)
                 .createdDate(LocalDateTime.now())
                 .build();
-
-        images.forEach(images1 ->  {
-            images1.setFeeds(feed);
-        });
-
-        return feed;
     }
 
     public void setFeedQuestion(FeedQuestion feedsQuestionEntity) {
@@ -91,5 +86,13 @@ public class Feeds {
 
     public void updateScopeToPublic() {
         this.scope = FeedScope.PUBLIC;
+    }
+
+    public void setImageList(List<Images> images) {
+        this.images = images;
+
+        for (Images image : images) {
+            image.setFeeds(this);
+        }
     }
 }

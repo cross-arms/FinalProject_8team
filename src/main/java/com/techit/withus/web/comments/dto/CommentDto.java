@@ -40,14 +40,18 @@ public class CommentDto {
     @NoArgsConstructor
     public static class ModifyParentCommentRequest {
 
-        private Long userId;
         private Long feedId;
         private Long commentId;
         private String content;
+    }
 
-        public void setUserId(Long userId) {
-            this.userId = userId;
-        }
+    @Getter
+    @ToString
+    @NoArgsConstructor
+    public static class DeleteParentCommentRequest {
+
+        private Long feedId;
+        private Long commentId;
     }
 
     @Getter

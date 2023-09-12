@@ -41,6 +41,7 @@ public class FeedsDto {
         private Long userId;
         private String title;
         private String content;
+        private List<String> imageUrl;
         private List<Images> images;
         private FeedType feedType;
         private FeedScope feedScope;
