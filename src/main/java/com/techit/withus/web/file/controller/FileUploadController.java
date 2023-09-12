@@ -25,8 +25,9 @@ public class FileUploadController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public List<Images> fileUpload(
-            @RequestParam("images") List<MultipartFile> multipartFiles
+            @RequestParam("images") List<MultipartFile> multipartFiles,
+            @RequestParam("fileType") FileType fileType
     ) {
-        return fileUploadService.uploadImage(multipartFiles, FileType.FEED);
+        return fileUploadService.uploadImage(multipartFiles, fileType);
     }
 }
