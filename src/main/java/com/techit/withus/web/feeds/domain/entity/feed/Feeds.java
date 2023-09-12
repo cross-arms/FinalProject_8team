@@ -1,5 +1,6 @@
 package com.techit.withus.web.feeds.domain.entity.feed;
 
+import com.techit.withus.web.comments.domain.entity.Comments;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.enumeration.FeedScope;
 import com.techit.withus.web.feeds.enumeration.FeedType;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.EMPTY_LIST;
@@ -40,8 +42,13 @@ public class Feeds {
 
     private String content;
 
+    @Builder.Default
     @OneToMany(mappedBy = "feeds", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Images> images;
+    private List<Images> images = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "feeds")
+    private List<Comments> comments = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private FeedType type; // 일반 or 질문
@@ -61,7 +68,7 @@ public class Feeds {
             List<Images> images, FeedType feedType, FeedScope feedScope,
             Categories category
     ) {
-        Feeds feed = Feeds.builder()
+        return Feeds.builder()
                 .writer(user)
                 .type(feedType)
                 .scope(feedScope)
@@ -71,12 +78,6 @@ public class Feeds {
                 .category(category)
                 .createdDate(LocalDateTime.now())
                 .build();
-
-        images.forEach(images1 ->  {
-            images1.setFeeds(feed);
-        });
-
-        return feed;
     }
 
     public void setFeedQuestion(FeedQuestion feedsQuestionEntity) {
@@ -85,5 +86,13 @@ public class Feeds {
 
     public void updateScopeToPublic() {
         this.scope = FeedScope.PUBLIC;
+    }
+
+    public void setImageList(List<Images> images) {
+        this.images = images;
+
+        for (Images image : images) {
+            image.setFeeds(this);
+        }
     }
 }

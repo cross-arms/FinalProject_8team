@@ -28,7 +28,7 @@ public class UserService
         return UserResponse.create(findUser(userId));
     }
 
-    private Users findUser(Long userId) {
+    public Users findUser(Long userId) {
         return userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException(MEMBER_NOT_EXIST, userId)
         );
