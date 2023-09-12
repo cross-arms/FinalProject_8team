@@ -1,11 +1,7 @@
 package com.techit.withus.web.users.controller;
 
-import com.techit.withus.common.dto.ResultDTO;
 import com.techit.withus.security.SecurityUser;
-import com.techit.withus.web.users.domain.dto.EditDTO;
-import com.techit.withus.web.users.domain.dto.EmailDTO;
-import com.techit.withus.web.users.domain.dto.LogInDTO;
-import com.techit.withus.web.users.domain.dto.SignUpDTO;
+import com.techit.withus.web.users.domain.dto.*;
 import com.techit.withus.web.users.service.AuthService;
 import com.techit.withus.web.users.service.EmailService;
 import jakarta.mail.MessagingException;
@@ -93,4 +89,5 @@ public class AuthController
         authService.editUser(securityUser, editDTO);
         return ResponseEntity.ok().build();
     }
+
 }

@@ -1,7 +1,6 @@
 package com.techit.withus.web.feeds.service;
 
 import com.techit.withus.common.exception.EntityNotFoundException;
-import com.techit.withus.web.feeds.domain.dto.FeedsDto;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
@@ -11,6 +10,7 @@ import com.techit.withus.web.feeds.repository.category.CategoryRepository;
 import com.techit.withus.web.feeds.repository.feed.FeedQuestionRepository;
 import com.techit.withus.web.feeds.repository.feed.FeedRepository;
 import com.techit.withus.web.users.domain.entity.Users;
+import com.techit.withus.web.users.repository.UserRepository;
 import com.techit.withus.web.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,21 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final CategoryRepository categoryRepository;
     private final FeedQuestionRepository feedQuestionRepository;
+    private final UserRepository userRepository;
     private final UserService userService;
+
+    @Transactional
+    public List<FeedResponse> getAllFeedsByUserId(Long userId)
+    {
+        List<Feeds> feedEntities = feedRepository.findAllByWriter(
+                userRepository.getReferenceById(userId)
+        );
+
+        return feedEntities
+                .stream()
+                .map(FeedResponse::toSimpleDtoFrom)
+                .collect(Collectors.toList());
+    }
 
     /**
      * 홈 버튼을 클릭했을 때 호출되는 메서드.
