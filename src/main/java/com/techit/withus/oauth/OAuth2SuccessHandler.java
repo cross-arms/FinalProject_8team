@@ -8,13 +8,16 @@ import com.techit.withus.web.users.domain.mapper.UserMapper;
 import com.techit.withus.web.users.repository.UserRepository;
 import io.netty.util.internal.ThreadLocalRandom;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -41,13 +44,15 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler
                 .orElse(this.SignUp(oAuth2User));
 
         SecurityUser securityUser = UserMapper.INSTANCE.toSecurityUser(userEntity);
-        String accessToken = jwtService.createAccessToken(securityUser);
-        String refreshToken = jwtService.createRefreshToken(securityUser);
 
-        log.info("accessToken: {}", accessToken);
-        log.info("refreshToken: {}", refreshToken);
+        Cookie cookie = jwtService.createCookie(securityUser);
+        String accessToken = jwtService.createAccessToken(securityUser);
+
+        response.addCookie(cookie);
+        response.addHeader(HttpHeaders.AUTHORIZATION, accessToken);
 
         // 타겟 설정은 React 이후
+
     }
 
     private String getRandomUsername(String provider)

@@ -6,15 +6,14 @@ import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Builder
 @ToString
-public class SecurityUser implements UserDetails
+public class SecurityUser implements OAuth2User, UserDetails
 {
     private Long userId;
     private String email;
@@ -22,6 +21,22 @@ public class SecurityUser implements UserDetails
     private String nickname;
     private String provider;
     private String role;
+
+
+    // OAuth2
+    @Override
+    public String getName() {
+        return email;
+    }
+
+    // OAuth2
+    @Override
+    public Map<String, Object> getAttributes()
+    {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("email", this.email);
+        return attributes;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
@@ -63,4 +78,5 @@ public class SecurityUser implements UserDetails
     public boolean isEnabled() {
         return true;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.techit.withus.web.chat.controller.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
@@ -13,11 +14,12 @@ import lombok.NoArgsConstructor;
 public class RoomUpdateRequest {
     @NotBlank
     private String roomName;
-    private List<Long> memberIds;
+    private List<Long> memberIds = new ArrayList<>();
 
     @Builder
     public RoomUpdateRequest(Long roomId, String roomName, List<Long> memberIds) {
         this.roomName = roomName;
-        this.memberIds = memberIds;
+        if(memberIds != null)
+            this.memberIds = memberIds;
     }
 }

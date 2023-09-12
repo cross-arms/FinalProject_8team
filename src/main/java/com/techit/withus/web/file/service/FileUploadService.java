@@ -2,7 +2,6 @@ package com.techit.withus.web.file.service;
 
 import com.techit.withus.web.feeds.domain.entity.feed.Images;
 import com.techit.withus.web.feeds.exception.ImageException;
-import com.techit.withus.web.feeds.service.feed.FeedService;
 import com.techit.withus.web.file.domain.FileType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +26,6 @@ public class FileUploadService {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd/HH/mm");
     public static final String BASE_DIRECTORY = "media/%s/";
-
-    private final FeedService feedService;
 
     /**
      * 일반 피드 이미지 업로드 수행

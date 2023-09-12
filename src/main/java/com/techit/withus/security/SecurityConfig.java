@@ -5,6 +5,7 @@ import com.techit.withus.oauth.OAuth2FailureHandler;
 import com.techit.withus.oauth.OAuth2Service;
 import com.techit.withus.oauth.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 public class SecurityConfig
 {
     private final JwtConfig jwtConfig;
+    private final CorsConfig corsConfig;
     private final OAuth2Service oAuth2Service;
     private final OAuth2SuccessHandler successHandler;
     private final OAuth2FailureHandler failureHandler;
@@ -38,6 +40,7 @@ public class SecurityConfig
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilter(corsConfig.corsFilter())
                 .addFilterBefore(jwtConfig, AuthorizationFilter.class)
                 .headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(

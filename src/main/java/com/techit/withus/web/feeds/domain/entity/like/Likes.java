@@ -31,27 +31,21 @@ public class Likes {
     @JoinColumn(name = "feed_id")
     private Feeds feeds;
 
-    @Enumerated(EnumType.STRING)
-    private LikeStatus likeStatus;
+    private String cancelYn;
 
     public static Likes createLike(Feeds feed) {
         return Likes.builder()
                 .users(feed.getWriter())
                 .feeds(feed)
-                .likeStatus(LikeStatus.LIKE)
+                .cancelYn(LIKE)
                 .build();
     }
 
     public void toUnlike() {
-        this.likeStatus = LikeStatus.UN_LIKE;
+        this.cancelYn = CANCEL;
     }
 
     public boolean isAlreadyLike() {
-        return likeStatus == LikeStatus.LIKE;
-    }
-
-    public enum LikeStatus {
-        LIKE,
-        UN_LIKE
+        return cancelYn == LIKE;
     }
 }
