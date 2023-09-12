@@ -10,9 +10,7 @@ import com.techit.withus.redis.service.RefreshTokenService;
 import com.techit.withus.security.SecurityService;
 import com.techit.withus.security.SecurityUser;
 import com.techit.withus.web.feeds.domain.entity.feed.Images;
-import com.techit.withus.web.users.domain.dto.EditDTO;
-import com.techit.withus.web.users.domain.dto.LogInDTO;
-import com.techit.withus.web.users.domain.dto.SignUpDTO;
+import com.techit.withus.web.users.domain.dto.*;
 import com.techit.withus.web.users.domain.entity.Users;
 import com.techit.withus.web.users.domain.enumeration.Roles;
 import com.techit.withus.web.users.domain.mapper.UserMapper;
@@ -26,8 +24,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -41,6 +41,7 @@ public class AuthService
     private final RefreshTokenService refreshTokenService;
     private final BlackListService blackListService;
     private final UserRepository userRepository;
+    private final StatisticsService statisticsService;
 
     // 회원가입
     @Transactional
@@ -132,4 +133,5 @@ public class AuthService
         Users newUserEntity = UserMapper.INSTANCE.toUsers(userEntity, encodedPassword, editDTO);
         userRepository.save(newUserEntity);
     }
+
 }

@@ -6,8 +6,7 @@ import com.techit.withus.web.feeds.domain.dto.FeedsDto;
 import com.techit.withus.web.feeds.domain.dto.FeedsDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.service.FeedService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -108,5 +107,14 @@ public class FeedController {
      */
     public void deleteFeed() {
 
+    }
+
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<FeedsDto.FeedResponse>> getAllFeedsByUserId(
+            @PathVariable Long userId)
+    {
+        List<FeedsDto.FeedResponse> feeds = feedService.getAllFeedsByUserId(userId);
+        return ResponseEntity.ok(feeds);
     }
 }

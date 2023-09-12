@@ -2,12 +2,15 @@ package com.techit.withus.web.feeds.repository.feed;
 
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
+import com.techit.withus.web.users.domain.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface FeedRepository extends JpaRepository<Feeds, Long> {
     // 모든 사용자의 최신 피드를 조회하는 메서드
     @Query("SELECT f FROM Feeds f " +
@@ -74,4 +77,7 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
     @Query("SELECT f FROM Feeds f JOIN f.category c WHERE c.categoryId = :categoryId ORDER BY f.createdDate DESC")
     List<Feeds> findFeedsByCategoryId(@Param("categoryId") Long categoryId);
 
+    Long countAllByWriter(Users users);
+
+    List<Feeds> findAllByWriter(Users users);
 }
