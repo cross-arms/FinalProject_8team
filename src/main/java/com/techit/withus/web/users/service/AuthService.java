@@ -1,6 +1,7 @@
 package com.techit.withus.web.users.service;
 
 import com.techit.withus.common.exception.AuthenticationException;
+import com.techit.withus.common.exception.EntityNotFoundException;
 import com.techit.withus.common.exception.ErrorCode;
 import com.techit.withus.jwt.JwtService;
 import com.techit.withus.oauth.OAuth2Provider;
@@ -8,6 +9,8 @@ import com.techit.withus.redis.service.BlackListService;
 import com.techit.withus.redis.service.RefreshTokenService;
 import com.techit.withus.security.SecurityService;
 import com.techit.withus.security.SecurityUser;
+import com.techit.withus.web.feeds.domain.entity.feed.Images;
+import com.techit.withus.web.users.domain.dto.EditDTO;
 import com.techit.withus.web.users.domain.dto.LogInDTO;
 import com.techit.withus.web.users.domain.dto.SignUpDTO;
 import com.techit.withus.web.users.domain.entity.Users;
@@ -23,6 +26,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -106,5 +112,24 @@ public class AuthService
     {
         if (userRepository.existsByUsername(username))
             throw new AuthenticationException(ErrorCode.MEMBER_ALREADY_EXIST);
+    }
+
+    public void checkPassword(SecurityUser securityUser,
+                              String password)
+    {
+        this.matchPasswords(password, securityUser.getPassword());
+    }
+
+    public void editUser(SecurityUser securityUser,
+                         EditDTO editDTO)
+    {
+        this.matchPasswords(editDTO.getBeforePassword(), securityUser.getPassword());
+        String encodedPassword = this.encodePassword(editDTO.getAfterPassword());
+        Users userEntity = userRepository
+                .findById(securityUser.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.AUTHORIZATION_FAILED));
+
+        Users newUserEntity = UserMapper.INSTANCE.toUsers(userEntity, encodedPassword, editDTO);
+        userRepository.save(newUserEntity);
     }
 }

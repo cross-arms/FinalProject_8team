@@ -1,6 +1,8 @@
 package com.techit.withus.web.users.controller;
 
 import com.techit.withus.common.dto.ResultDTO;
+import com.techit.withus.security.SecurityUser;
+import com.techit.withus.web.users.domain.dto.EditDTO;
 import com.techit.withus.web.users.domain.dto.EmailDTO;
 import com.techit.withus.web.users.domain.dto.LogInDTO;
 import com.techit.withus.web.users.domain.dto.SignUpDTO;
@@ -12,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -70,6 +73,24 @@ public class AuthController
     public ResponseEntity<Void> checkEmailAndCode(@RequestBody EmailDTO emailDTO)
     {
         emailService.validateCode(emailDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    // 회원 정보를 수정하기 전에 비밀번호를 한번 더 확인한다.
+    @PostMapping("/password")
+    public ResponseEntity<Void> checkPassword(@AuthenticationPrincipal SecurityUser securityUser,
+                                              @RequestBody Map<String, String> passwordMap)
+    {
+        authService.checkPassword(securityUser, passwordMap.get("password"));
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/edit")
+    public ResponseEntity<Void> editUser(
+            @AuthenticationPrincipal SecurityUser securityUser,
+            @RequestBody EditDTO editDTO)
+    {
+        authService.editUser(securityUser, editDTO);
         return ResponseEntity.ok().build();
     }
 }
