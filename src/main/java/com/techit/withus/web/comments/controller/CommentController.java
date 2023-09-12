@@ -2,7 +2,7 @@ package com.techit.withus.web.comments.controller;
 
 
 import com.techit.withus.web.comments.service.CommentService;
-import com.techit.withus.web.feeds.domain.dto.FeedDto;
+import com.techit.withus.web.feeds.domain.dto.FeedsDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +20,7 @@ public class CommentController {
      * 피드의 모든 댓글 조회
      */
     @GetMapping("/api/v1/feeds/comments")
-    public Page<FeedDto.FeedResponse> getAllComments(
+    public Page<FeedsDto.FeedResponse> getAllComments(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "10") int size
     ) {

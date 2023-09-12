@@ -23,4 +23,11 @@ public class Images
     private Feeds feeds;
 
     private String imageURL;
+
+    public void setFeeds(Feeds feed) {
+        this.feeds = feed;
+    }
+
+//    @Column(name = "isLike", nullable=false)
+//    private Boolean isLike;
 }

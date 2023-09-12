@@ -44,4 +44,8 @@ public class Likes {
     public void toUnlike() {
         this.cancelYn = CANCEL;
     }
+
+    public boolean isAlreadyLike() {
+        return cancelYn == LIKE;
+    }
 }

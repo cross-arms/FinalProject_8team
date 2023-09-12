@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.techit.withus.common.exception.InvalidValueException;
 import com.techit.withus.web.comments.dto.CommentDto.CommentResponse;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
+import com.techit.withus.web.feeds.domain.entity.feed.*;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.enumeration.FeedScope;
@@ -12,12 +13,13 @@ import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import com.techit.withus.web.users.domain.dto.UserDto.UserResponse;
 import com.techit.withus.web.users.domain.entity.Users;
 import lombok.*;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
@@ -28,7 +30,7 @@ import static com.techit.withus.web.feeds.enumeration.FeedType.QUESTION;
  * feedDto 객체는 데이터 전달을 목적으로 하는 객체입니다.
  * 가독성을 위해 feedDto 안에는 client로 부터 전달 받고 전달 해주는 request, response 객체를 갖고 있습니다.
  */
-public class FeedDto {
+public class FeedsDto {
 
     /** request **/
     @Getter
@@ -39,15 +41,16 @@ public class FeedDto {
         private Long userId;
         private String title;
         private String content;
-        private String imageURL;
+        private List<Images> images;
         private FeedType feedType;
         private FeedScope feedScope;
         private Long deposit;
+        private String questionContent;
         private LocalDate questionDueDate; // 질문 마감일자
         private Long categoryId;
 
         public Feeds toFeedsEntity(Users user, Categories category) {
-            return Feeds.create(user, title, content, imageURL, feedType, feedScope, category);
+            return Feeds.create(user, title, content, images, feedType, feedScope, category);
         }
 
         public boolean isQuestionFeed() {
@@ -55,7 +58,7 @@ public class FeedDto {
         }
 
         public FeedQuestion toFeedsQuestionEntity(Feeds feeds) {
-            return FeedQuestion.createInit(feeds, this.deposit, toLocalDateTime(this.questionDueDate));
+            return FeedQuestion.createInit(feeds, this.questionContent, this.deposit, toLocalDateTime(this.questionDueDate));
         }
 
         public LocalDateTime toLocalDateTime(LocalDate localDate) {
@@ -99,7 +102,7 @@ public class FeedDto {
         private FeedQuestionResponse feedQuestion;
         private String title;
         private String content;
-        private String imageURL;
+        private List<Images> images;
         private FeedType type;
         private FeedScope scope;
         private boolean isLike;
@@ -111,7 +114,7 @@ public class FeedDto {
                     .feedQuestion(FeedQuestionResponse.create(feed.getFeedQuestion()))
                     .title(feed.getTitle())
                     .content(feed.getContent())
-                    .imageURL(StringUtils.isBlank(feed.getImageURL()) ? null : feed.getImageURL())
+                    .images(CollectionUtils.isEmpty(feed.getImages()) ? new ArrayList<>() : feed.getImages())
                     .type(feed.getType())
                     .scope(feed.getScope())
                     .build();

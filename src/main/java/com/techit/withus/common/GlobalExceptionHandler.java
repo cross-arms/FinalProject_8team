@@ -26,13 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(FeedException.class)
-    public ResponseEntity<ErrorResponse> feedExceptionHandler(FeedException ex){
-        var response = ErrorResponse.of(ex.getErrorCode());
-        log.debug("Invalid request to feed api. errorMsg: {}", ex.getMessage());
-        return new ResponseEntity<>(response, response.getStatus());
-    }
-
     @ExceptionHandler(InvalidValueException.class)
     public ResponseEntity<ErrorResponse> handleInvalidValueException(InvalidValueException ex){
         var response = ErrorResponse.of(ex.getErrorCode());

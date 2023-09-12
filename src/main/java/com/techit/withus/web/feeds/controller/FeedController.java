@@ -2,7 +2,8 @@ package com.techit.withus.web.feeds.controller;
 
 import com.techit.withus.common.dto.ResultDTO;
 import com.techit.withus.security.SecurityUser;
-import com.techit.withus.web.feeds.domain.dto.FeedDto;
+import com.techit.withus.web.feeds.domain.dto.FeedsDto;
+import com.techit.withus.web.feeds.domain.dto.FeedsDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,21 +23,21 @@ public class FeedController {
     public ResultDTO getHomeFeeds(@AuthenticationPrincipal SecurityUser user) {
         Long userId = (user != null)? user.getUserId() : null;
 
-        List<FeedDto.FeedResponse> feedDTOList = feedService.getHomeFeeds(userId);
+        List<FeedsDto.FeedResponse> FeedsDtoList = feedService.getHomeFeeds(userId);
 
         return ResultDTO
                 .builder()
-                .data(feedDTOList)
+                .data(FeedsDtoList)
                 .build();
     }
 
     @GetMapping("/popular")
     public ResultDTO getPopularFeeds() {
-        List<FeedDto.FeedResponse> popularFeedDTOList = feedService.getPopularFeeds();
+        List<FeedsDto.FeedResponse> popularFeedsDtoList = feedService.getPopularFeeds();
 
         return ResultDTO
                 .builder()
-                .data(popularFeedDTOList)
+                .data(popularFeedsDtoList)
                 .build();
     }
 
@@ -44,21 +45,21 @@ public class FeedController {
     @GetMapping("/question")
     public ResultDTO getQuestionFeeds() {
 
-        List<FeedDto.FeedResponse> questionFeedDTOList = feedService.getQuestionFeeds();
+        List<FeedsDto.FeedResponse> questionFeedsDtoList = feedService.getQuestionFeeds();
 
         return ResultDTO
                 .builder()
-                .data(questionFeedDTOList)
+                .data(questionFeedsDtoList)
                 .build();
     }
 
     @GetMapping("/skill/{categoryId}")
     public ResultDTO getFeedsByCategory(@PathVariable Long categoryId) {
-        List<FeedDto.FeedResponse> feedDTOList = feedService.getFeedsByCategory(categoryId);
+        List<FeedsDto.FeedResponse> FeedsDtoList = feedService.getFeedsByCategory(categoryId);
 
         return ResultDTO
                 .builder()
-                .data(feedDTOList)
+                .data(FeedsDtoList)
                 .build();
     }
 
@@ -68,7 +69,7 @@ public class FeedController {
      * @return
      */
     @GetMapping("/api/v1/feeds")
-    public Page<FeedDto.FeedResponse> getAllFeeds(
+    public Page<FeedsDto.FeedResponse> getAllFeeds(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
@@ -79,7 +80,7 @@ public class FeedController {
      * 특정 피드 정보를 조회합니다.
      */
     @GetMapping("/api/v1/feeds/{id}")
-    public FeedDto.FeedResponse getFeed(
+    public FeedsDto.FeedResponse getFeed(
             @PathVariable("id") Long id
     ) {
         return feedService.getFeed(id);
@@ -91,8 +92,8 @@ public class FeedController {
      * @param registerRequest
      * @return
      */
-    @PostMapping("/api/v1/feeds")
-    public void createFeed(@RequestBody FeedDto.RegisterFeedRequest registerRequest) {
+    @PostMapping()
+    public void createFeed(@RequestBody RegisterFeedRequest registerRequest) {
         feedService.saveFeed(registerRequest);
     }
 
