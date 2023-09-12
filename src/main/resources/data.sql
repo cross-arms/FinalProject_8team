@@ -25,7 +25,6 @@ INSERT INTO images(feed_id,imageURL) VALUES(3,'http://withus.com/image3.jpg');
 INSERT INTO likes(user_id ,feed_id, like_status)VALUES(1 , 2, 'LIKE');
 INSERT INTO likes(user_id ,feed_id, like_status)VALUES(2 , 3, 'LIKE');
 INSERT INTO likes(user_id ,feed_id, like_status)VALUES(3 , 1, 'LIKE');
-INSERT INTO likes(user_id ,feed_id, like_status)VALUES(5 , 'LIKE');
 
 -- Comments
 INSERT INTO parent_comments (user_id, feed_id) VALUES (1, 2);
