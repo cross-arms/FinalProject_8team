@@ -3,8 +3,8 @@ package com.techit.withus.web.feeds.controller.feed;
 import com.techit.withus.common.dto.ResultDTO;
 import com.techit.withus.security.SecurityUser;
 import com.techit.withus.web.feeds.domain.dto.FeedDTO;
-import com.techit.withus.web.feeds.dto.feed.FeedDto;
-import com.techit.withus.web.feeds.dto.feed.FeedDto.RegisterFeedRequest;
+import com.techit.withus.web.feeds.dto.feed.FeedsDto;
+import com.techit.withus.web.feeds.dto.feed.FeedsDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.service.feed.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -75,7 +75,7 @@ public class FeedController {
      * @return
      */
     @GetMapping("/api/v1/feeds")
-    public Page<FeedDto.FeedResponse> getAllFeeds(
+    public Page<FeedsDto.FeedResponse> getAllFeeds(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
@@ -86,7 +86,7 @@ public class FeedController {
      * 특정 피드 정보를 조회합니다.
      */
     @GetMapping("/api/v1/feeds/{id}")
-    public FeedDto.FeedResponse getFeed(
+    public FeedsDto.FeedResponse getFeed(
             @PathVariable("id") Long id
     ) {
         return feedService.getFeed(id);

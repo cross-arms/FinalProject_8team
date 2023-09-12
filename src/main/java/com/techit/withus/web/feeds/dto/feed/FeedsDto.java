@@ -1,6 +1,5 @@
 package com.techit.withus.web.feeds.dto.feed;
 
-<<<<<<<< Updated upstream:src/main/java/com/techit/withus/web/feeds/dto/feed/FeedDto.java
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.techit.withus.common.exception.InvalidValueException;
 import com.techit.withus.web.comments.dto.CommentDto.CommentResponse;
@@ -27,7 +26,7 @@ import static com.techit.withus.web.feeds.domain.entity.feed.FeedType.QUESTION;
  * feedDto 객체는 데이터 전달을 목적으로 하는 객체입니다.
  * 가독성을 위해 feedDto 안에는 client로 부터 전달 받고 전달 해주는 request, response 객체를 갖고 있습니다.
  */
-public class FeedDto {
+public class FeedsDto {
 
     /** request **/
     @Getter
@@ -146,26 +145,3 @@ public class FeedDto {
         }
     }
 }
-========
-import lombok.*;
-
-import java.util.List;
-
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-public class FeedDTO {
-    private Long feedId;
-    private String writer;
-    private String scope;
-    private String title;
-    private String content;
-    // 좋아요 수, 댓글 수
-    private Long likeCount;
-    private Long commentCount;
-    // 이미지 URL
-    List<String> imageUrls;
-}
->>>>>>>> Stashed changes:src/main/java/com/techit/withus/web/feeds/domain/dto/FeedDto.java

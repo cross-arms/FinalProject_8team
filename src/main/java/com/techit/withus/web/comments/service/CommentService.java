@@ -2,7 +2,7 @@ package com.techit.withus.web.comments.service;
 
 import com.techit.withus.web.comments.repository.ChildCommentRepository;
 import com.techit.withus.web.comments.repository.ParentCommentRepository;
-import com.techit.withus.web.feeds.dto.feed.FeedDto;
+import com.techit.withus.web.feeds.dto.feed.FeedsDto;
 import com.techit.withus.web.feeds.service.feed.FeedService;
 import com.techit.withus.web.users.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class CommentService {
     private final ChildCommentRepository childCommentRepository;
     private final ParentCommentRepository parentCommentRepository;
 
-    public Page<FeedDto.FeedResponse> getAllComments(PageRequest of) {
+    public Page<FeedsDto.FeedResponse> getAllComments(PageRequest of) {
         // TODO
 
         return null;

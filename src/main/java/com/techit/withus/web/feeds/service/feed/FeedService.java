@@ -6,8 +6,8 @@ import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.domain.mapper.FeedMapper;
-import com.techit.withus.web.feeds.dto.feed.FeedDto;
-import com.techit.withus.web.feeds.dto.feed.FeedDto.RegisterFeedRequest;
+import com.techit.withus.web.feeds.dto.feed.FeedsDto;
+import com.techit.withus.web.feeds.dto.feed.FeedsDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
 import com.techit.withus.web.feeds.repository.feed.FeedRepository;
 import com.techit.withus.web.feeds.repository.category.CategoryRepository;
@@ -88,20 +88,20 @@ public class FeedService {
         return feedMapper.toDto(feeds);
     }
 
-    public Page<FeedDto.FeedResponse> getAllFeeds(PageRequest pageable) {
+    public Page<FeedsDto.FeedResponse> getAllFeeds(PageRequest pageable) {
         Page<Feeds> feeds = feedRepository.findAll(pageable);
 
         return PageableExecutionUtils.getPage(toResponse(feeds), pageable, feeds::getTotalElements);
     }
 
-    private static List<FeedDto.FeedResponse> toResponse(Page<Feeds> feeds) {
+    private static List<FeedsDto.FeedResponse> toResponse(Page<Feeds> feeds) {
         return feeds.getContent().stream()
-                .map(FeedDto.FeedResponse::toDtoFrom)
+                .map(FeedsDto.FeedResponse::toDtoFrom)
                 .collect(Collectors.toList());
     }
 
-    public FeedDto.FeedResponse getFeed(Long feedId) {
-        return FeedDto.FeedResponse.toDtoFrom(findFeed(feedId));
+    public FeedsDto.FeedResponse getFeed(Long feedId) {
+        return FeedsDto.FeedResponse.toDtoFrom(findFeed(feedId));
     }
 
     @Transactional
