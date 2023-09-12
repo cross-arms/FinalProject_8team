@@ -15,12 +15,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/feeds")
+@RequestMapping("/api/v1/feeds")
 public class FeedController {
 
     private final FeedService feedService;
 
-    @GetMapping("/home")
+    @GetMapping("home")
     public ResultDTO getHomeFeeds(@AuthenticationPrincipal SecurityUser user) {
         Long userId = (user != null)? user.getUserId() : null;
 
@@ -32,7 +32,7 @@ public class FeedController {
                 .build();
     }
 
-    @GetMapping("/popular")
+    @GetMapping("popular")
     public ResultDTO getPopularFeeds() {
         List<FeedsDto.FeedResponse> popularFeedsDtoList = feedService.getPopularFeeds();
 
@@ -43,7 +43,7 @@ public class FeedController {
     }
 
 
-    @GetMapping("/question")
+    @GetMapping("question")
     public ResultDTO getQuestionFeeds() {
 
         List<FeedsDto.FeedResponse> questionFeedsDtoList = feedService.getQuestionFeeds();
@@ -54,7 +54,7 @@ public class FeedController {
                 .build();
     }
 
-    @GetMapping("/skill/{categoryId}")
+    @GetMapping("skill/{categoryId}")
     public ResultDTO getFeedsByCategory(@PathVariable Long categoryId) {
         List<FeedsDto.FeedResponse> FeedsDtoList = feedService.getFeedsByCategory(categoryId);
 
@@ -64,11 +64,7 @@ public class FeedController {
                 .build();
     }
 
-    /**
-     * 등록된 모든 피드 정보를 조회합니다.
-     *
-     * @return
-     */
+    /*
     @GetMapping("/api/v1/feeds")
     public Page<FeedsDto.FeedResponse> getAllFeeds(
             @RequestParam(defaultValue = "0") int page,
@@ -76,11 +72,12 @@ public class FeedController {
     ) {
         return feedService.getAllFeeds(PageRequest.of(page, size));
     }
+    */
 
     /**
      * 특정 피드 정보를 조회합니다.
      */
-    @GetMapping("/api/v1/feeds/{id}")
+    @GetMapping("/{id}")
     public FeedsDto.FeedResponse getFeed(
             @PathVariable("id") Long id
     ) {

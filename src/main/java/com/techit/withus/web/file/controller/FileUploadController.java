@@ -21,7 +21,7 @@ public class FileUploadController {
     private final FileUploadService fileUploadService;
 
     @PostMapping(
-            value = "/api/v1/feed/image/upload",
+            value = "/api/v1/image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public List<Images> fileUpload(
