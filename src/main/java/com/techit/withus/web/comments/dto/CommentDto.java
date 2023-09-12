@@ -20,12 +20,33 @@ public class CommentDto {
     @ToString
     @NoArgsConstructor
     public static class RegisterParentCommentRequest {
+
         private Long userId;
         private Long feedId;
         private String content;
+        private Long parentCommentId;
 
-        public Comments toCommentsEntity(Users user, Feeds feed) {
-            return Comments.create(user, feed, content);
+        public boolean hasParentComment() {
+            return parentCommentId != null && parentCommentId != 0L;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+    }
+
+    @Getter
+    @ToString
+    @NoArgsConstructor
+    public static class ModifyParentCommentRequest {
+
+        private Long userId;
+        private Long feedId;
+        private Long commentId;
+        private String content;
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
         }
     }
 

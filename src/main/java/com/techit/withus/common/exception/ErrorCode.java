@@ -33,6 +33,8 @@ public enum ErrorCode {
 
     DIRECTORY_CREATION_FAILED(HttpStatus.BAD_REQUEST, "IM_001", "파일 저장 경로를 생성하지 못하였습니다."),
     NOT_FOUND_FILE_TYPE(HttpStatus.BAD_REQUEST, "IM_002", "정의되지 않은 파일 타입입니다."),
+
+    COMMENT_NOT_FOUND(HttpStatus.BAD_REQUEST, "CM_001", "댓글 정보를 찾을 수 없습니다."),
     ;
 
     private final HttpStatus status;

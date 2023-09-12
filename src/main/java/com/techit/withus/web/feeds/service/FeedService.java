@@ -134,7 +134,7 @@ public class FeedService {
         return findFeed(feedId);
     }
 
-    private Feeds findFeed(Long feedId) {
+    public Feeds findFeed(Long feedId) {
         return feedRepository.findById(feedId).orElseThrow(
                 () -> new EntityNotFoundException(FEED_NOT_FOUND)
         );
