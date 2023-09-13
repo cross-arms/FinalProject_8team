@@ -80,4 +80,7 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
     Long countAllByWriter(Users users);
 
     List<Feeds> findAllByWriter(Users users);
+
+    @Query("SELECT f FROM Feeds f WHERE f.title ILIKE :query OR f.content ILIKE :query")
+    List<Feeds> findAllByQuery(String query);
 }

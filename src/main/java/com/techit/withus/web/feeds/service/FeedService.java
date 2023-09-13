@@ -176,6 +176,12 @@ public class FeedService {
                 () -> new EntityNotFoundException(FEED_NOT_FOUND)
         );
     }
+
+    public List<FeedResponse> getAllFeedsByQuery(String query)
+    {
+        List<Feeds> feedEntities = feedRepository.findAllByQuery(String.format("%s%s%s", "%", query, "%"));
+        return toResponse(feedEntities);
+    }
 }
 
 

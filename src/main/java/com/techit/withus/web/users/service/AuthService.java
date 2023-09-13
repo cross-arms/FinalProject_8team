@@ -41,7 +41,6 @@ public class AuthService
     private final RefreshTokenService refreshTokenService;
     private final BlackListService blackListService;
     private final UserRepository userRepository;
-    private final StatisticsService statisticsService;
 
     // 회원가입
     @Transactional
@@ -79,12 +78,13 @@ public class AuthService
     {
         String accessToken = jwtService.getAccessToken(request);
         String email = jwtService.getSubject(accessToken);
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if ("refreshToken".equals(cookie.getName())) {
-                refreshTokenService.deleteRefreshToken(email);
-                blackListService.addBlackList(accessToken);
-            } else throw new AuthenticationException(ErrorCode.COOKIE_MISSING);
+
+        Cookie refreshTokenCookie = jwtService.findCookie(request, "refreshToken");
+
+        if (refreshTokenCookie != null) {
+            refreshTokenService.deleteRefreshToken(email);
+            blackListService.addBlackList(accessToken);
+            refreshTokenCookie.setMaxAge(0);
         }
     }
 
@@ -133,5 +133,4 @@ public class AuthService
         Users newUserEntity = UserMapper.INSTANCE.toUsers(userEntity, encodedPassword, editDTO);
         userRepository.save(newUserEntity);
     }
-
 }
