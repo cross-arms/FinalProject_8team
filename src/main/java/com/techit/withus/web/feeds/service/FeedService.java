@@ -205,6 +205,19 @@ public class FeedService {
         List<Feeds> feedEntities = feedRepository.findAllByQuery(String.format("%s%s%s", "%", query, "%"));
         return toResponse(feedEntities);
     }
+
+    @Transactional
+    public List<FeedResponse> getAllFeedsByUserId(Long userId)
+    {
+        List<Feeds> feedEntities = feedRepository.findAllByWriter(
+                userRepository.getReferenceById(userId)
+        );
+
+        return feedEntities
+                .stream()
+                .map(FeedResponse::toSimpleDtoFrom)
+                .collect(Collectors.toList());
+    }
 }
 
 
