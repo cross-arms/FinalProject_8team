@@ -35,6 +35,7 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final CategoryRepository categoryRepository;
     private final FeedQuestionRepository feedQuestionRepository;
+    private final UserRepository userRepository;
     private final UserService userService;
 
     @Transactional
@@ -190,6 +191,19 @@ public class FeedService {
     {
         List<Feeds> feedEntities = feedRepository.findAllByQuery(String.format("%s%s%s", "%", query, "%"));
         return toResponse(feedEntities);
+    }
+
+    @Transactional
+    public List<FeedResponse> getAllFeedsByUserId(Long userId)
+    {
+        List<Feeds> feedEntities = feedRepository.findAllByWriter(
+                userRepository.getReferenceById(userId)
+        );
+
+        return feedEntities
+                .stream()
+                .map(FeedResponse::toSimpleDtoFrom)
+                .collect(Collectors.toList());
     }
 }
 
