@@ -1,6 +1,5 @@
 package com.techit.withus.web.feeds.service.category;
 
-import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

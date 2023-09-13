@@ -2,9 +2,9 @@ package com.techit.withus.web.feeds.service;
 
 import com.techit.withus.common.exception.EntityNotFoundException;
 import com.techit.withus.common.exception.ErrorCode;
+import com.techit.withus.web.feeds.domain.dto.LikeDto.RegisterLikeRequest;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.domain.entity.like.Likes;
-import com.techit.withus.web.feeds.domain.dto.LikeDto.RegisterLikeRequest;
 import com.techit.withus.web.feeds.exception.FeedLikeException;
 import com.techit.withus.web.feeds.repository.like.LikeRepository;
 import jakarta.transaction.Transactional;

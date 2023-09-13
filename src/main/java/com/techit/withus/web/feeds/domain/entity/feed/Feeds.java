@@ -6,13 +6,11 @@ import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.enumeration.FeedScope;
 import com.techit.withus.web.feeds.enumeration.FeedType;
 import com.techit.withus.web.users.domain.entity.Users;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.EMPTY_LIST;
-import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Getter
 @Entity
