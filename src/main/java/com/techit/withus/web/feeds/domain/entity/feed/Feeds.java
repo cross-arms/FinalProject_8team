@@ -1,6 +1,7 @@
 package com.techit.withus.web.feeds.domain.entity.feed;
 
 import com.techit.withus.web.comments.domain.entity.Comments;
+import com.techit.withus.web.feeds.domain.dto.FeedsDto.ModifyFeedRequest;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.enumeration.FeedScope;
 import com.techit.withus.web.feeds.enumeration.FeedType;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.EMPTY_LIST;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Getter
 @Entity
@@ -63,21 +65,24 @@ public class Feeds {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
+    private String deleteYn;
+
     public static Feeds create(
             Users user, String title, String content,
             List<Images> images, FeedType feedType, FeedScope feedScope,
             Categories category
     ) {
         return Feeds.builder()
-                .writer(user)
-                .type(feedType)
-                .scope(feedScope)
-                .title(title)
-                .content(content)
-                .images(CollectionUtils.isEmpty(images) ? EMPTY_LIST : images)
-                .category(category)
-                .createdDate(LocalDateTime.now())
-                .build();
+            .writer(user)
+            .type(feedType)
+            .scope(feedScope)
+            .title(title)
+            .content(content)
+            .images(CollectionUtils.isEmpty(images) ? EMPTY_LIST : images)
+            .category(category)
+            .createdDate(LocalDateTime.now())
+            .deleteYn("N")
+            .build();
     }
 
     public void setFeedQuestion(FeedQuestion feedsQuestionEntity) {
@@ -94,5 +99,27 @@ public class Feeds {
         for (Images image : images) {
             image.setFeeds(this);
         }
+    }
+
+    public void modifyFeed(ModifyFeedRequest request) {
+        if (!isBlank(request.getTitle())) {
+            this.title = request.getTitle();
+        }
+        if (!isBlank(request.getContent())) {
+            this.content = request.getContent();
+        }
+        if (!isBlank(request.getContent())) {
+            this.content = request.getContent();
+        }
+        if (this.type != request.getFeedType()) {
+            this.type = request.getFeedType();
+        }
+        if (this.scope != request.getFeedScope()) {
+            this.scope = request.getFeedScope();
+        }
+    }
+
+    public void delete() {
+        this.deleteYn = "Y";
     }
 }

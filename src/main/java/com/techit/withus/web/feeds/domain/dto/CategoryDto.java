@@ -1,6 +1,5 @@
 package com.techit.withus.web.feeds.domain.dto;
 
-import com.sun.mail.iap.Response;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import lombok.*;
 

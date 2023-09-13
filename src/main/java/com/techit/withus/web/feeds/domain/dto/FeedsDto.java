@@ -80,6 +80,24 @@ public class FeedsDto {
         }
     }
 
+    @Getter
+    @ToString
+    @NoArgsConstructor
+    public static class ModifyFeedRequest {
+
+        private Long userId;
+        private Long feedId;
+        private String title;
+        private String content;
+        private List<String> imageUrl;
+        private FeedType feedType;
+        private FeedScope feedScope;
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+    }
+
     /**
      * response
      **/
