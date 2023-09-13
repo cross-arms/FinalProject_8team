@@ -1,7 +1,9 @@
 package com.techit.withus.web.users.domain.mapper;
 
 import com.techit.withus.security.SecurityUser;
+import com.techit.withus.web.users.domain.dto.EditDTO;
 import com.techit.withus.web.users.domain.dto.SignUpDTO;
+import com.techit.withus.web.users.domain.dto.UserInfoDTO;
 import com.techit.withus.web.users.domain.entity.Users;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -31,4 +33,12 @@ public interface UserMapper
                   String provider,
                   String username,
                   String role);
+
+    @Mapping(target = "username", source = "editDTO.username")
+    @Mapping(target = "password", source = "encodedPassword")
+    @Mapping(target = "oneLineIntroduction", source = "editDTO.oneLineIntroduction")
+    @Mapping(target = "profileURL", source = "editDTO.profileURL")
+    Users toUsers(Users userEntity, String encodedPassword, EditDTO editDTO);
+
+    UserInfoDTO toUserInfoDTO(Users userEntity);
 }

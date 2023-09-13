@@ -4,8 +4,8 @@ import com.techit.withus.jwt.JwtConfig;
 import com.techit.withus.oauth.OAuth2FailureHandler;
 import com.techit.withus.oauth.OAuth2Service;
 import com.techit.withus.oauth.OAuth2SuccessHandler;
+import com.techit.withus.web.users.domain.enumeration.Roles;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.filters.CorsFilter;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,19 +52,47 @@ public class SecurityConfig
                                                 introspector,
                                                 "/**"))
                                 .permitAll()
+
                                 .anyRequest()
                                 .authenticated())
-        // OAuth2.0 설정
+                // OAuth2.0 설정
                 .oauth2Login(
                         oauth2Login -> oauth2Login
-                                .loginPage("/oauth")
                                 .userInfoEndpoint(
                                         userInfo -> userInfo
-                                                .userService(oAuth2Service)
-                                )
+                                                .userService(oAuth2Service))
                                 .successHandler(successHandler)
                                 .failureHandler(failureHandler));
-
+                // Security 적용한 버전;
+                /*
+                .authorizeHttpRequests(
+                        request -> request
+                                .requestMatchers(
+                                        PathRequest.toH2Console(), // h2 콘솔의 접근 허용
+                                        PathRequest.toStaticResources().atCommonLocations()) // 정적 파일의 접근 허용
+                                .permitAll()
+                                // 회원과 관련된 엔드포인트는 모두 허용
+                                .requestMatchers(
+                                        new MvcRequestMatcher(
+                                                introspector,
+                                                "/api/v1/auth/**"
+                                        ))
+                                .permitAll()
+                                // 로그인을 하지 않더라도 메인 엔드포인트는 접근 허용
+                                .requestMatchers(
+                                        new AntPathRequestMatcher(
+                                                "/api/v1/feeds/home"))
+                                .permitAll()
+                                .anyRequest()
+                                .hasRole(Roles.ROLE_USER.getName()))
+                .logout(
+                        logout -> logout
+                                .logoutRequestMatcher(
+                                        new AntPathRequestMatcher("/api/v1/user/log-out")
+                                )
+                                .logoutSuccessUrl("/api/v1/feeds/home")
+                                .invalidateHttpSession(true))
+                 */
         return http.build();
     }
 }

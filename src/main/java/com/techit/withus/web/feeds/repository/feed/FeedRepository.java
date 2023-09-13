@@ -6,10 +6,12 @@ import com.techit.withus.web.users.domain.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface FeedRepository extends JpaRepository<Feeds, Long> {
     // 모든 사용자의 최신 피드를 조회하는 메서드
     @Query("SELECT f FROM Feeds f " +
@@ -78,4 +80,10 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
     List<Feeds> findFeedsByCategoryId(@Param("categoryId") Long categoryId);
 
     Optional<Feeds> findByFeedIdAndWriter(Long feedId, Users user);
+    Long countAllByWriter(Users users);
+
+    List<Feeds> findAllByWriter(Users users);
+
+    @Query("SELECT f FROM Feeds f WHERE f.title ILIKE :query OR f.content ILIKE :query")
+    List<Feeds> findAllByQuery(String query);
 }

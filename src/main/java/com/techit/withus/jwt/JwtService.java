@@ -55,7 +55,7 @@ public class JwtService
                 .claims()
                 .setSubject(securityUser.getEmail())
                 .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plusSeconds(60 * 5))); // 60초 5분
+                .setExpiration(Date.from(Instant.now().plusSeconds(60 * 60))); // 60초 1시간
         claims.put("uid", securityUser.getUserId());
         claims.put("auth", securityUser.getAuthorities());
 
@@ -110,7 +110,7 @@ public class JwtService
                 URLEncoder.encode(cookieValue, StandardCharsets.UTF_8));
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setMaxAge(60 * 10); // 60초 10분
+        cookie.setMaxAge(60 * 60 * 24); // 60초 1시간 하루
         return cookie;
     }
 
@@ -126,5 +126,15 @@ public class JwtService
             log.info("Token Expired");
         }
         return false;
+    }
+
+    public Cookie findCookie(HttpServletRequest request, String cookieName)
+    {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookieName.equals(cookie.getName()))
+                return cookie;
+        }
+        throw new AuthenticationException(ErrorCode.COOKIE_MISSING);
     }
 }

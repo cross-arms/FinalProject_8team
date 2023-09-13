@@ -7,16 +7,17 @@ import com.techit.withus.web.feeds.domain.dto.FeedsDto.ModifyFeedRequest;
 import com.techit.withus.web.feeds.domain.dto.FeedsDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.service.FeedService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/feeds")
+@RequestMapping("/api/v1/feeds")
 public class FeedController {
 
     private final FeedService feedService;
@@ -65,11 +66,7 @@ public class FeedController {
                 .build();
     }
 
-    /**
-     * 등록된 모든 피드 정보를 조회합니다.
-     *
-     * @return
-     */
+    /*
     @GetMapping("/api/v1/feeds")
     public Page<FeedsDto.FeedResponse> getAllFeeds(
             @RequestParam(defaultValue = "0") int page,
@@ -77,11 +74,12 @@ public class FeedController {
     ) {
         return feedService.getAllFeeds(PageRequest.of(page, size));
     }
+    */
 
     /**
      * 특정 피드 정보를 조회합니다.
      */
-    @GetMapping("/api/v1/feeds/{id}")
+    @GetMapping("/{id}")
     public FeedsDto.FeedResponse getFeed(
             @PathVariable("id") Long id
     ) {
@@ -121,5 +119,23 @@ public class FeedController {
      */
     public void deleteFeed() {
 
+    }
+
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<FeedsDto.FeedResponse>> getAllFeedsByUserId(
+            @PathVariable Long userId)
+    {
+        List<FeedsDto.FeedResponse> feeds = feedService.getAllFeedsByUserId(userId);
+        return ResponseEntity.ok(feeds);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<FeedsDto.FeedResponse>> getAllFeedsByQuery(
+            @RequestParam String query)
+    {
+        log.info(query);
+        List<FeedsDto.FeedResponse> feeds = feedService.getAllFeedsByQuery(query);
+        return ResponseEntity.ok(feeds);
     }
 }

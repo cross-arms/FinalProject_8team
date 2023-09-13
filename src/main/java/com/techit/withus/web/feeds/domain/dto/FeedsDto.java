@@ -147,6 +147,14 @@ public class FeedsDto {
                     .build();
         }
 
+        public static FeedResponse toSimpleDtoFrom(Feeds feed) {
+            return FeedResponse
+                    .builder()
+                    .id(feed.getFeedId())
+                    .images(toImageResponse(feed))
+                    .build();
+        }
+
         private static List<ImagesResponse> toImageResponse(Feeds feed) {
             if (CollectionUtils.isEmpty(feed.getImages())) {
                 return new ArrayList<>();

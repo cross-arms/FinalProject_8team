@@ -1,6 +1,7 @@
 package com.techit.withus.web.feeds.domain.entity.feed;
 
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
+import com.techit.withus.web.users.domain.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,10 @@ public class FeedQuestion {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feed_id")
     private Feeds feeds;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Users chosenPerson;
 
     private String content;
 
