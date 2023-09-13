@@ -720,15 +720,15 @@ INSERT INTO parent_comments (feed_id, user_id, content, delete_yn) VALUES (40, 9
 INSERT INTO parent_comments (feed_id, user_id, content, delete_yn) VALUES (40, 10, '개발자에서 데브옵스 엔지니어로의 전환은 경험과 실전 프로젝트가 중요합니다. 팀 프로젝트에서 CI/CD 파이프라인을 설정하거나 인프라 자동화 작업을 수행하면서 실무 경험을 쌓아보세요. 또한 커뮤니티 활동과 오픈 소스 기여도 도움이 됩니다.', 'N');
 INSERT INTO parent_comments (feed_id, user_id, content, delete_yn) VALUES (40, 11, '데브옵스 엔지니어로의 커리어 전환은 지속적인 학습과 인지력을 필요로 합니다. 새로운 기술과 트렌드를 습득하고, 문제 해결 능력을 키워나가세요. 데브옵스 엔지니어로서의 역할과 책임을 이해하고, 현재 업계 동향을 파악하세요.', 'N');
 
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (1, 4, 'React에서 Redux 대신 Context API를 사용하는 것에 대한 장단점은 무엇일까요?', 3000, 'RESOLVING', '2023-09-30 12:00:00');
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (5, 2, 'Python과 JavaScript 중 어떤 언어가 웹 개발에 더 적합한가요?', 2000, 'RESOLVING', '2023-10-15 14:30:00');
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (14, 1, '프론트엔드 개발자로 취업하기 위해 어떤 기술 스택을 익혀야 할까요?', 2500, 'RESOLVING', '2023-10-10 10:00:00');
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (17, 3, '안드로이드 vs. iOS 개발 중 어느 쪽이 미래에 더 유망한가요?', 3500, 'RESOLVING', '2023-10-05 16:45:00');
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (19, 5, 'RESTful API와 GraphQL 중 어떤 것을 선택해야 할까요?', 3000, 'RESOLVING', '2023-09-25 11:20:00');
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (23, 2, 'Docker와 Kubernetes에 대한 기본 개념을 알려주세요.', 2000, 'RESOLVING', '2023-10-01 09:15:00');
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (26, 1, 'TDD의 장점은 무엇이며, 어떻게 시작해야 할까요?', 2500, 'RESOLVING', '2023-10-20 13:10:00');
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (29, 2, '웹 애플리케이션 보안을 위한 팁과 자료 추천 부탁드립니다.', 3000, 'RESOLVING', '2023-09-28 15:30:00');
-INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (31, 3, '개발자에서 데브옵스 엔지니어로의 커리어 전환 조언을 부탁드립니다.', 3500, 'RESOLVING', '2023-10-03 17:00:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (1, 'React에서 Redux 대신 Context API를 사용하는 것에 대한 장단점은 무엇일까요?', 3000, 'RESOLVING', '2023-09-30 12:00:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (5, 'Python과 JavaScript 중 어떤 언어가 웹 개발에 더 적합한가요?', 2000, 'RESOLVING', '2023-10-15 14:30:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (14, '프론트엔드 개발자로 취업하기 위해 어떤 기술 스택을 익혀야 할까요?', 2500, 'RESOLVING', '2023-10-10 10:00:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (17, '안드로이드 vs. iOS 개발 중 어느 쪽이 미래에 더 유망한가요?', 3500, 'RESOLVING', '2023-10-05 16:45:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (19, 'RESTful API와 GraphQL 중 어떤 것을 선택해야 할까요?', 3000, 'RESOLVING', '2023-09-25 11:20:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (23, 'Docker와 Kubernetes에 대한 기본 개념을 알려주세요.', 2000, 'RESOLVING', '2023-10-01 09:15:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (26, 'TDD의 장점은 무엇이며, 어떻게 시작해야 할까요?', 2500, 'RESOLVING', '2023-10-20 13:10:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (29, '웹 애플리케이션 보안을 위한 팁과 자료 추천 부탁드립니다.', 3000, 'RESOLVING', '2023-09-28 15:30:00');
+INSERT INTO feed_questions (feed_id, content, deposit, status, question_due_date) VALUES (31, '개발자에서 데브옵스 엔지니어로의 커리어 전환 조언을 부탁드립니다.', 3500, 'RESOLVING', '2023-10-03 17:00:00');
 INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (2, 3, 'Redux vs. Context API 선택 시의 장단점은 무엇인가요?', 2500, 'RESOLVED', '2023-09-25 14:00:00');
 INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (7, 5, 'Python과 JavaScript의 웹 개발 용도 비교', 2000, 'RESOLVED', '2023-10-10 15:45:00');
 INSERT INTO feed_questions (feed_id, user_id, content, deposit, status, question_due_date) VALUES (15, 3, '프론트엔드 개발자로서 필수적인 기술 스택', 3000, 'RESOLVED', '2023-10-05 16:30:00');

@@ -38,6 +38,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = oAuth2User.getAttribute("email");
 
+        log.info(email);
+
         // 이미 가입 되어 있는 회원 조회, 최초 로그인이면 가입한 뒤 조회.
         Users userEntity = userRepository
                 .findByEmail(email)
@@ -51,8 +53,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler
         response.addCookie(cookie);
         response.addHeader(HttpHeaders.AUTHORIZATION, accessToken);
 
-        // 타겟 설정은 React 이후
+        String targetUrl = String.format(
+                "http://localhost:8080/api/v1/feeds/home"
+        );
 
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
     private String getRandomUsername(String provider)
