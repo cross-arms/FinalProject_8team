@@ -3,6 +3,7 @@ package com.techit.withus.web.feeds.controller;
 import com.techit.withus.common.dto.ResultDTO;
 import com.techit.withus.security.SecurityUser;
 import com.techit.withus.web.feeds.domain.dto.FeedsDto;
+import com.techit.withus.web.feeds.domain.dto.FeedsDto.ModifyFeedRequest;
 import com.techit.withus.web.feeds.domain.dto.FeedsDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.service.FeedService;
 import lombok.RequiredArgsConstructor;
@@ -101,9 +102,18 @@ public class FeedController {
     /**
      * 피드 정보를 수정합니다.
      */
-    @PutMapping
-    public void modifyFeed() {
+    @PutMapping("/api/v1/feeds/{id}")
+    public ResultDTO modifyFeed(
+            @RequestBody ModifyFeedRequest request,
+            @AuthenticationPrincipal SecurityUser user
+    ) {
+        request.setUserId(user.getUserId());
 
+        feedService.updateFeed(request);
+
+        return ResultDTO.builder()
+                .message("OK")
+                .build();
     }
 
     /**

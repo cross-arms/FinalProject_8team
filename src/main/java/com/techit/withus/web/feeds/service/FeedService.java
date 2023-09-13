@@ -1,12 +1,12 @@
 package com.techit.withus.web.feeds.service;
 
 import com.techit.withus.common.exception.EntityNotFoundException;
-import com.techit.withus.web.feeds.domain.dto.FeedsDto;
 import com.techit.withus.web.feeds.domain.entity.category.Categories;
 import com.techit.withus.web.feeds.domain.entity.feed.FeedQuestion;
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.domain.entity.feed.Images;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
+import com.techit.withus.web.feeds.exception.FeedException;
 import com.techit.withus.web.feeds.repository.category.CategoryRepository;
 import com.techit.withus.web.feeds.repository.feed.FeedQuestionRepository;
 import com.techit.withus.web.feeds.repository.feed.FeedRepository;
@@ -35,6 +35,28 @@ public class FeedService {
     private final CategoryRepository categoryRepository;
     private final FeedQuestionRepository feedQuestionRepository;
     private final UserService userService;
+
+    @Transactional
+    public void updateFeed(ModifyFeedRequest request) {
+        Users user = userService.findUser(request.getUserId());
+
+        Feeds feeds = feedRepository.findByFeedIdAndWriter(request.getFeedId(), user).orElseThrow(
+            () -> new FeedException(FEED_NOT_FOUND)
+        );
+
+        feeds.modifyFeed(request);
+    }
+
+    @Transactional
+    public void deleteFeed(ModifyFeedRequest request) {
+        Users user = userService.findUser(request.getUserId());
+
+        Feeds feeds = feedRepository.findByFeedIdAndWriter(request.getFeedId(), user).orElseThrow(
+            () -> new FeedException(FEED_NOT_FOUND)
+        );
+
+        feeds.delete();
+    }
 
     /**
      * 홈 버튼을 클릭했을 때 호출되는 메서드.

@@ -2,6 +2,8 @@ package com.techit.withus.web.feeds.repository.feed;
 
 import com.techit.withus.web.feeds.domain.entity.feed.Feeds;
 import com.techit.withus.web.feeds.enumeration.QuestionStatus;
+import com.techit.withus.web.users.domain.entity.Users;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +20,8 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
     // 팔로우하지 않은 사람들의 최신 피드를 조회하는 메서드
     @Query("SELECT f FROM Feeds f " +
             "LEFT JOIN FETCH f.images i "+
-            "WHERE (:userId IS NULL OR NOT EXISTS (SELECT 1 FROM Follows fl WHERE fl.followWho.userId = :userId AND fl.whoFollow.userId = f.writer.userId))"+
+            "WHERE (:userId IS NULL OR NOT EXISTS (SELECT 1 FROM Follows fl WHERE fl.followWho.userId = :userId AND fl.whoFollow.userId = f.writer.userId)) "+
+            "AND f.deleteYn = 'N' " +
             "ORDER BY f.createdDate DESC")
     List<Feeds> findNonFollowedFeeds(@Param("userId") Long userId);
 
@@ -26,7 +29,7 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
     @Query("SELECT f FROM Feeds f " +
             "JOIN Follows fl ON f.writer.userId = fl.followWho.userId " +
             "LEFT JOIN FETCH f.images i " +
-            "WHERE fl.whoFollow.userId = :userId " +
+            "WHERE fl.whoFollow.userId = :userId AND f.deleteYn = 'N' " +
             "ORDER BY f.createdDate DESC")
     List<Feeds> findFollowedFeeds(@Param("userId") Long userId);
 
@@ -60,7 +63,7 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
     @Query("SELECT f FROM Feeds f " +
             "LEFT JOIN FETCH f.images " +
             "LEFT JOIN FeedQuestion q ON f.feedId = q.feeds.feedId " +
-            "WHERE q.status IN (:resolving, :resolved) AND f.type = com.techit.withus.web.feeds.enumeration.FeedType.QUESTION "+
+            "WHERE q.status IN (:resolving, :resolved) AND f.deleteYn = 'N' AND f.type = com.techit.withus.web.feeds.enumeration.FeedType.QUESTION "+
             "ORDER BY CASE WHEN q.status = :resolving THEN 1 WHEN q.status = :resolved THEN 2 ELSE 3 END ASC,"+
             "f.createdDate DESC")
     List<Feeds> findQuestionFeeds(@Param("resolving") QuestionStatus resolving, @Param("resolved") QuestionStatus resolved);
@@ -71,7 +74,8 @@ public interface FeedRepository extends JpaRepository<Feeds, Long> {
      * 카테고리별로 피드를 조회하는 메서드
      * 모든 조건이 동일하면 최신 피드부터 반환
      */
-    @Query("SELECT f FROM Feeds f JOIN f.category c WHERE c.categoryId = :categoryId ORDER BY f.createdDate DESC")
+    @Query("SELECT f FROM Feeds f JOIN f.category c WHERE c.categoryId = :categoryId AND f.deleteYn = 'N' ORDER BY f.createdDate DESC")
     List<Feeds> findFeedsByCategoryId(@Param("categoryId") Long categoryId);
 
+    Optional<Feeds> findByFeedIdAndWriter(Long feedId, Users user);
 }
