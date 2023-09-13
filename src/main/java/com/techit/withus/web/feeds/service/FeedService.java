@@ -35,7 +35,21 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final CategoryRepository categoryRepository;
     private final FeedQuestionRepository feedQuestionRepository;
+    private final UserRepository userRepository;
     private final UserService userService;
+
+    @Transactional
+    public List<FeedResponse> getAllFeedsByUserId(Long userId)
+    {
+        List<Feeds> feedEntities = feedRepository.findAllByWriter(
+                userRepository.getReferenceById(userId)
+        );
+
+        return feedEntities
+                .stream()
+                .map(FeedResponse::toSimpleDtoFrom)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public void updateFeed(ModifyFeedRequest request) {
