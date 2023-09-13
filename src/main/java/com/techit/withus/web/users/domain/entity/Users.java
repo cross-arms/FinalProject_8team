@@ -51,7 +51,9 @@ public class Users
     public static Users fromDto(UserResponse userResponse) {
         return Users.builder()
                 .userId(userResponse.getUserId())
+                .username(userResponse.getUsername())
                 .profileURL(userResponse.getProfileURL())
+                .oneLineIntroduction(userResponse.getOneLineIntroduction())
                 .build();
     }
 }
