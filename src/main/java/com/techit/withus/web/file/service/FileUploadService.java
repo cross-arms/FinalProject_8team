@@ -64,7 +64,7 @@ public class FileUploadService {
             }
 
             imageList.add(Images.builder()
-                    .imageURL(String.format("/static/%s/%s", fileType, profileFilename))
+                    .imageURL(String.format("/%s/%s", fileType, profileFilename))
                     .build());
         }
 

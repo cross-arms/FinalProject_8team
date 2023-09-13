@@ -54,7 +54,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler
         response.addHeader(HttpHeaders.AUTHORIZATION, accessToken);
 
         String targetUrl = String.format(
-                "http://localhost:8080/api/v1/feeds/home"
+                "http://localhost:5173/"
         );
 
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
