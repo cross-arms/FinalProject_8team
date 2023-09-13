@@ -6,12 +6,14 @@ import com.techit.withus.web.feeds.domain.dto.FeedsDto;
 import com.techit.withus.web.feeds.domain.dto.FeedsDto.RegisterFeedRequest;
 import com.techit.withus.web.feeds.service.FeedService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/feeds")
@@ -19,7 +21,7 @@ public class FeedController {
 
     private final FeedService feedService;
 
-    @GetMapping("home")
+    @GetMapping("/home")
     public ResultDTO getHomeFeeds(@AuthenticationPrincipal SecurityUser user) {
         Long userId = (user != null)? user.getUserId() : null;
 
@@ -31,7 +33,7 @@ public class FeedController {
                 .build();
     }
 
-    @GetMapping("popular")
+    @GetMapping("/popular")
     public ResultDTO getPopularFeeds() {
         List<FeedsDto.FeedResponse> popularFeedsDtoList = feedService.getPopularFeeds();
 
@@ -42,7 +44,7 @@ public class FeedController {
     }
 
 
-    @GetMapping("question")
+    @GetMapping("/question")
     public ResultDTO getQuestionFeeds() {
 
         List<FeedsDto.FeedResponse> questionFeedsDtoList = feedService.getQuestionFeeds();
@@ -53,7 +55,7 @@ public class FeedController {
                 .build();
     }
 
-    @GetMapping("skill/{categoryId}")
+    @GetMapping("/skill/{categoryId}")
     public ResultDTO getFeedsByCategory(@PathVariable Long categoryId) {
         List<FeedsDto.FeedResponse> FeedsDtoList = feedService.getFeedsByCategory(categoryId);
 
@@ -115,6 +117,15 @@ public class FeedController {
             @PathVariable Long userId)
     {
         List<FeedsDto.FeedResponse> feeds = feedService.getAllFeedsByUserId(userId);
+        return ResponseEntity.ok(feeds);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<FeedsDto.FeedResponse>> getAllFeedsByQuery(
+            @RequestParam String query)
+    {
+        log.info(query);
+        List<FeedsDto.FeedResponse> feeds = feedService.getAllFeedsByQuery(query);
         return ResponseEntity.ok(feeds);
     }
 }
