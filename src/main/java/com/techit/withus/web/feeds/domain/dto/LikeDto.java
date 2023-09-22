@@ -13,5 +13,9 @@ public class LikeDto {
 
         private Long feedId;
         private Long userId;
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
     }
 }
