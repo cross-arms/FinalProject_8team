@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -111,7 +110,7 @@ public class NotificationService {
      * @param senderEmail : 발송자 이메일
      * @param url : 확인 url
      */
-    @Transactional(propagation = Propagation.MANDATORY)
+    @Transactional
     public void send(Users receiver, NotificationType notificationType, String senderEmail, String url){
         Notification notification = notificationRepository.save(Notification.createNotification(receiver, senderEmail, notificationType, url));
         Long receiverId = receiver.getUserId();

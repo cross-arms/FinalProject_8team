@@ -8,7 +8,6 @@ import org.springframework.util.Assert;
 import com.techit.withus.common.BaseTimeEntity;
 import com.techit.withus.web.notification.controller.dto.NotificationEvent;
 import com.techit.withus.web.notification.domain.NotificationType;
-import com.techit.withus.web.users.domain.entity.Users;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -59,10 +58,10 @@ public class ChatMessage extends BaseTimeEntity {
         chatRoomUser.getChatMessages().add(this);
     }
 
-    public void publishMessageEvent(ApplicationEventPublisher publisher, List<Users> receivers){
+    public void publishMessageEvent(ApplicationEventPublisher publisher, List<Long> receiverIds){
         publisher.publishEvent(
             NotificationEvent.builder()
-                .receivers(receivers)
+                .receiverIds(receiverIds)
                 .notificationType(NotificationType.MESSAGE)
                 .senderEmail(chatRoomUser.getUser().getEmail())
                 .relatedUri(String.valueOf(chatRoomUser.getChatRoom().getId()))
