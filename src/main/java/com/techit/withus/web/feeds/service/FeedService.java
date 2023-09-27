@@ -38,18 +38,6 @@ public class FeedService {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    @Transactional
-    public List<FeedResponse> getAllFeedsByUserId(Long userId)
-    {
-        List<Feeds> feedEntities = feedRepository.findAllByWriter(
-                userRepository.getReferenceById(userId)
-        );
-
-        return feedEntities
-                .stream()
-                .map(FeedResponse::toSimpleDtoFrom)
-                .collect(Collectors.toList());
-    }
 
     @Transactional
     public void updateFeed(ModifyFeedRequest request) {
@@ -165,7 +153,7 @@ public class FeedService {
         // request to Feeds
         Feeds feed = request.toFeedsEntity(user, category);
 
-        if (request.getImageUrl().size() > 0) {
+        if (!request.getImageUrl().isEmpty()) {
             List<Images> images = request.getImageUrl().stream()
                     .map(imageUrl -> Images.builder()
                             .feeds(feed)
