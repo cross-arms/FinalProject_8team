@@ -47,3 +47,8 @@ jwt:
   secret: ${jwt_secret}
 server:
   port: 8081
+external-broker:
+  host: ${broker_host}
+  port: ${broker_port}
+  username: ${broker_username}
+  passcode: ${broker_passcode}
