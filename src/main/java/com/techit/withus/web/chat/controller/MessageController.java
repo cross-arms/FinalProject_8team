@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -29,19 +29,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MessageController {
 
-    private final SimpMessagingTemplate messagingTemplate;
     private final MessageService messageService;
+    private final SimpMessageSendingOperations messagingTemplate;
 
-    @MessageMapping("/messages")
+    @MessageMapping("/message")
     public void sendMessage(
         @Payload MessageRequest messageRequest,
         @AuthenticationPrincipal SecurityUser user
     ){
-        messageService.save(messageRequest, user.getUsername());
-        messagingTemplate.convertAndSend(String.format("/sub/rooms/%d", messageRequest.getRoomId()), messageRequest.getMessage());
+        messageService.save(messageRequest, "user1@example.com");
+        messagingTemplate.convertAndSend("/topic/room." + messageRequest.getRoomId(), messageRequest);
     }
 
-    @SubscribeMapping("/rooms/{roomId}")
+    @SubscribeMapping("/room.{roomId}")
     public ResponseEntity<Map<String, Object>> subscriptionMessage(
         @DestinationVariable Long roomId,
         @AuthenticationPrincipal SecurityUser user,
